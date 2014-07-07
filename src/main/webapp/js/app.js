@@ -22,11 +22,11 @@ angular.module('guestbook', [
   'guestbook.services',
   'guestbook.directives',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
-  .when('/:guestbookName', {
+  .when('/:guestbookName*', {
     controller: 'GuestbookCtrl',
     templateUrl: 'guestbook.html'
   })
