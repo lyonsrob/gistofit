@@ -1,0 +1,30 @@
+<ons-page class="center">
+    <ons-navigator-toolbar
+        title="Gist of It">		
+    </ons-navigator-toolbar>
+
+    <h2>Got a gist?</h2>
+
+    <div>
+      <p>
+      <form ng-submit="submit_form()">
+        URL:
+        <input type="text" name="guestbookName" ng-model="guestbookName"><br>
+        Gist of it:<br>
+        <textarea name="content" rows="5" cols="100" ng-model="content"></textarea><br>
+        <input type="submit" value="Submit" name="submit">
+      </form>
+      </p>
+    </div>
+
+    <span ng-hide="!!greetings">
+      <img src="/img/ajax-loader.gif">
+      Retrieving the data...
+    </span>
+    <ul ng-show="greetings">
+      <li ng-repeat="greeting in greetings">
+        <span ng-bind-html="greeting.content | nl2br"></span>
+        at {{ greeting.date }} by {{ greeting.author }}
+      </li>
+    </ul>
+</ons-page>

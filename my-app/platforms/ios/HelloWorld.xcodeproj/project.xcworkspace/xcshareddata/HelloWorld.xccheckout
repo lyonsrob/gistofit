@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D3F5F078-A1AC-4C3E-B518-59325F379537</string>
+	<key>IDESourceControlProjectName</key>
+	<string>HelloWorld</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>14C08D7B-4E22-47AE-8C0E-8C563E74903F</key>
+		<string>https://github.com/GoogleCloudPlatform/appengine-angular-guestbook-java.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>my-app/platforms/ios/HelloWorld.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>14C08D7B-4E22-47AE-8C0E-8C563E74903F</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/GoogleCloudPlatform/appengine-angular-guestbook-java.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>14C08D7B-4E22-47AE-8C0E-8C563E74903F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>14C08D7B-4E22-47AE-8C0E-8C563E74903F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>appengine-angular-guestbook-java</string>
+		</dict>
+	</array>
+</dict>
+</plist>
