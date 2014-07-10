@@ -40,9 +40,10 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
     $scope.submit_form = function () {
       $http.post(
           '/rest/guestbook/' + encodeURIComponent($scope.guestbookName),
-          {'content': $scope.content})
+          {'content': $scope.content, 'genre': $scope.genre})
           .success(function (data) {
             $scope.content = '';
+            $scope.gebre = '';
             $scope.greetings = data.greetings;
             $scope.guestbookName = data.guestbookName;
             $scope.currentGuestbookName = data.guestbookName;

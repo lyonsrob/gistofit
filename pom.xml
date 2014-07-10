@@ -135,10 +135,7 @@
         <configuration>
           <jvmFlags>
             <jvmFlag>-Ddatastore.default_high_rep_job_policy_unapplied_job_pct=50</jvmFlag>
-            <jvmFlag>-Xdebug</jvmFlag>
-            <jvmFlag>-Xrunjdwp:transport=dt_socket,address=1044,server=y,suspend=y</jvmFlag>
           </jvmFlags>
-          <disableUpdateCheck>true</disableUpdateCheck>
         </configuration>
       </plugin>
     </plugins>
