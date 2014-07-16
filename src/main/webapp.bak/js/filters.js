@@ -16,24 +16,11 @@
 
 'use strict';
 
-// Declare app level module which depends on filters, and services
-angular.module('guestbook', [
-  'onsen.directives',
-  'guestbook.filters',
-  'guestbook.services',
-  'guestbook.directives',
-  'ngSanitize',
-  'ngRoute',
-])
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider
-  .when('/:guestbookName*', {
-    controller: 'GuestbookCtrl',
-    templateUrl: 'guestbook.html'
-  })
-  .otherwise({ redirectTo: '/default' });
-}]);
+/* Filters */
 
-document.addEventListener('deviceready', function() {
-    angular.bootstrap(document, ['guestbook']);
-    }, false);
+angular.module('guestbook.filters', [])
+.filter('nl2br', function(){
+  return function(text) {
+    return text.replace(/\n/g, '<br>');
+  }
+});

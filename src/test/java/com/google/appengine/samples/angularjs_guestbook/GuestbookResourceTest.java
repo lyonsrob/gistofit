@@ -80,6 +80,29 @@ public class GuestbookResourceTest {
   }
 
   @Test
+  public void testGetRecentGists() throws ServletException, IOException {
+    HttpServletRequest request = mock(HttpServletRequest.class);
+    final StringBuffer resultBuffer = new StringBuffer();
+    HttpServletResponse response = getMockedServletResponse(resultBuffer);
+
+    // Since jersey looks up the HTTP method and headers from the request, we mock those 2 calls.
+    when(request.getMethod()).thenReturn("GET");
+    when(request.getHeaderNames()).thenReturn(new Vector<String>().elements());
+
+    servletContainer.service(URI.create("http://localhost/"), URI.create("/guestbook/default"),
+        request, response);
+    logger.fine(resultBuffer.toString().trim());
+    Gson gson = new GsonBuilder().create();
+    GuestbookResponse result = gson.fromJson(resultBuffer.toString().trim(),
+        GuestbookResponse.class);
+    
+    assertThat(result.getGreetings().size(), is(0));
+    assertThat(result.getUserServiceInfo().getCurrentUser().getEmail(), is("test@example.com"));
+    assertThat(result.getUserServiceInfo().getLoginUrl(), is("/_ah/login?continue=%2F"));
+    assertThat(result.getUserServiceInfo().getLogoutUrl(), is("/_ah/logout?continue=%2F"));
+  }
+  
+  @Test
   public void testGetGuestbookData() throws ServletException, IOException {
     HttpServletRequest request = mock(HttpServletRequest.class);
     final StringBuffer resultBuffer = new StringBuffer();

@@ -1,63 +1,122 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <!--
-  ~ Copyright 2013 Google Inc.
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~     http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
-<html lang="en" ng-app="guestbook" ng-cloak>
-<head>
-  <meta charset="utf-8">
-  <title>My AngularJS App</title>
-  <link rel="stylesheet" href="css/app.css"/>
-    
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet" type="text/css" />
-    <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.poptrox.min.js"></script>
-    <script src="js/skel.min.js"></script>
-    <script src="js/init.js"></script>
-    <noscript>
-        <link rel="stylesheet" href="css/skel-noscript.css" />
-        <link rel="stylesheet" href="css/style.css" />
-    </noscript>
-    <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-</head>
-<body>
-    <script>
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
-<div ng-view></div>
-<div id="footer">
-    Angular guestbook app: v<span app-version></span>
-    Copyright 2013 Google Inc.
-</div>
-<!-- In production use:
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+	Tessellate 1.0 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+<html lang="en" ng-app="guestbook" ng-cloak>
+	<head>
+		<title>Tessellate by HTML5 UP</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href="http://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,400italic" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/app.css">
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-wide.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+    <script type="text/ng-template" id="views/comment.html">
+    <div class="panel panel-default comment">
+      <div class="panel-heading comment-header">
+        <button ng-if="comment.children" class="fa-2x clear-square fa"
+                ng-class="{'fa-minus-square': !collapsed, 'fa-plus-square': collapsed}"
+                title="toggle children" ng-click="collapse()"></button>
+        <button ng-if="!comment.children" class="fa-2x fa clear-square"></button>
+        <h4 class="comment-user">
+          <span class="comment-username" ng-if="!comment.profileUrl">{{comment.author}}</span>
+          <a class="comment-username" ng-if="comment.profileUrl" ng-href="{{comment.profileUrl}}"
+                   title="{{comment.author}}">{{comment.author}}</a>
+          <small class="comment-date" ng-if="comment.date" title="{{comment.date | calendar}}">
+            {{comment.date | timeago}}
+          </small>
+        </h4>
+        <img class="comment-avatar" ng-if="comment.avatarUrl" ng-src="{{comment.avatarUrl}}"
+             alt="{{comment.content}}" />
+      </div>
+      <div class="comment-body panel-body" ng-bind-html="comment.content"></div>
+      <div comments-transclude></div>
+      <commenter action="addChildComment" toggle="true"></commenter>
+    </div>
+    </script>
+
+    <script type="text/ng-template" id="views/comments.html">
+    <div class="comments">
+      <comment ng-repeat="comment in comments" comment-data="comment"></comment>
+    </div>
+    </script>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<section id="header" class="dark">
+				<header>
+					<h1>#gistofit</h1>
+					<p>"Just the gist"</p>
+					    <nav>
+                              <ul>
+                              	  <li><a href="#" class="fa fa-facebook"><span>Facebook</span></a></li>
+                                  <li><a href="#" class="fa fa-twitter"><span>Twitter</span></a></li>
+                                  <li><a href="#" class="fa fa-google-plus"><span>Google</span></a></li>
+                                  <li><a href="#" class="fa fa-envelope-o"><span>Email</span></a></li>
+                              </ul>
+                          </nav>
+					
+				</header>
+				<footer>
+					<a href="#first" class="button scrolly">Get the #gistofit</a>
+				</footer>
+			</section>
+			
+		<!-- First -->
+			<section id="first" class="main">
+			<header>
+                    <div class="container">
+                        <div class="view-container">
+                            <div class="slider" data-ng-view></div>
+                        </div>
+                    </div>
+            </header>
+            </section>
+        
+        <!-- Footer -->
+            <section id="footer">
+                <ul class="icons">
+                    <li><a href="#" class="fa fa-twitter solo"><span>Twitter</span></a></li>
+                    <li><a href="#" class="fa fa-facebook solo"><span>Facebook</span></a></li>
+                    <li><a href="#" class="fa fa-google-plus solo"><span>Google+</span></a></li>
+                </ul>
+                <div class="copyright">
+                    <ul class="menu">
+                        <li>&copy; Untitled. All rights reserved.</li>
+                        <li>Design: <a href="http://html5up.net/">HTML5 UP</a></li>
+                    </ul>
+                </div>
+            </section>
+
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular/angular-sanitize.js"></script>
 <script src="lib/angular/angular-route.js"></script>
-<script src="js/app.js"></script>
+<script src="lib/angular/angular-animate.js"></script>
+<!--  script src="lib/angular-pusher/angular-pusher.min.js"></script -->
+<script src="js/directive/typeahead.js"></script>
+<script src="js/directive/commenter.js"></script>
 <script src="js/services.js"></script>
+<script src="js/service/gist.js"></script>
 <script src="js/controllers.js"></script>
 <script src="js/filters.js"></script>
 <script src="js/directives.js"></script>
-</body>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/ui-comments-0.1.3-SNAPSHOT.js"></script>
+<script src="js/app.js"></script>
+	</body>
 </html>

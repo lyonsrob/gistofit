@@ -16,6 +16,12 @@
 
 'use strict';
 
+function unescape(html, $sanitize) {
+  if (!html) return '';
+  html = html.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&').replace();
+  return $sanitize ? $sanitize(html) : html;
+}
+
 // Declare app level module which depends on filters, and services
 angular.module('guestbook', [
   'guestbook.filters',
@@ -23,12 +29,46 @@ angular.module('guestbook', [
   'guestbook.directives',
   'ngSanitize',
   'ngRoute',
+  'ngAnimate',
+  'ui.comments',
+ // 'doowb.angular-pusher'
 ])
+.config(function($rootScopeProvider, $sceDelegateProvider) {
+  //$rootScopeProvider.digestTtl(100);
+  $sceDelegateProvider.resourceUrlWhitelist([
+    'self',
+    /.*\.redditmedia\.com.*/
+  ]);
+})
+.run(function($rootScope) {
+  $rootScope.baseUrl = window.location.href.replace(window.location.hash, '');
+})
+.config(function(commentsConfigProvider) {
+  commentsConfigProvider.set({
+    containerTemplate: 'views/comments.html',
+    commentTemplate: 'views/comment.html',
+    commentController: 'CommentCtrl',
+    depthLimit: 10
+  });
+})
+.directive('typeahead', typeheadDirective)
+.directive('commenter', commenterDirective)
+.factory('gistService', gistService)
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
   .when('/:guestbookName*', {
     controller: 'GuestbookCtrl',
     templateUrl: 'guestbook.html'
   })
-  .otherwise({ redirectTo: '/default' });
+  .otherwise({ redirectTo: "/default" });
 }]);
+
+/*
+.config(['PusherServiceProvider',
+function(PusherServiceProvider) {
+  PusherServiceProvider
+    .setToken('e35338268e7cfc231c09')
+    .setOptions({});
+}
+])
+*/

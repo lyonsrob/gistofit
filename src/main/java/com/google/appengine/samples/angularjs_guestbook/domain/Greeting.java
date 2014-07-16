@@ -17,6 +17,7 @@
 package com.google.appengine.samples.angularjs_guestbook.domain;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
 
 import java.util.Date;
@@ -29,6 +30,8 @@ import java.util.Date;
  */
 public class Greeting {
 
+  private final String url;
+  
   private final String content;
 
   private final Date date;
@@ -43,16 +46,21 @@ public class Greeting {
     } else {
       author = user.getEmail();
     }
-    return new Greeting((String) greetingEntity.getProperty("content"),
+    return new Greeting((String) greetingEntity.getKey().getParent().getName(), (String) greetingEntity.getProperty("content"),
         (Date) greetingEntity.getProperty("date"), author);
   }
 
-  public Greeting(String content, Date date, String author) {
-    this.content = content;
+  public Greeting(String url, String content, Date date, String author) {
+	this.url = url;
+	this.content = content;
     this.date = date;
     this.author = author;
   }
 
+  public String getUrl() {
+	    return url;
+	  }
+  
   public String getContent() {
     return content;
   }

@@ -1,0 +1,87 @@
+	
+<!-- Header -->
+    <section id="header">
+        <header>
+            <h1>Overflow</h1>
+            <p>By HTML5 UP</p>
+        </header>
+        <footer>
+            <a href="#banner" class="button style2 scrolly scrolly-centered">Proceed as anticipated</a>
+        </footer>
+    </section>
+
+<!-- Banner -->
+    <section id="banner">
+<span class="user_info">
+  <span ng-show="userServiceInfo">
+    <span ng-show="userServiceInfo.currentUser">
+      Hi {{ userServiceInfo.currentUser.email }}
+      <a ng-href="{{ userServiceInfo.logoutUrl }}">Logout</a>
+    </span>
+    <span ng-hide="userServiceInfo.currentUser">
+      <a ng-href="{{ userServiceInfo.loginUrl }}">Login</a>
+    </span>
+
+  </span>
+  <span ng-hide="userServiceInfo">
+    <img src="/img/ajax-loader.gif">
+    Retrieving the user information...
+  </span>
+</span>
+
+<h2>I be Testing the maven integration Showing the guestbook: {{ currentGuestbookName }}</h2>
+<div>
+  <p>
+  <form ng-submit="submit_form()">
+    URL:
+    <input type="text" name="guestbookName" ng-model="guestbookName"><br>
+    Gist of it:<br>
+    <textarea name="content" rows="5" cols="100" ng-model="content"></textarea><br>
+    <input name="genre" type="text" ng-model="genre"></textarea><br>
+    <input class="button form" type="submit" value="Submit" name="submit">
+  </form>
+  </p>
+</div>
+
+<span ng-hide="!!greetings">
+  <img src="/img/ajax-loader.gif">
+  Retrieving the data...
+</span>
+<ul ng-show="greetings">
+  <li ng-repeat="greeting in greetings">
+    <span ng-bind-html="greeting.content | nl2br"></span>
+    at {{ greeting.date }} by {{ greeting.author }}
+  </li>
+</ul>
+	
+        <footer>
+            <a href="#first" class="button style2 scrolly">Act on this message</a>
+        </footer>
+    </section>
+
+<!-- Feature 1 -->
+    <article target-blank id="first" class="container box style1 right">
+        <a ng-href="{{ currentGuestbookName }}" class="image full"><img src="http://rack.1.mshcdn.com/media/ZgkyMDE0LzA3LzA5L2YyL05ZQ0hlYXRXYXZlLjZmYTBiLmpwZwpwCXRodW1iCTEyMDB4NjI3IwplCWpwZw/3e3ce0eb/44c/NYC-Heat-Wave.jpg" alt="" /></a>
+        <div class="inner">
+        <ul ng-show="greetings">
+          <li ng-repeat="greeting in greetings" class="repeat-animation" >
+            <header>
+                <h2>{{ greeting.author }} at {{ greeting.date }}</h2>
+            </header>
+            <p ng-bind-html="greeting.content | nl2br"></p>
+          </li>
+        </ul>
+        </div>
+    </article>
+
+<!-- Feature 2 -->
+    <article target-blank class="container box style1 left">
+        <a href="http://ineedchemicalx.deviantart.com/art/Kingdom-of-the-Wind-348268044" class="image full"><img src="images/pic02.jpg" alt="" /></a>
+        <div class="inner">
+            <header>
+                <h2>Mollis posuere<br />
+                lectus lacus</h2>
+            </header>
+            <p>Rhoncus mattis egestas sed fusce sodales rutrum et etiam ullamcorper. Etiam egestas scelerisque ac duis magna lorem ipsum dolor.</p>
+        </div>
+    </article>

@@ -1,57 +1,113 @@
-/*
-	Overflow 1.1 by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
-
 /*********************************************************************************/
 /* Basic                                                                         */
 /*********************************************************************************/
 
-	body
-	{
-		-ms-behavior: url('css/ie/backgroundsize.min.htc');
-	}
-
-	.button
+	.image,
+	.image img,
+	.button	
 	{
 		position: relative;
 		-ms-behavior: url('css/ie/PIE.htc');
 	}
-	
-		.button.style3
+
+	/* Lists */
+
+		ul.icons
 		{
-			background: #fefefe;
-			border: solid 1px #dad9d9;
-		}
+		}	
+		
+			ul.icons li
+			{
+			}
+			
+				ul.icons a
+				{
+					position: relative;
+					-ms-behavior: url('css/ie/PIE.htc');
+					border: solid 1px #ddd;
+				}
 
-/*********************************************************************************/
-/* Footer                                                                        */
-/*********************************************************************************/
+	/* Forms */
 
-	#footer
-	{
-	}
-
-		#footer .icons
+		form
 		{
-			position: relative;
-			-ms-behavior: url('css/ie/PIE.htc');
 		}
 		
+			form input.text,
+			form select,
+			form textarea
+			{
+				position: relative;
+				-ms-behavior: url('css/ie/PIE.htc');
+				border: solid 1px #ddd;
+				line-height: 1.25em;
+			}
+
+	/* Buttons */
+		
+		.button.alt
+		{
+			border: solid 1px #ddd;
+		}
+
+	/* Feature Icon */
+
+		.feature-icon
+		{
+			padding-bottom: 0;
+		}
+		
+			.feature-icon:before,
+			.feature-icon:after
+			{
+				display: none;
+			}
+
+			.feature-icon .fa
+			{
+				position: relative;
+				-ms-behavior: url('css/ie/PIE.htc');
+				background: #fff;
+			}
+
+				.feature-icon .fa:before
+				{
+					font-size: 6em;
+					color: #3d3d3d;
+				}
+	
 /*********************************************************************************/
 /* Header                                                                        */
 /*********************************************************************************/
 
 	#header
 	{
+		-ms-behavior: url('css/ie/backgroundsize.min.htc');
 	}
-	
-		#header header
+
+/*********************************************************************************/
+/* Main Sections                                                                 */
+/*********************************************************************************/
+
+	.main
+	{
+	}
+
+		.main > .content
 		{
 		}
 
-			#header header p
-			{
-				border-top: solid 1px #888;
-			}
+		.main > .content.style1
+		{
+			filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#412e4c, endColorstr=#a56365);
+		}
+
+		.main > .content.style2
+		{
+			filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#85505f, endColorstr=#384955);
+		}
+
+		.main > .content.style3
+		{
+			filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#2f394e, endColorstr=#5f796b);
+		}

@@ -23,7 +23,7 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
     retrieveGuestbook($routeParams['guestbookName']);
 
     function retrieveGuestbook(guestbookName) {
-      $http.get('http://localhost:8080/rest/guestbook/' + encodeURIComponent(guestbookName))
+      $http.get('http://localhost:8080/rest/guestbook/' + encodeURIComponent(guestbookName) + '?jsonp=?')
           .success(function(data) {
             $scope.greetings = data.greetings;
             $scope.userServiceInfo = data.userServiceInfo;
@@ -53,5 +53,28 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
             console.log(data);
           });
     };
+    
+    $scope.direction = 'left';
+    $scope.currentIndex = 0;
+
+    $scope.setCurrentSlideIndex = function (index) {
+        $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
+        $scope.currentIndex = index;
+    };
+
+    $scope.isCurrentSlideIndex = function (index) {
+        return $scope.currentIndex === index;
+    };
+
+    $scope.prevSlide = function () {
+        $scope.direction = 'left';
+        $scope.currentIndex = ($scope.currentIndex < $scope.greetings.length - 1) ? ++$scope.currentIndex : 0;
+    };
+
+    $scope.nextSlide = function () {
+        $scope.direction = 'right';
+        $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.greetings.length - 1;
+    };
   }
+
 ];

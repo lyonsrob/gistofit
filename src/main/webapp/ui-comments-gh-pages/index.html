@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html data-ng-app="commentsDemo">
+  <head>
+    <title>UI-Comments for AngularJS</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <script type="text/ng-template" id="views/comment.html">
+    <div class="panel panel-default comment">
+      <div class="panel-heading comment-header">
+        <button ng-if="comment.children" class="fa-2x clear-square fa"
+                ng-class="{'fa-minus-square': !collapsed, 'fa-plus-square': collapsed}"
+                title="toggle children" ng-click="collapse()"></button>
+        <button ng-if="!comment.children" class="fa-2x fa clear-square"></button>
+        <h4 class="comment-user">
+          <span class="comment-username" ng-if="!comment.profileUrl">{{comment.name}}</span>
+          <a class="comment-username" ng-if="comment.profileUrl" ng-href="{{comment.profileUrl}}"
+                   title="{{comment.name}}">{{comment.name}}</a>
+          <small class="comment-date" ng-if="comment.date" title="{{comment.date | calendar}}">
+            {{comment.date | timeago}}
+          </small>
+        </h4>
+        <img class="comment-avatar" ng-if="comment.avatarUrl" ng-src="{{comment.avatarUrl}}"
+             alt="{{comment.name}}" />
+      </div>
+      <div class="comment-body panel-body" ng-bind-html="comment.text"></div>
+      <div comments-transclude></div>
+      <commenter action="addChildComment" toggle="true"></commenter>
+    </div>
+    </script>
+
+    <script type="text/ng-template" id="views/comments.html">
+    <div class="comments">
+      <comment ng-repeat="comment in comments" comment-data="comment"></comment>
+    </div>
+    </script>
+  </head>
+  <body data-ng-controller="DemoCtrl">
+    <header>
+      <nav id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand" title="UI Comments">UI Comments</a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-list">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+
+        <div id="navbar-list" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="http://caitp.github.io/ui-comments/docs" title="API Documentation" class="fa fa-2x fa-gears">
+              <span class="text">API Documentation</span>
+            </a></li>
+            <li><a href="https://github.com/caitp/ui-comments" title="Code on Github" class="fa fa-2x fa-github">
+              <span class="text">Code on Github</span>
+            </a></li>
+            <li><a href="https://twitter.com/share" title="Share on Twitter" class="fa fa-2x fa-twitter" data-lang="en">
+              <span class="text">Share on Twitter</span>
+            </a></li>
+          </ul>
+          <iframe class="nav-ghbtn" src="http://ghbtns.com/github-btn.html?user=caitp&repo=ui-comments&type=watch&count=true"
+                  ></iframe>
+          <iframe class="nav-ghbtn" src="http://ghbtns.com/github-btn.html?user=caitp&repo=ui-comments&type=fork&count=true"
+                  ></iframe>
+        </div>
+      </nav>
+      <div class="jumbotron">
+        <div class="container">
+          <h1>UI Comments</h1>
+
+          <p>Nested, Reddit-style comments directives for <strong><a href="http://angularjs.org">AngularJS</a></strong></p>
+          <p>Customizable comment templates, customizable comment controllers, and built-in support for nesting and sorting comments. It's just lovely stuff, innit.</p>
+          <p class="btn-group">
+            <a class="fa fa-github btn btn-default"
+               href="https://github.com/caitp/ui-comments" title="Code on Github">
+              Code on Github</a>
+            <a class="fa fa-download icon-white btn btn-primary"
+               href="https://github.com/caitp/ui-comments/tree/gh-pages"
+               title="Download 0.1.3-SNAPSHOT">
+              Download <small>(0.1.3-SNAPSHOT)</small></a>
+              <a class="fa fa-gears btn btn-default"
+                 href="http://caitp.github.io/ui-comments/docs"
+                 title="API Documentation"> API Documentation</a>
+          </p>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="page-header">
+        <ul class="nav nav-pills">
+          <li data-ng-class="{active: demo}"><a data-ng-href="{{baseUrl}}">Demo</a></li>
+          <li data-ng-class="{active: reddit}"><a data-ng-href="{{baseUrl + '#/r'}}">Reddit</a></li>
+          <li class="fader" data-ng-if="subreddit" data-ng-class="{active: subreddit && !article}"><a data-ng-href="{{baseUrl + '#/' + subreddit}}">{{subreddit || 'Subreddit' }}</a></li>
+          <li class="fader" data-ng-if="article" data-ng-class="{active: article}"><a data-ng-href="{{baseUrl + '#/' + subreddit + '/' + article}}">{{article || 'Article' }}</a></li>
+        </ul>
+      </div>
+      <div class="view-container">
+        <div class="slider" data-ng-view></div>
+      </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/angular-sanitize.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="ui-comments-0.1.3-SNAPSHOT.js"></script>
+    <script src="js/directive/typeahead.js"></script>
+    <script src="js/directive/commenter.js"></script>
+    <script src="js/service/github.js"></script>
+    <script src="js/app.js"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-44389518-1', 'caitp.github.io');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>

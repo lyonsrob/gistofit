@@ -1,3 +1,4 @@
+	
 <span class="user_info">
   <span ng-show="userServiceInfo">
     <span ng-show="userServiceInfo.currentUser">
@@ -10,12 +11,18 @@
 
   </span>
   <span ng-hide="userServiceInfo">
-    <img src="/img/ajax-loader.gif">
+    <img src="/images/ajax-loader.gif">
     Retrieving the user information...
   </span>
 </span>
 
 <h2>I be Testing the maven integration Showing the guestbook: {{ currentGuestbookName }}</h2>
+<comments comment-data="comments"></comments>
+
+<p class="add_comment">
+  <commenter action="addParentComment" toggle="true"></commenter>
+</p>
+
 <div>
   <p>
   <form ng-submit="submit_form()">
@@ -29,8 +36,9 @@
   </p>
 </div>
 
+<div class="container">
 <span ng-hide="!!greetings">
-  <img src="/img/ajax-loader.gif">
+  <img src="/images/ajax-loader.gif">
   Retrieving the data...
 </span>
 <ul ng-show="greetings">
@@ -39,54 +47,4 @@
     at {{ greeting.date }} by {{ greeting.author }}
   </li>
 </ul>
-		
-<!-- Header -->
-    <section id="header">
-        <header>
-            <h1>Overflow</h1>
-            <p>By HTML5 UP</p>
-        </header>
-        <footer>
-            <a href="#banner" class="button style2 scrolly scrolly-centered">Proceed as anticipated</a>
-        </footer>
-    </section>
-
-<!-- Banner -->
-    <section id="banner">
-        <header>
-            <h2>This is Overflow</h2>
-        </header>
-        <p>A brand new site template designed by <a href="http://n33.co">AJ</a> for <a href="http://html5up.net/">HTML5 UP</a>.<br />
-        It’s fully responsive, built on <a href="http://skeljs.org">skelJS</a>, and of course entirely free<br />
-        under the <a href="http://html5up.net/license/">Creative Commons license</a>.</p>
-        <footer>
-            <a href="#first" class="button style2 scrolly">Act on this message</a>
-        </footer>
-    </section>
-
-<!-- Feature 1 -->
-    <article id="first" class="container box style1 right">
-        <a href="{{ guestBookName }}" class="image full"><img src="images/pic01.jpg" alt="" /></a>
-        <div class="inner">
-        <ul ng-show="greetings">
-          <li ng-repeat="greeting in greetings">
-            <header>
-                <h2>{{ greeting.author }} at {{ greeting.date }}</h2>
-            </header>
-            <p ng-bind-html="greeting.content | nl2br"></p>
-          </li>
-        </ul>
-        </div>
-    </article>
-
-<!-- Feature 2 -->
-    <article class="container box style1 left">
-        <a href="http://ineedchemicalx.deviantart.com/art/Kingdom-of-the-Wind-348268044" class="image full"><img src="images/pic02.jpg" alt="" /></a>
-        <div class="inner">
-            <header>
-                <h2>Mollis posuere<br />
-                lectus lacus</h2>
-            </header>
-            <p>Rhoncus mattis egestas sed fusce sodales rutrum et etiam ullamcorper. Etiam egestas scelerisque ac duis magna lorem ipsum dolor.</p>
-        </div>
-    </article>
+</div>

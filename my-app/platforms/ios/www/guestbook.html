@@ -2,11 +2,34 @@
     <ons-navigator-toolbar
         title="Gist of It">		
     </ons-navigator-toolbar>
-
-    <ons-scroller class="center">
-    <h2>Got a gist?</h2>
-
-    <div>
+<ons-scroller class="center"> 
+    <!-- span ng-hide="!!greetings">
+      <img src="/img/ajax-loader.gif">
+      Retrieving the data...
+    </span -->
+        
+<div ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()" class="container slider">
+    <div ng-click="ons.navigator.pushPage('comment.html', {title: 'Comments'})" ng-repeat="greeting in greetings" class="slide slide-animation fadein" 
+          ng-hide="!isCurrentSlideIndex($index)">
+          
+        <span>{{greeting.content}} </span>
+    </div>
+    
+    <nav class="nav">
+        <div class="wrapper">
+            <ul class="dots">
+                <li class="dot" ng-repeat="greeting in greetings">
+                    <span ng-class="{'active':isCurrentSlideIndex($index)}"></span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+      <img width="100%" src="http://rack.2.mshcdn.com/media/ZgkyMDE0LzA3LzE0L2RiL0FpcnBsYW5lX1NlLmU2MDU5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/15dd3293/ede/Airplane_Seats.jpg" />
+      <h4>Airplane Seats Are About to Get Smaller and Even More Uncomfortable</h4>
+      <span>Airbus may say these standing airline seats are just a concept, but the future of economy seating isn&#x27;t looking good.</span>
+      <br/><span>Mashable.com</span>
+    <!-- div>
       <p>
       <form ng-submit="submit_form()">
         URL:
@@ -16,17 +39,6 @@
         <input type="submit" value="Submit" name="submit">
       </form>
       </p>
-    </div>
-
-    <span ng-hide="!!greetings">
-      <img src="/img/ajax-loader.gif">
-      Retrieving the data...
-    </span>
-    <ul ng-show="greetings">
-      <li ng-repeat="greeting in greetings">
-        <span ng-bind-html="greeting.content | nl2br"></span>
-        at {{ greeting.date }} by {{ greeting.author }}
-      </li>
-    </ul>
-    </ons-scroller>
+    </div -->
+</ons-scroller>
 </ons-page>

@@ -40,6 +40,20 @@ public class GuestbookResource {
 
   private final Logger logger = Logger.getLogger(GuestbookResource.class.getName());
 
+  private List<Greeting> getGists() {
+	    List<Greeting> greetings = new ArrayList<Greeting>();
+	    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+
+	    Query query =
+	        new Query("Greeting").addSort("date", Query.SortDirection.DESCENDING);
+	    List<Entity> greetingEntities = datastoreService.prepare(query).asList(FetchOptions.Builder
+	        .withLimit(10));
+	    for (Entity greeting : greetingEntities) {
+	      greetings.add(Greeting.fromEntity(greeting));
+	    }
+	    return greetings;
+	  }
+  
   private List<Greeting> getGreetings(String guestbookName) {
     List<Greeting> greetings = new ArrayList<Greeting>();
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
@@ -54,6 +68,16 @@ public class GuestbookResource {
     return greetings;
   }
 
+  @GET
+  @Path("/recent")
+  @Produces(MediaType.APPLICATION_JSON)
+  public GuestbookResponse getRecentGists(
+      @DefaultValue("default") @PathParam("guestbookName") final String guestbookName) throws
+      Exception {
+    return new GuestbookResponse("recent", getGists(),
+        UserServiceInfo.get("/"));
+  }
+  
   @GET
   @Path("/{guestbookName}")
   @Produces(MediaType.APPLICATION_JSON)
@@ -78,12 +102,15 @@ public class GuestbookResource {
     // consistent. Please Note that as a trade off, we can not write to a single guestbook at a
     // rate more than 1 write/second.
     String content = postData.get("content");
+    String genre = postData.get("genre");
+    
     if (content != null && content.length() > 0) {
       Date date = new Date();
       Entity greeting = new Entity("Greeting", guestbookKey);
       greeting.setProperty("user", userService.getCurrentUser());
       greeting.setProperty("date", date);
       greeting.setProperty("content", content);
+      greeting.setProperty("genre", genre);
       datastoreService.put(greeting);
     }
     return new GuestbookResponse(guestbookName, getGreetings(guestbookName), null);

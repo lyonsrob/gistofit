@@ -25,7 +25,9 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
     function retrieveGuestbook(guestbookName) {
       $http.get('/rest/guestbook/' + encodeURIComponent(guestbookName))
           .success(function(data) {
-            $scope.greetings = data.greetings;
+            $scope.comments = $scope.greetings = data.greetings;
+            console.log($scope.comments);
+
             $scope.userServiceInfo = data.userServiceInfo;
             $scope.guestbookName = data.guestbookName;
             $scope.currentGuestbookName = data.guestbookName;
@@ -56,3 +58,39 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
     };
   }
 ];
+
+var CommentCtrl = ['$scope', '$element', '$timeout', 
+ function($scope, $element, $timeout) {
+  var children;
+  $scope.collapsed = true;
+  $scope.$on('$filledNestedComments', function(nodes) {
+    $scope.collapsed = true;
+    $timeout(function() {
+      children = nodes;
+      children.addClass('collapse').removeClass('in');
+      children.collapse({
+        toggle: false
+      });
+      // Stupid hack to wait for DOM insertion prior to setting up plugin
+    }, 1);
+  });
+  $scope.$on('$emptiedNestedComments', function(nodes) {
+    children = undefined;
+  });
+  $scope.collapse = function() {
+    $scope.collapsed = children.hasClass('in');
+    children.collapse('toggle');
+  };
+
+  $scope.addChildComment = function(comment) {
+    var childComment = angular.extend(comment, {
+      name: '@'+comment.name,
+      date: new Date(),
+      profileUrl: 'https://github.com/' + comment.name
+    });
+    if(!$scope.comment.children) {
+      $scope.comment.children = [];
+    }
+    $scope.comment.children.push(childComment);
+  };
+}];

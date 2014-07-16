@@ -24,6 +24,8 @@ angular.module('guestbook', [
   'guestbook.directives',
   'ngSanitize',
   'ngRoute',
+  'ngAnimate',
+  'ngTouch',
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -33,6 +35,44 @@ angular.module('guestbook', [
   })
   .otherwise({ redirectTo: '/default' });
 }]);
+/*.animation('.slide-animation', function () {
+    return {
+        beforeAddClass: function (element, className, done) {
+            var scope = element.scope();
+
+            console.log(element);
+            console.log(element.width());
+
+            if (className == 'ng-hide') {
+                var finishPoint = element.width();
+                if(scope.direction !== 'right') {
+                    finishPoint = -finishPoint;
+                }
+                TweenMax.to(element, 0.5, {left: finishPoint, onComplete: done });
+            }
+            else {
+                done();
+            }
+        },
+        removeClass: function (element, className, done) {
+            var scope = element.scope();
+
+            if (className == 'ng-hide') {
+                element.removeClass('ng-hide');
+
+                var startPoint = element.width();
+                if(scope.direction === 'right') {
+                    startPoint = -startPoint;
+                }
+
+                TweenMax.fromTo(element, 0.5, { left: startPoint }, {left: 0, onComplete: done });
+            }
+            else {
+                done();
+            }
+        }
+    };
+});*/
 
 document.addEventListener('deviceready', function() {
     angular.bootstrap(document, ['guestbook']);
