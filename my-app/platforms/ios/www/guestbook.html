@@ -1,44 +1,137 @@
-<ons-page class="center">
-    <ons-navigator-toolbar
-        title="Gist of It">		
-    </ons-navigator-toolbar>
-<ons-scroller class="center"> 
-    <!-- span ng-hide="!!greetings">
-      <img src="/img/ajax-loader.gif">
-      Retrieving the data...
-    </span -->
-        
-<div ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()" class="container slider">
-    <div ng-click="ons.navigator.pushPage('comment.html', {title: 'Comments'})" ng-repeat="greeting in greetings" class="slide slide-animation fadein" 
-          ng-hide="!isCurrentSlideIndex($index)">
-          
-        <span>{{greeting.content}} </span>
-    </div>
-    
-    <nav class="nav">
-        <div class="wrapper">
-            <ul class="dots">
-                <li class="dot" ng-repeat="greeting in greetings">
-                    <span ng-class="{'active':isCurrentSlideIndex($index)}"></span>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-      <img width="100%" src="http://rack.2.mshcdn.com/media/ZgkyMDE0LzA3LzE0L2RiL0FpcnBsYW5lX1NlLmU2MDU5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/15dd3293/ede/Airplane_Seats.jpg" />
-      <h4>Airplane Seats Are About to Get Smaller and Even More Uncomfortable</h4>
-      <span>Airbus may say these standing airline seats are just a concept, but the future of economy seating isn&#x27;t looking good.</span>
-      <br/><span>Mashable.com</span>
-    <!-- div>
-      <p>
-      <form ng-submit="submit_form()">
-        URL:
-        <input type="text" name="guestbookName" ng-model="guestbookName"><br>
-        Gist of it:<br>
-        <textarea name="content" rows="5" cols="100" ng-model="content"></textarea><br>
-        <input type="submit" value="Submit" name="submit">
-      </form>
-      </p>
-    </div -->
+<ons-page >
+    <ons-toolbar>
+      <div class="center">Toolbars</div>
+      <div class="left">
+      <ons-toolbar-button ng-click="menu.toggleMenu()">
+        <ons-icon icon="bars">
+      </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+
+<!-- ons-scroller class="center"> 
+<div ng-controller="GistCtrl">
+<div ng-repeat="(url, greetings) in guestbooks">
+ <div class="container slider">
+      <slider></slider>
 </ons-scroller>
+</div>
+      <gist-url></gist-url>
+</div>
+</div-->
+<!-- div class="menu-segment position-relative padding-little">
+      <div class="button-bar">
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-briefcase"></i>
+            Business
+          </button>
+        </div>
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-mobile"></i>
+            Tech
+          </button>
+        </div>
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-ticket"></i>
+          Entertainment
+          </button>
+        </div>
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-globe"></i>
+          US/World
+          </button>
+        </div>
+    </div -->
+
+    <div class="scroll-area">
+      <ul class="list list-container">
+        <li class="list__item list__item__line-height list-item-adjust">
+          <div class="list-item-info">
+            <div class="list-item-info-icon">
+              <img src="images/3152983303_4c0fd3140b_q.jpg">
+            </div>
+            <div class="list-item-info-main">
+              <span class="text">
+              <strong>Cassey Song</strong> with
+              <strong>Harrison Smith </strong> with
+              <strong>3 others</strong>
+              </span>
+              </span>
+              <br />
+              <span class="lucent">24 minutes ago
+              <i class="fa fa-globe"></i>
+              </span>
+            </div>
+          </div>
+          <div class="content-text">
+            <p>Good food, good friends and a lot of laughs.</p>
+            <img src="images/3754608666_b56bbf3d18_z.jpg" width="310">
+            <p>10 likes &nbsp; 3 comments</p>
+          </div>
+          <span class="fb-check" >
+          <i class="fa fa-check"></i>
+          </span>
+          <div class="content-controller" style="text-align:center;">
+            <button class="icon-button button-bar-item">
+              <i class="fa fa-thumbs-o-up"></i>&nbsp;Like
+            </button>
+            <button class="icon-button button-bar-item">
+              <i class="fa fa-comment"></i>&nbsp;Comment
+            </button>
+            <button class="icon-button button-bar-item">
+              <i class="fa fa-share"></i>&nbsp;Share
+            </button>
+          </div>
+          <br />
+        </li>
+        <li class="list__item list__item__line-height list-item-adjust">
+          <div class="list-item-info">
+            <div class="list-item-info-icon">
+              <img src="images/3152983303_4c0fd3140b_q.jpg">
+            </div>
+            <div class="list-item-info-main">
+              <span class="text">
+              <strong>Cassey Song</strong> with
+              <strong>Harrison Smith </strong> with
+              <strong>3 others</strong>
+              </span>
+              </span>
+              <br />
+              <span class="lucent">24 minutes ago
+              <i class="fa fa-globe"></i>
+              </span>
+            </div>
+          </div>
+          <div class="content-text">
+            <p>Good food, good friends and a lot of laughs.</p>
+            <img src="images/3754608666_b56bbf3d18_z.jpg" width="310">
+            <p>10 likes &nbsp; 3 comments</p>
+          </div>
+          <span class="fb-check" >
+          <i class="fa fa-check"></i>
+          </span>
+          <div class="content-controller">
+            <div class="center content-controller-button content-controller-button-leftbar">
+              <span class="lucent">
+              <i class="fa fa-thumbs-o-up"></i>&nbsp;Like
+              </span>
+            </div>
+            <div class="center content-controller-button">
+              <span class="lucent">
+              <i class="fa fa-comment"></i>&nbsp;Comment
+              </span>
+            </div>
+            <div class="center content-controller-button">
+              <span class="lucent">
+              <i class="fa fa-share"></i>&nbsp;Share
+              </span>
+            </div>
+          </div>
+          <br />
+        </li>
+      </ul>
+    </div>
 </ons-page>

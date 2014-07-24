@@ -23,4 +23,27 @@ angular.module('guestbook.filters', [])
   return function(text) {
     return text.replace(/\n/g, '<br>');
   }
+})
+.filter('timeago', function() {
+  return function(date) {
+    return moment(date).fromNow();
+  };
+})
+.filter('calendar', function() {
+  return function(date) {
+    return moment(date).calendar();
+  };
+})
+.filter('domain', function() {
+  return function(url) {
+   var matches,
+        output = "",
+        urls = /\w+:\/\/([\w|\.]+)/;
+
+    matches = urls.exec( url );
+
+    if ( matches !== null ) output = matches[1];
+
+    return output; 
+  };
 });

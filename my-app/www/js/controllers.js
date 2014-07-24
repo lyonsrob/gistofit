@@ -16,33 +16,29 @@
 
 'use strict';
 
-var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
-  function ($scope, $http, $location, $routeParams) {
+angular.module('guestbook').controller('GistCtrl', ['$scope', 'GistofitService', 
+  function ($scope, Gistofit) {
 
-    $scope.guestbookName = $routeParams['guestbookName'];
-    retrieveGuestbook($routeParams['guestbookName']);
+    $scope.loadRecentGists = function() {
+        var url = 'http://localhost:8000/js/guestbooks.json';
 
-    function retrieveGuestbook(guestbookName) {
-      $http.get('http://localhost:8080/rest/guestbook/' + encodeURIComponent(guestbookName) + '?jsonp=?')
-          .success(function(data) {
-            $scope.greetings = data.greetings;
-            $scope.userServiceInfo = data.userServiceInfo;
-            $scope.guestbookName = data.guestbookName;
-            $scope.currentGuestbookName = data.guestbookName;
-            $location.path(data.guestbookName);
-          })
-          .error(function(data, status) {
-            console.log('Retrieving a guestbook failed with the status code: ' + status);
-            console.log(data);
+        Gistofit.getGists(url).then(function (response) {
+            console.log(response);
+            $scope.guestbooks = response.data.guestbooks; 
+
+            $scope.userServiceInfo = response.data.userServiceInfo;
+            $scope.guestbookName = response.data.guestbookName;
+            $scope.currentGuestbookName = response.data.guestbookName;
           });
     }
 
     $scope.submit_form = function () {
       $http.post(
           'http://localhost:8080/rest/guestbook/' + encodeURIComponent($scope.guestbookName),
-          {'content': $scope.content})
+          {'content': $scope.content, 'genre': $scope.genre})
           .success(function (data) {
             $scope.content = '';
+            $scope.genre = '';
             $scope.greetings = data.greetings;
             $scope.guestbookName = data.guestbookName;
             $scope.currentGuestbookName = data.guestbookName;
@@ -53,28 +49,15 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
             console.log(data);
           });
     };
-    
-    $scope.direction = 'left';
-    $scope.currentIndex = 0;
 
-    $scope.setCurrentSlideIndex = function (index) {
-        $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
-        $scope.currentIndex = index;
-    };
+    $scope.loadRecentGists();
+}    
+]);
 
-    $scope.isCurrentSlideIndex = function (index) {
-        return $scope.currentIndex === index;
-    };
-
-    $scope.prevSlide = function () {
-        $scope.direction = 'left';
-        $scope.currentIndex = ($scope.currentIndex < $scope.greetings.length - 1) ? ++$scope.currentIndex : 0;
-    };
-
-    $scope.nextSlide = function () {
-        $scope.direction = 'right';
-        $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.greetings.length - 1;
-    };
-  }
-
-];
+angular.module('guestbook').factory('GistofitService', ['$http', function ($http) {
+    return {
+        getGists: function (url) {
+            return $http.get(url);
+        }
+    }
+}]);

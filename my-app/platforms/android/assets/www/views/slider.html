@@ -1,0 +1,5 @@
+<div ng-swipe-right="nextSlide(greetings)" ng-swipe-left="prevSlide(greetings)" ng-click="ons.navigator.pushPage('comment.html', {title: 'Comments'})" ng-repeat="greeting in greetings" class="slide slide-animation fadein" 
+      ng-hide="!isCurrentSlideIndex($index)">
+      
+    <span>{{greeting.content}} #gistofit </span>
+</div>

@@ -1,0 +1,137 @@
+.topcoat-navigation-bar {
+    padding-top: 20px;
+    height: 60px;
+}
+
+body {
+    font-family: -apple-system-font !important;
+    overflow: hidden;
+}
+
+.slider {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+    background: #e6e6e6;
+}
+
+.slide {
+    position: absolute;
+    background: #e6e6e6;
+    z-index: 1001;
+    width: 100%;
+    height: 120px;
+    top: 0;
+    left: 0;
+}
+
+.fadein,
+.fadeout {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+}
+
+.fadein.ng-hide-remove,
+.fadeout.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+  display: block !important;
+}
+
+.fadeout.ng-hide-add,
+.fadein.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  display: block !important;
+}
+
+/*---------------------------------------------------------
+NAV
+---------------------------------------------------------*/
+
+.nav {
+    text-align: center;
+    display: block;
+    position: absolute;
+    z-index: 1002;
+    left: 0;
+    bottom: -4px;
+    right: 0;
+    height: 48px;
+}
+
+.nav .wrapper {
+    margin: 0 auto;
+    width: 100%;
+    padding: 1em 0 .8em;
+}
+
+.nav ul {
+    margin: 0;
+    width: 100%;
+}
+
+.nav .dot, .nav .dot a {
+    display: inline-block;
+    zoom: 1;
+}
+
+.dots .dot {
+    position: relative;
+    margin: 0 8px;
+    width: 12px;
+    height: 12px;
+}
+
+.dots .dot span {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    background: #FFF;
+    border: 1px solid transparent;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition: background-color 0.25s, border-color 0.25s;
+    -moz-transition: background-color 0.25s, border-color 0.25s;
+    transition: background-color 0.25s, border-color 0.25s;
+}
+
+.dots .dot span.active {
+    border-color: #FFF;
+    background-color: transparent;
+}
+
+.inAppBrowserWrap {
+  background-color: rgba(0,0,0,0.75);
+  color: rgba(235,235,235,1.0);
+}
+.inAppBrowserWrap menu {
+  overflow: auto;
+  list-style-type: none;
+  padding-left: 0;
+}
+.inAppBrowserWrap menu li {
+  font-size: 25px;
+  height: 25px;
+  float: left;
+  margin: 0 10px;
+  padding: 3px 10px;
+  text-decoration: none;
+  color: #ccc;
+  display: block;
+  background: rgba(30,30,30,0.50);
+}
+.inAppBrowserWrap menu li.disabled {
+    color: #777;
+}
