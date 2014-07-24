@@ -20,7 +20,7 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', 'GistofitService',
   function ($scope, Gistofit) {
 
     $scope.loadRecentGists = function() {
-        var url = 'http://localhost:8000/js/guestbooks.json';
+        var url = 'http://localhost:8080/rest/recent?jsonp=callback';
 
         Gistofit.getGists(url).then(function (response) {
             console.log(response);

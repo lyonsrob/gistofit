@@ -42,6 +42,10 @@
       <param-name>javax.ws.rs.Application</param-name>
       <param-value>com.gistofit.config.Resources</param-value>
     </init-param>
+    <init-param>
+      <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+      <param-value>com.gistofit.config.ResponseCorsFilter</param-value>
+    </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

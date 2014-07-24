@@ -10,7 +10,7 @@
 
 <!-- ons-scroller class="center"> 
 <div ng-controller="GistCtrl">
-<div ng-repeat="(url, greetings) in guestbooks">
+<div ng-repeat="(url, gists) in guestbooks">
  <div class="container slider">
       <slider></slider>
 </ons-scroller>
@@ -47,8 +47,7 @@
     </div -->
 
     <div class="scroll-area" ng-controller="GistCtrl">
-      <div ng-repeat="(url, greetings) in guestbooks">
-      <ul ng-repeat="greeting in greetings" class="list list-container">
+      <ul ng-repeat="gist in gists" class="list list-container">
         <li class="list__item list__item__line-height list-item-adjust">
           <div class="list-item-info">
             <div class="list-item-info-icon">
@@ -68,9 +67,9 @@
             </div>
           </div>
           <div class="content-text">
-            <p>{{greeting.content}} #gistofit </p>
+            <p>{{gist.content}} #gistofit </p>
             <div class="gist_url">
-                <open-external url=url exit="closeBrowser()" 
+                <open-external url=gist.url exit="closeBrowser()" 
                                load-start="loadStart()"
                                load-stop="loadStop()"
                                load-error="loadError()">
@@ -78,7 +77,7 @@
                 </open-external>
                   <h4>Airplane Seats Are About to Get Smaller and Even More Uncomfortable</h4>
                   <span>Airbus may say these standing airline seats are just a concept, but the future of economy seating isn&#x27;t looking good.</span>
-                  <br/><span>{{url | domain}}</span>
+                  <br/><span>{{gist.url | domain}}</span>
             </div>
             <p>10 likes &nbsp; 3 comments</p>
           </div>
