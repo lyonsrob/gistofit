@@ -14,12 +14,13 @@
 
   <script src="vendors/onsen/js/angular/angular.js"></script>    
   <script src="vendors/onsen/js/angular/angular-sanitize.min.js"></script>
+  <script src="js/service/angular-embedly.js"></script>
   <script src="vendors/onsen/js/onsenui.js"></script>    
   <script src="vendors/onsen/js/angular/angular-animate.min.js"></script>
   <script src="vendors/onsen/js/angular/angular-touch.min.js"></script> 
   <script src="cordova.js"></script>  
   <script src="js/directive/slider.js"></script>
-  <script src="js/directive/gisturl.js"></script>
+  <script src="js/directive/gist_card.js"></script>
   <script src="js/directive/open_external.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/directives.js"></script>
@@ -33,7 +34,7 @@
   </script>
 </head>
 
-<body>    
+<body ng-controller="GistCtrl">    
 
     <ons-sliding-menu 
       behind-page="menu.html"

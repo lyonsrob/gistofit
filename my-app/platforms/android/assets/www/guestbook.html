@@ -1,44 +1,99 @@
-<ons-page class="center" >
-    <ons-navigator-toolbar
-        title="Gist of It">		
-    </ons-navigator-toolbar>
-<ons-scroller class="center"> 
-    <!-- span ng-hide="!!greetings">
-      <img src="/img/ajax-loader.gif">
-      Retrieving the data...
-    </span -->
+<ons-page >
+    <ons-toolbar>
+      <div class="center">Toolbars</div>
+      <div class="left">
+      <ons-toolbar-button ng-click="menu.toggleMenu()">
+        <ons-icon icon="bars">
+      </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
 
-<div ng-repeat="(url, greetings) in guestbooks">
+<!-- ons-scroller class="center"> 
+<div ng-controller="GistCtrl">
+<div ng-repeat="(url, gists) in guestbooks">
  <div class="container slider">
-    <!-- div ng-swipe-right="nextSlide(greetings)" ng-swipe-left="prevSlide(greetings)" ng-click="ons.navigator.pushPage('comment.html', {title: 'Comments'})" ng-repeat="greeting in greetings" class="slide slide-animation fadein" 
-          ng-hide="!isCurrentSlideIndex($index)">
-          
-        <span>{{greeting.content}} </span>
-    </div -->
       <slider></slider>
-    
-    <!-- nav class="nav" ng-swipe-right="nextSlide(greetings)" ng-swipe-left="prevSlide(greetings)" ng-click="ons.navigator.pushPage('comment.html', {title: 'Comments'})">
-        <div class="wrapper">
-            <ul class="dots">
-                <li class="dot" ng-repeat="greeting in greetings">
-                    <span ng-class="{'active':isCurrentSlideIndex($index)}"></span>
-                </li>
-            </ul>
-        </div>
-    </nav -->
+</ons-scroller>
 </div>
       <gist-url></gist-url>
 </div>
-    <!-- div>
-      <p>
-      <form ng-submit="submit_form()">
-        URL:
-        <input type="text" name="guestbookName" ng-model="guestbookName"><br>
-        Gist of it:<br>
-        <textarea name="content" rows="5" cols="100" ng-model="content"></textarea><br>
-        <input type="submit" value="Submit" name="submit">
-      </form>
-      </p>
+</div-->
+<!-- div class="menu-segment position-relative padding-little">
+      <div class="button-bar">
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-briefcase"></i>
+            Business
+          </button>
+        </div>
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-mobile"></i>
+            Tech
+          </button>
+        </div>
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-ticket"></i>
+          Entertainment
+          </button>
+        </div>
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-globe"></i>
+          US/World
+          </button>
+        </div>
     </div -->
-</ons-scroller>
+
+    <div class="scroll-area" ng-controller="GistCtrl">
+      <ul ng-repeat="gist in gists" class="list list-container">
+        <li class="list__item list__item__line-height list-item-adjust">
+          <div class="list-item-info">
+            <div class="list-item-info-icon">
+              <img src="images/3152983303_4c0fd3140b_q.jpg">
+            </div>
+            <div class="list-item-info-main">
+              <span class="text">
+              <strong>Cassey Song</strong> with
+              <strong>Harrison Smith </strong> with
+              <strong>3 others</strong>
+              </span>
+              </span>
+              <br />
+              <span class="lucent">24 minutes ago
+              <i class="fa fa-globe"></i>
+              </span>
+            </div>
+          </div>
+          <div class="content-text">
+            <p>{{gist.content}} #gistofit </p>
+            <div class="gist_url">
+                <open-external url=gist.url exit="closeBrowser()" 
+                               load-start="loadStart()"
+                               load-stop="loadStop()"
+                               load-error="loadError()">
+                <img width="100%" src="http://rack.2.mshcdn.com/media/ZgkyMDE0LzA3LzE0L2RiL0FpcnBsYW5lX1NlLmU2MDU5LmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/15dd3293/ede/Airplane_Seats.jpg" />
+                </open-external>
+                  <h4>Airplane Seats Are About to Get Smaller and Even More Uncomfortable</h4>
+                  <span>Airbus may say these standing airline seats are just a concept, but the future of economy seating isn&#x27;t looking good.</span>
+                  <br/><span>{{gist.url | domain}}</span>
+            </div>
+            <p>10 likes &nbsp; 3 comments</p>
+          </div>
+          <div class="content-controller" style="text-align:center;">
+            <button class="icon-button button-bar-item">
+              <i class="fa fa-thumbs-o-up"></i>&nbsp;Like
+            </button>
+            <button class="icon-button button-bar-item">
+              <i class="fa fa-comment"></i>&nbsp;Comment
+            </button>
+            <button class="icon-button button-bar-item">
+              <i class="fa fa-share"></i>&nbsp;Share
+            </button>
+          </div>
+          <br />
+        </li>
+      </ul>
+    </div>
 </ons-page>

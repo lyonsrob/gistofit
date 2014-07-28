@@ -2,7 +2,7 @@
  * Created by Ariel Mashraki
  */
 
-function gisturlDirective($timeout, gistService) {
+function gisturlDirective() {
   return {
     restrict:'E',
     templateUrl: 'views/gisturl.html',

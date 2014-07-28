@@ -2,15 +2,18 @@
       <ons-tabbar-item 
         icon="clock-o"
         label="Recent"
+        ng-click="loadRecentGists()"
         page="navigator1.html"
         active="true"></ons-tabbar-item> 
       <ons-tabbar-item 
         icon="bolt"
-        label="Trending"      
+        label="Trending"
+        ng-click="loadTrendingGists()"
         ></ons-tabbar-item> 
       <ons-tabbar-item 
         icon="list-ul"
         label="Waiting"      
+        page="waiting.html"
         ></ons-tabbar-item> 
     </ons-tabbar>  
          

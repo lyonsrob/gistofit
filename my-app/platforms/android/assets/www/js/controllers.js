@@ -16,33 +16,24 @@
 
 'use strict';
 
-var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
-  function ($scope, $http, $location, $routeParams, $q) {
+angular.module('guestbook').controller('GistCtrl', ['$scope', 'GistofitService', 
+  function ($scope, Gistofit) {
 
-    $scope.guestbookName = $routeParams['guestbookName'];
-    retrieveGuestbook($routeParams['guestbookName']);
+    $scope.loadRecentGists = function() {
+        var url = 'http://10.0.2.2:8080/rest/recent?JSON_CALLBACK=?';
 
-    function retrieveGuestbook(guestbookName) {
-      $http.get('http://localhost:8000/js/guestbooks.json')
-//      $http.get('http://localhost:8080/rest/guestbook/' + encodeURIComponent(guestbookName) + '?jsonp=?')
-          .success(function(data) {
-            console.log(data);
-            $scope.guestbooks = data.guestbooks; 
+        Gistofit.getGists(url).then(function (response) {
+            console.log(response);
+            $scope.gists = response.data.gists; 
+            $scope.cursor = response.data.cursor; 
 
-            $scope.userServiceInfo = data.userServiceInfo;
-            $scope.guestbookName = data.guestbookName;
-            $scope.currentGuestbookName = data.guestbookName;
-            $location.path(data.guestbookName);
-          })
-          .error(function(data, status) {
-            console.log('Retrieving a guestbook failed with the status code: ' + status);
-            console.log(data);
+            $scope.userServiceInfo = response.data.userServiceInfo;
           });
     }
 
     $scope.submit_form = function () {
       $http.post(
-          'http://localhost:8080/rest/guestbook/' + encodeURIComponent($scope.guestbookName),
+          'http://10.0.2.2:8080/rest/guestbook/' + encodeURIComponent($scope.guestbookName),
           {'content': $scope.content, 'genre': $scope.genre})
           .success(function (data) {
             $scope.content = '';
@@ -57,41 +48,15 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
             console.log(data);
           });
     };
+
+    $scope.loadRecentGists();
 }    
-];
+]);
 
-var CommentCtrl = ['$scope', '$element', '$timeout', 
- function($scope, $element, $timeout) {
-  var children;
-  $scope.collapsed = true;
-  $scope.$on('$filledNestedComments', function(nodes) {
-    $scope.collapsed = true;
-    $timeout(function() {
-      children = nodes;
-      children.addClass('collapse').removeClass('in');
-      children.collapse({
-        toggle: false
-      });
-      // Stupid hack to wait for DOM insertion prior to setting up plugin
-    }, 1);
-  });
-  $scope.$on('$emptiedNestedComments', function(nodes) {
-    children = undefined;
-  });
-  $scope.collapse = function() {
-    $scope.collapsed = children.hasClass('in');
-    children.collapse('toggle');
-  };
-
-  $scope.addChildComment = function(comment) {
-    var childComment = angular.extend(comment, {
-      name: '@'+comment.name,
-      date: new Date(),
-      profileUrl: 'https://github.com/' + comment.name
-    });
-    if(!$scope.comment.children) {
-      $scope.comment.children = [];
+angular.module('guestbook').factory('GistofitService', ['$http', function ($http) {
+    return {
+        getGists: function (url) {
+            return $http.get(url);
+        }
     }
-    $scope.comment.children.push(childComment);
-  };
-}];
+}]);

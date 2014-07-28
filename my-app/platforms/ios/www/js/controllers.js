@@ -16,36 +16,65 @@
 
 'use strict';
 
-angular.module('guestbook').controller('GistCtrl', ['$scope', 'GistofitService', 
-  function ($scope, Gistofit) {
+angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'GistofitService', 
+  function ($scope, $http, Gistofit) {
 
     $scope.loadRecentGists = function() {
-        var url = 'http://localhost:8080/rest/recent?jsonp=callback';
+        var url = 'http://localhost:8080/rest/gists/recent';
 
         Gistofit.getGists(url).then(function (response) {
             console.log(response);
-            $scope.guestbooks = response.data.guestbooks; 
+            $scope.gists = response.data.gists; 
+            $scope.cursor = response.data.cursor; 
 
             $scope.userServiceInfo = response.data.userServiceInfo;
-            $scope.guestbookName = response.data.guestbookName;
-            $scope.currentGuestbookName = response.data.guestbookName;
+          });
+    }
+    
+    $scope.loadTrendingGists = function() {
+        var url = 'http://localhost:8080/rest/gists/trending';
+
+        console.log("trending");
+
+        Gistofit.getGists(url).then(function (response) {
+            console.log(response);
+            $scope.gists = response.data.gists; 
+            $scope.cursor = response.data.cursor; 
+
+            $scope.userServiceInfo = response.data.userServiceInfo;
           });
     }
 
     $scope.submit_form = function () {
       $http.post(
-          'http://localhost:8080/rest/guestbook/' + encodeURIComponent($scope.guestbookName),
+          'http://localhost:8080/rest/gists/' + encodeURIComponent($scope.gistURL),
           {'content': $scope.content, 'genre': $scope.genre})
           .success(function (data) {
             $scope.content = '';
             $scope.genre = '';
             $scope.greetings = data.greetings;
-            $scope.guestbookName = data.guestbookName;
-            $scope.currentGuestbookName = data.guestbookName;
-            $location.path(data.guestbookName);
+            $scope.gistURL = data.gistURL;
+            $scope.currentGuestbookName = data.gistURL;
           })
           .error(function(data, status) {
             console.log('Posting a message failed with the status code: ' + status);
+            console.log(data);
+          });
+    };
+    
+    $scope.like_gist = function (url, id) {
+        console.log(url);
+        $http.post(
+          'http://localhost:8080/rest/gists/' + encodeURIComponent(url) + "/" + id + "/like",{})
+          .success(function (data) {
+            $scope.content = '';
+            $scope.genre = '';
+            $scope.greetings = data.greetings;
+            $scope.gistURL = data.gistURL;
+            $scope.currentGuestbookName = data.gistURL;
+          })
+          .error(function(data, status) {
+            console.log('Liking a gist failed with the status code: ' + status);
             console.log(data);
           });
     };

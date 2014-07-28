@@ -23,7 +23,7 @@
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
 
-  <groupId>com.google.appengine.demos</groupId>
+  <groupId>com.gistofit</groupId>
   <artifactId>appengine-angular-guestbook-java</artifactId>
 
   <properties>

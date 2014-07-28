@@ -37,6 +37,12 @@ public class Gist {
   private final Date date;
 
   private final String author;
+  
+  private final String genre;
+  
+  private final Long id;
+  
+  private final Long likes;
 
   public static Gist fromEntity(Entity gistEntity) {
     String author;
@@ -47,15 +53,18 @@ public class Gist {
       author = user.getEmail();
     }
     return new Gist((String) gistEntity.getKey().getParent().getName(), (String) gistEntity.getProperty("content"),
-        (Date) gistEntity.getProperty("date"), author);
+        (Date) gistEntity.getProperty("date"), author, gistEntity.getKey().getId(), (String) gistEntity.getProperty("genre"), (Long) gistEntity.getProperty("likes"));
   }
 
-  public Gist(String url, String content, Date date, String author) {
+  public Gist(String url, String content, Date date, String author, Long id, String genre, Long likes) {
 	this.url = url;
 	this.content = content;
     this.date = date;
     this.author = author;
-  }
+    this.id = id;
+    this.genre = genre;
+    this.likes = likes;
+}
 
   public String getUrl() {
 	    return url;
@@ -72,4 +81,16 @@ public class Gist {
   public String getAuthor() {
     return author;
   }
+  
+  public Long getId() {
+	    return id;
+	  }
+  
+  public String getGenre() {
+	    return genre;
+	  }
+  
+  public Long getLikes() {
+	    return likes;
+	  }
 }

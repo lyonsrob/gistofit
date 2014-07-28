@@ -2,7 +2,7 @@
  * Created by Ariel Mashraki
  */
 
-function sliderDirective($timeout, gistService) {
+function sliderDirective() {
   return {
     restrict:'E',
     templateUrl: 'views/slider.html',

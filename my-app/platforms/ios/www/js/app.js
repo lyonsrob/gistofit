@@ -31,10 +31,12 @@ angular.module('guestbook', [
   'ngSanitize',
   'ngAnimate',
   'ngTouch',
+  'angular-embedly'
 ])
 .directive('slider', sliderDirective)
-.directive('gistUrl', gisturlDirective)
-.directive('openExternal', openExternalDirective);
+.directive('gistCard', gistcardDirective)
+.directive('openExternal', openExternalDirective)
+.config(function(embedlyServiceProvider){ embedlyServiceProvider.setKey('42f4925174814d68b90d0758d932fe14'); });
 
 document.addEventListener('deviceready', function() {
     angular.bootstrap(document, ['guestbook']);

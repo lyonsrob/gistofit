@@ -18,6 +18,8 @@ package com.gistofit.rest;
 
 import com.gistofit.domain.Gist;
 import com.gistofit.domain.GistListResponse;
+import com.gistofit.domain.GistResponse;
+import com.gistofit.domain.ShardedCounter;
 import com.gistofit.domain.UserServiceInfo;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.users.UserService;
@@ -27,6 +29,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.HashMap;
 
@@ -37,7 +40,7 @@ import java.util.HashMap;
  * Time: 11:58 PM
  */
 
-@Path("/")
+@Path("/gists")
 public class GistofitResource {
 
   private final Logger logger = Logger.getLogger(GistofitResource.class.getName());
@@ -57,7 +60,7 @@ public class GistofitResource {
     Query query;
     
     if (url != null) {
-    	urlKey = KeyFactory.createKey("URL", url);
+    	urlKey = KeyFactory.createKey("Gist", url);
     	query = new Query("Gist", urlKey).addSort("date", Query.SortDirection.DESCENDING);
     } else {
     	query = new Query("Gist").addSort("date", Query.SortDirection.DESCENDING);
@@ -76,13 +79,67 @@ public class GistofitResource {
     return new GistListResponse(url, gists, UserServiceInfo.get("/"), cursorString);
   }
 
+  private GistListResponse getTrendingGists(String cursor) {
+	    List<Gist> gists = new ArrayList<Gist>();
+	    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+	    
+	    int pageSize = 5;
+	    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(pageSize);
+	    
+	    if (cursor != null) {
+	        fetchOptions.startCursor(Cursor.fromWebSafeString(cursor));
+	    }
+
+	    Query query = new Query("Gist").addSort("likes", Query.SortDirection.DESCENDING);
+	    
+	    PreparedQuery pq = datastoreService.prepare(query);
+	 
+	    QueryResultList<Entity> gistEntities = pq.asQueryResultList(fetchOptions);
+	    
+	    for (Entity gist : gistEntities) {
+	      gists.add(Gist.fromEntity(gist));
+	    }
+	    
+	    String cursorString = gistEntities.getCursor().toWebSafeString();
+	    
+	    return new GistListResponse(null, gists, UserServiceInfo.get("/"), cursorString);
+	  }
+
+  
+  private GistResponse getGist(Key key) {
+	    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+	    Entity gistEntity = null;
+	    
+	    try {
+	    	gistEntity = datastoreService.get(key);
+	    } catch (EntityNotFoundException e) {
+	           logger.log(Level.WARNING, "Entity not found.");
+	           logger.log(Level.WARNING, e.toString(), e);
+	    } catch (Exception e) {
+	           logger.log(Level.WARNING, e.toString(), e);
+	    }
+	    
+	    String content= (String) gistEntity.getProperty("content");
+	    
+	    return new GistResponse(Gist.fromEntity(gistEntity), UserServiceInfo.get("/"));
+	  }
+
   @GET
   @Path("/recent")
   @Produces(MediaType.APPLICATION_JSON)
-  public GistListResponse getRecentGists(@QueryParam("cursor") final String cursor) throws
+  public GistListResponse getRecent(@QueryParam("cursor") final String cursor) throws
       Exception {
 	  	return getGists(null, cursor);
   	}
+
+  @GET
+  @Path("/trending")
+  @Produces(MediaType.APPLICATION_JSON)
+  public GistListResponse getTrending(@QueryParam("cursor") final String cursor) throws
+      Exception {
+	  	return getTrendingGists(cursor);
+  	}
+  
   
   @GET
   @Path("/{url}")
@@ -94,6 +151,19 @@ public class GistofitResource {
 	  	return getGists(url, cursor);
   	}
 
+  @GET
+  @Path("/{url}/{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public GistResponse getSingleGist(
+      @DefaultValue("default") @PathParam("url") final String url,
+      @PathParam("id") final String id) throws
+      Exception {
+	  	Long longId = Long.parseLong(id); 
+		Key urlKey = KeyFactory.createKey("Gist", url);
+	    Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
+	    return getGist(idKey);
+  	}
+  
   @POST
   @Path("/{url}")
   @Produces(MediaType.APPLICATION_JSON)
@@ -103,7 +173,7 @@ public class GistofitResource {
       final Map<String, String> postData) {
     UserService userService = UserServiceFactory.getUserService();
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
-    Key urlKey = KeyFactory.createKey("URL", url);
+    Key urlKey = KeyFactory.createKey("Gist", url);
     // We set the above parent key on each Greeting entity in order to make the queries strong
     // consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
     // rate more than 1 write/second.
@@ -121,5 +191,27 @@ public class GistofitResource {
       datastoreService.put(gist);
     }
     return getGists(url, null);
+  }
+  	
+  @POST
+  @Path("/{url}/{id}/like")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  public GistResponse likeGist(
+		  @PathParam("url") final String url, @PathParam("id") final String id) {
+//    UserService userService = UserServiceFactory.getUserService();
+
+    // We set the above parent key on each Greeting entity in order to make the queries strong
+    // consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
+    // rate more than 1 write/second. Date date = new Date();
+    
+	Long longId = Long.parseLong(id); 
+	Key urlKey = KeyFactory.createKey("Gist", url);
+	
+    ShardedCounter likeCounter = new ShardedCounter("Likes");
+    Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
+    likeCounter.incrementPropertyTx(idKey, "likes", 1, 1);
+    
+    return getGist(idKey);
   }
 }
