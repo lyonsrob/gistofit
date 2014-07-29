@@ -8,7 +8,7 @@ function gistcardDirective(embedlyService) {
     templateUrl: 'views/gist_card.html',
     scope:{
         url: '@',
-        extract: '@'
+        extract: '@',
     },
     link: function(scope, element) {
         scope.$watch('url', function(newVal) {

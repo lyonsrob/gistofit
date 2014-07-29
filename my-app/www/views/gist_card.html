@@ -5,8 +5,8 @@
                    load-error="loadError()">
     <img width="100%" ng-src="{{ extract.images[0].url }}" />
     </open-external>
-      <h4>Airplane Seats Are About to Get Smaller and Even More Uncomfortable</h4>
-      <span>Airbus may say these standing airline seats are just a concept, but the future of economy seating isn&#x27;t looking good.</span>
+      <h4 >{{ extract.title }}</h4>
+      <span>{{ extract.description}}</span>
       <br/><span>{{url | domain}}</span>
 </div>
-<p>{{gist.likes}} likes &nbsp; 3 comments</p>
+<p>{{likes}} likes &nbsp; 3 comments</p>
