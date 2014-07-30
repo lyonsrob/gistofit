@@ -31,3 +31,27 @@ function gistcardDirective(embedlyService) {
     }
   }
 }
+
+function articlecardDirective(embedlyService) {
+  return {
+    restrict:'E',
+    templateUrl: 'views/article_card.html',
+    scope:{
+        url: '@',
+        extract: '@',
+    },
+    link: function(scope, element) {
+        scope.$watch('url', function(newVal) {
+            var previousEmbedCode = scope.embedCode;
+            if (newVal) {
+                embedlyService.extract(newVal)
+                    .then(function(e){
+                        scope.extract = e.data;
+                    }, function(error) {
+                        console.log(error);
+                    });
+            }
+        });
+    }
+  }
+}

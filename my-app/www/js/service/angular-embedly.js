@@ -23,8 +23,8 @@ var angularEmbedly = angular.module('angular-embedly', []);
             };
             this.extract = function(inputUrl) {
                 var escapedUrl = encodeURI(inputUrl);
-                var embedlyRequest = 'http://api.embed.ly/1/extract?key=' + key + '&url=' +  escapedUrl;
-                //var embedlyRequest = 'http://localhost:8000/js/embedly.json';
+                //var embedlyRequest = 'http://api.embed.ly/1/extract?key=' + key + '&url=' +  escapedUrl;
+                var embedlyRequest = 'http://localhost:8000/js/embedly.json';
                 return $http({method: 'GET', url: embedlyRequest});
             };
         }

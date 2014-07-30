@@ -35,6 +35,7 @@ angular.module('guestbook', [
 ])
 .directive('slider', sliderDirective)
 .directive('gistCard', gistcardDirective)
+.directive('articleCard', articlecardDirective)
 .directive('openExternal', openExternalDirective)
 .config(function(embedlyServiceProvider){ embedlyServiceProvider.setKey('42f4925174814d68b90d0758d932fe14'); });
 
