@@ -16,6 +16,7 @@ function gistcardDirective(embedlyService) {
             if (newVal) {
                 embedlyService.extract(newVal)
                     .then(function(e){
+                        console.log(e.data);
                         scope.extract = e.data;
                     }, function(error) {
                         console.log(error);
@@ -46,6 +47,7 @@ function articlecardDirective(embedlyService) {
             if (newVal) {
                 embedlyService.extract(newVal)
                     .then(function(e){
+                        console.log(e.data);
                         scope.extract = e.data;
                     }, function(error) {
                         console.log(error);

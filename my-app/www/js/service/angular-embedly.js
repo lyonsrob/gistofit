@@ -22,9 +22,8 @@ var angularEmbedly = angular.module('angular-embedly', []);
                 return $http({method: 'GET', url: embedlyRequest});
             };
             this.extract = function(inputUrl) {
-                var escapedUrl = encodeURI(inputUrl);
-                //var embedlyRequest = 'http://api.embed.ly/1/extract?key=' + key + '&url=' +  escapedUrl;
-                var embedlyRequest = 'http://localhost:8000/js/embedly.json';
+                var escapedUrl = encodeURIComponent(inputUrl);
+                var embedlyRequest = 'http://localhost:8080/rest/gists/' + escapedUrl + '/extract';
                 return $http({method: 'GET', url: embedlyRequest});
             };
         }

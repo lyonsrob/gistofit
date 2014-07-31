@@ -27,11 +27,22 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.HashMap;
+
+import org.json.JSONObject;
+import org.json.JSONArray;
+
+import com.embedly.api.Api;
+import com.google.appengine.api.memcache.Expiration;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheService.SetPolicy;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,6 +54,11 @@ import java.util.HashMap;
 @Path("/gists")
 public class GistofitResource {
 
+  private static final int CACHE_PERIOD = 86400;
+	
+  private final MemcacheService mc = MemcacheServiceFactory
+	           .getMemcacheService();
+	
   private final Logger logger = Logger.getLogger(GistofitResource.class.getName());
   
   private GistListResponse getGists(String url, String cursor) {
@@ -60,7 +76,7 @@ public class GistofitResource {
     Query query;
     
     if (url != null) {
-    	urlKey = KeyFactory.createKey("Gist", url);
+    	urlKey = KeyFactory.createKey("URL", url);
     	query = new Query("Gist", urlKey).addSort("date", Query.SortDirection.DESCENDING);
     } else {
     	query = new Query("Gist").addSort("date", Query.SortDirection.DESCENDING);
@@ -109,7 +125,7 @@ public class GistofitResource {
   private GistResponse getGist(Key key) {
 	    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
 	    Entity gistEntity = null;
-	    
+
 	    try {
 	    	gistEntity = datastoreService.get(key);
 	    } catch (EntityNotFoundException e) {
@@ -123,7 +139,7 @@ public class GistofitResource {
 	    
 	    return new GistResponse(Gist.fromEntity(gistEntity), UserServiceInfo.get("/"));
 	  }
-
+  
   @GET
   @Path("/recent")
   @Produces(MediaType.APPLICATION_JSON)
@@ -159,7 +175,7 @@ public class GistofitResource {
       @PathParam("id") final String id) throws
       Exception {
 	  	Long longId = Long.parseLong(id); 
-		Key urlKey = KeyFactory.createKey("Gist", url);
+		Key urlKey = KeyFactory.createKey("URL", url);
 	    Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
 	    return getGist(idKey);
   	}
@@ -173,7 +189,7 @@ public class GistofitResource {
       final Map<String, String> postData) {
     UserService userService = UserServiceFactory.getUserService();
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
-    Key urlKey = KeyFactory.createKey("Gist", url);
+    Key urlKey = KeyFactory.createKey("URL", url);
     // We set the above parent key on each Greeting entity in order to make the queries strong
     // consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
     // rate more than 1 write/second.
@@ -192,7 +208,38 @@ public class GistofitResource {
     }
     return getGists(url, null);
   }
-  	
+
+  //TODO: Need to tell GsonMessageBody to ignore an object that is already JSON?
+  @GET
+  @Path("/{url}/extract")
+  @Produces(MediaType.TEXT_PLAIN)
+  public String getExtract(
+      @DefaultValue("default") @PathParam("url") final String url) throws
+    Exception {
+	  String mcKey = url + "_extract";
+	  String cachedExtract = (String) mc.get(mcKey);
+      if (cachedExtract != null) {
+          return cachedExtract;
+      }
+	  
+	  Api api = new Api("Mozilla/5.0 (compatible; gistofit/1.0; lyonsrobp@gmail.com)", "42f4925174814d68b90d0758d932fe14");
+	  HashMap<String, Object> params = new HashMap<String, Object>();
+      params.put("url", url);
+      
+      JSONObject extractJSON = api.extract(params).getJSONObject(0);
+      
+      String embedlyExtract = extractJSON.toString();
+      
+      //Cache both the original URL that the RSS feed or user entered, plus the normalized URL from embed.ly
+      mc.put(mcKey, embedlyExtract, Expiration.byDeltaSeconds(CACHE_PERIOD),
+              SetPolicy.SET_ALWAYS);
+      mc.put(extractJSON.get("url").toString() + "_extract", embedlyExtract, Expiration.byDeltaSeconds(CACHE_PERIOD),
+              SetPolicy.SET_ALWAYS);
+      
+      return embedlyExtract;
+  }
+
+  
   @POST
   @Path("/{url}/{id}/like")
   @Produces(MediaType.APPLICATION_JSON)
@@ -206,7 +253,7 @@ public class GistofitResource {
     // rate more than 1 write/second. Date date = new Date();
     
 	Long longId = Long.parseLong(id); 
-	Key urlKey = KeyFactory.createKey("Gist", url);
+	Key urlKey = KeyFactory.createKey("URL", url);
 	
     ShardedCounter likeCounter = new ShardedCounter("Likes");
     Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);

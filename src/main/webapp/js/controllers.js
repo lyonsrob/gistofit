@@ -23,7 +23,7 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
     retrieveGuestbook($routeParams['guestbookName']);
 
     function retrieveGuestbook(guestbookName) {
-      $http.get('/rest/' + encodeURIComponent(guestbookName))
+      $http.get('/rest/gists/' + encodeURIComponent(guestbookName))
           .success(function(data) {
             $scope.comments = $scope.greetings = data.greetings;
             console.log($scope.comments);
@@ -41,7 +41,7 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
 
     $scope.submit_form = function () {
       $http.post(
-          '/rest/' + encodeURIComponent($scope.guestbookName),
+          '/rest/gists/' + encodeURIComponent($scope.guestbookName),
           {'content': $scope.content, 'genre': $scope.genre})
           .success(function (data) {
             $scope.content = '';

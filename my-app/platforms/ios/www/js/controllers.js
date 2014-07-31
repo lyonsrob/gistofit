@@ -94,6 +94,18 @@ angular.module('guestbook').factory('GistofitService', ['$http', function ($http
 
 
 angular.module('guestbook').controller("FeedCtrl", ['$scope','FeedService', function ($scope,Feed) {    
+    var feedURLs = [
+        'http://feeds2.feedburner.com/Mashable',
+        'http://www.tmz.com/rss.xml',
+        'http://feeds.gawker.com/deadspin/full',
+        'http://feeds.gawker.com/gizmodo/full',
+        'http://feeds2.feedburner.com/businessinsider',
+        'http://feeds.feedburner.com/TechCrunch',
+        'http://rss.cnn.com/rss/cnn_topstories.rss',
+        'http://sports.espn.go.com/espn/rss/news'
+    ]
+
+
     $scope.loadButonText="Load";
     $scope.loadFeed=function(e){        
         Feed.parseFeed($scope.feedSrc).then(function(res){
@@ -102,12 +114,50 @@ angular.module('guestbook').controller("FeedCtrl", ['$scope','FeedService', func
             $scope.feeds=res.data.responseData.feed.entries;
         });
     }
+
+function shuffle(array) {
+  var currentIndex = array.length
+    , temporaryValue
+    , randomIndex
+    ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+} 
+
+    $scope.loadAllFeeds=function(e){      
+        $scope.feeds = [];
+        for (var i = 0, len = feedURLs.length; i < len; i++) {
+            Feed.parseFeed(feedURLs[i]).then(function(res){
+                console.log(res);
+                //$scope.loadButonText=angular.element(e.target).text();
+                if (i>0) {
+                    $scope.feeds.push.apply($scope.feeds, res.data.responseData.feed.entries);
+                }
+            });
+        }
+            shuffle($scope.feeds);
+    }
+
+    $scope.loadAllFeeds();
 }]);
 
 angular.module('guestbook').factory('FeedService',['$http',function($http){
     return {
         parseFeed : function(url){
-            return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
+            return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=2&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
         }
     }
 }]);

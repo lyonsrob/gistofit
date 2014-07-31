@@ -20,8 +20,7 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
   function ($scope, $http, Gistofit) {
 
     $scope.loadRecentGists = function() {
-//        var url = 'http://localhost:8080/rest/gists/recent';
-          var url = 'http://localhost:8000/js/recent.json';
+        var url = 'http://localhost:8080/rest/gists/recent';
 
         Gistofit.getGists(url).then(function (response) {
             console.log(response);
@@ -33,8 +32,7 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
     }
     
     $scope.loadTrendingGists = function() {
-        //var url = 'http://localhost:8080/rest/gists/trending';
-        var url = 'http://localhost:8000/js/trending.json';
+        var url = 'http://localhost:8080/rest/gists/trending';
 
         console.log("trending");
 
