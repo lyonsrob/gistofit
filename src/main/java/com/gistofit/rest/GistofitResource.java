@@ -76,7 +76,7 @@ public class GistofitResource {
     Query query;
     
     if (url != null) {
-    	urlKey = KeyFactory.createKey("Gist", url);
+    	urlKey = KeyFactory.createKey("URL", url);
     	query = new Query("Gist", urlKey).addSort("date", Query.SortDirection.DESCENDING);
     } else {
     	query = new Query("Gist").addSort("date", Query.SortDirection.DESCENDING);
@@ -175,7 +175,7 @@ public class GistofitResource {
       @PathParam("id") final String id) throws
       Exception {
 	  	Long longId = Long.parseLong(id); 
-		Key urlKey = KeyFactory.createKey("Gist", url);
+		Key urlKey = KeyFactory.createKey("URL", url);
 	    Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
 	    return getGist(idKey);
   	}
@@ -189,7 +189,7 @@ public class GistofitResource {
       final Map<String, String> postData) {
     UserService userService = UserServiceFactory.getUserService();
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
-    Key urlKey = KeyFactory.createKey("Gist", url);
+    Key urlKey = KeyFactory.createKey("URL", url);
     // We set the above parent key on each Greeting entity in order to make the queries strong
     // consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
     // rate more than 1 write/second.
@@ -253,26 +253,73 @@ public class GistofitResource {
       return embedlyExtract;
   }
 
+  private List<Entity> getGistLikes(Key key, String cursor) {
+	    List<Entity> likes = new ArrayList<Entity>();
+	    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+	    
+	    int pageSize = 5;
+	    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(pageSize);
+	    
+	    if (cursor != null) {
+	        fetchOptions.startCursor(Cursor.fromWebSafeString(cursor));
+	    }
+
+	    Query query = new Query("Like", key).addSort("date", Query.SortDirection.DESCENDING);
+	    
+	    PreparedQuery pq = datastoreService.prepare(query);
+	 
+	    QueryResultList<Entity> likeEntities = pq.asQueryResultList(fetchOptions);
+	    
+	    for (Entity like : likeEntities) {
+	      likes.add(like);
+	    }
+	    
+	    String cursorString = likeEntities.getCursor().toWebSafeString();
+	    
+	    return likeEntities; 
+	  }
+
   
   @POST
   @Path("/{url}/{id}/like")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public GistResponse likeGist(
-		  @PathParam("url") final String url, @PathParam("id") final String id) {
-//    UserService userService = UserServiceFactory.getUserService();
+		  @PathParam("url") final String url, @PathParam("id") final String id,
+		  final Map<String, String> postData) {
+    UserService userService = UserServiceFactory.getUserService();
+	DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
 
-    // We set the above parent key on each Greeting entity in order to make the queries strong
-    // consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
-    // rate more than 1 write/second. Date date = new Date();
-    
+	// We set the above parent key on each Greeting entity in order to make the queries strong
+	// consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
+	// rate more than 1 write/second. Date date = new Date();
+
 	Long longId = Long.parseLong(id); 
-	Key urlKey = KeyFactory.createKey("Gist", url);
+	Key urlKey = KeyFactory.createKey("URL", url);
 	
     ShardedCounter likeCounter = new ShardedCounter("Likes");
     Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
+    
+
+	Date date = new Date();
+	Entity like = new Entity("Like", idKey);
+	like.setProperty("user", userService.getCurrentUser());
+	like.setProperty("date", date);
+	datastoreService.put(like);
+	
     likeCounter.incrementPropertyTx(idKey, "likes", 1, 1);
     
     return getGist(idKey);
   }
+  
+  @GET
+  @Path("/{url}/{id}/likes")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Entity> getLikes(@PathParam("url") final String url, @PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
+      Exception {
+		  Long longId = Long.parseLong(id); 
+		  Key urlKey = KeyFactory.createKey("URL", url);
+		  Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
+		  return getGistLikes(idKey, cursor);
+  	}
 }

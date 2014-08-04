@@ -39,46 +39,18 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
             $scope.userServiceInfo = response.data.userServiceInfo;
           });
     }
-
-    $scope.submit_form = function () {
-      $http.post(
-          'http://localhost:8080/rest/gists/' + encodeURIComponent($scope.gistURL),
-          {'content': $scope.content, 'genre': $scope.genre})
-          .success(function (data) {
-            $scope.content = '';
-            $scope.genre = '';
-            $scope.greetings = data.greetings;
-            $scope.gistURL = data.gistURL;
-            $scope.currentGuestbookName = data.gistURL;
-          })
-          .error(function(data, status) {
-            console.log('Posting a message failed with the status code: ' + status);
-            console.log(data);
-          });
-    };
     
+    $scope.likeGist = function(url, id) {
+        Gistofit.likeGist(url, id).then(function (response) {
+            console.log(response);
+          });
+    }
+
     $scope.load_extract_content = function (content) {
         console.log(content);
         $scope.extract_content = content;
     };
     
-    $scope.like_gist = function (url, id) {
-        console.log(url);
-        $http.post(
-          'http://localhost:8080/rest/gists/' + encodeURIComponent(url) + "/" + id + "/like",{})
-          .success(function (data) {
-            $scope.content = '';
-            $scope.genre = '';
-            $scope.greetings = data.greetings;
-            $scope.gistURL = data.gistURL;
-            $scope.currentGuestbookName = data.gistURL;
-          })
-          .error(function(data, status) {
-            console.log('Liking a gist failed with the status code: ' + status);
-            console.log(data);
-          });
-    };
-
     $scope.detectViewport = function() {
 		$scope.screenWidth = window.innerWidth,
 		$scope.screenHeight = window.innerHeight;
@@ -118,9 +90,13 @@ angular.module('guestbook').factory('GistofitService', ['$http', function ($http
             return $http({method: 'GET', url: url});
         },
         addGist: function (url, content) {
-            var url = buildURL ('rest/gists/' + encodeURIComponent(url));
+            url = buildURL ('rest/gists/' + encodeURIComponent(url));
             var data = {'content': content};
             return $http.post(url, data);
+        },
+        likeGist: function (url, id) {
+            url = buildURL ('rest/gists/' + encodeURIComponent(url) + "/" + id + "/like");
+            return $http.post(url, {});
         },
     }
 }]);

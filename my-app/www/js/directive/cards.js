@@ -15,6 +15,10 @@ function gistCardDirective(GistofitService) {
         $scope.submit_form = function () {
             GistofitService.addGist($scope.extract.url, $scope.gist_form.content);
         }
+        
+        $scope.like_gist = function (url, id) {
+            GistofitService.likeGist(url, id);
+        }
     }, 
     link: function(scope, element) {
         scope.$watch('gist.url', function(newVal) {
