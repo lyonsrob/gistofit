@@ -62,6 +62,11 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
           });
     };
     
+    $scope.load_extract_content = function (content) {
+        console.log(content);
+        $scope.extract_content = content;
+    };
+    
     $scope.like_gist = function (url, id) {
         console.log(url);
         $http.post(
@@ -79,6 +84,19 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
           });
     };
 
+    $scope.detectViewport = function() {
+		$scope.screenWidth = window.innerWidth,
+		$scope.screenHeight = window.innerHeight;
+		
+		// Retina detect
+		if(window.devicePixelRatio >= 2) {
+			$scope.retina = 1;
+		} else {
+			$scope.retina = 0;
+		}
+    }
+
+    $scope.detectViewport();
     $scope.loadRecentGists();
 }    
 ]);
@@ -90,8 +108,6 @@ angular.module('guestbook').factory('GistofitService', ['$http', function ($http
         }
     }
 }]);
-
-
 
 angular.module('guestbook').controller("FeedCtrl", ['$scope','FeedService', function ($scope,Feed) {    
     var feedURLs = [
@@ -160,4 +176,20 @@ angular.module('guestbook').factory('FeedService',['$http',function($http){
             return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=2&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
         }
     }
+}]);
+
+angular.module('guestbook').controller("PageCtrl", ['$scope', function ($scope) {    
+    ons.ready(function() {
+      console.log("ONS READY");
+      //Check if it already exists or not
+      console.log(show_welcome);
+      
+      if(show_welcome){
+        navigator1.pushPage('welcome.html'); 
+        console.log("Launch Count!");
+        console.log($scope.tabs);
+        tabs.setTabbarVisibility(false);
+          //This is a second time launch, and count = applaunchCount
+      }
+    });
 }]);

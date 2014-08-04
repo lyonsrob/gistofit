@@ -76,7 +76,7 @@ public class GistofitResource {
     Query query;
     
     if (url != null) {
-    	urlKey = KeyFactory.createKey("URL", url);
+    	urlKey = KeyFactory.createKey("Gist", url);
     	query = new Query("Gist", urlKey).addSort("date", Query.SortDirection.DESCENDING);
     } else {
     	query = new Query("Gist").addSort("date", Query.SortDirection.DESCENDING);
@@ -175,7 +175,7 @@ public class GistofitResource {
       @PathParam("id") final String id) throws
       Exception {
 	  	Long longId = Long.parseLong(id); 
-		Key urlKey = KeyFactory.createKey("URL", url);
+		Key urlKey = KeyFactory.createKey("Gist", url);
 	    Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
 	    return getGist(idKey);
   	}
@@ -189,7 +189,7 @@ public class GistofitResource {
       final Map<String, String> postData) {
     UserService userService = UserServiceFactory.getUserService();
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
-    Key urlKey = KeyFactory.createKey("URL", url);
+    Key urlKey = KeyFactory.createKey("Gist", url);
     // We set the above parent key on each Greeting entity in order to make the queries strong
     // consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
     // rate more than 1 write/second.
@@ -214,7 +214,10 @@ public class GistofitResource {
   @Path("/{url}/extract")
   @Produces(MediaType.TEXT_PLAIN)
   public String getExtract(
-      @DefaultValue("default") @PathParam("url") final String url) throws
+      @DefaultValue("default") @PathParam("url") final String url, 
+      	@QueryParam("width") final String width, 
+      	@QueryParam("height") final String height, 
+      	@QueryParam("retina") final String retina) throws
     Exception {
 	  String mcKey = url + "_extract";
 	  String cachedExtract = (String) mc.get(mcKey);
@@ -225,6 +228,17 @@ public class GistofitResource {
 	  Api api = new Api("Mozilla/5.0 (compatible; gistofit/1.0; lyonsrobp@gmail.com)", "42f4925174814d68b90d0758d932fe14");
 	  HashMap<String, Object> params = new HashMap<String, Object>();
       params.put("url", url);
+/*
+      params.put("image_error_url", "http%3A%2F%2Fmedia.tumblr.com%2Ftumblr_m9e0vfpA7K1qkbsaa.jpg");
+      
+      String device = postData.get("device");
+      
+      if (device == "mobile") {
+    	  params.put("image_height", "300");
+      	  params.put("image_width", "300");
+      	  params.put("image_method", "fill");
+      }
+*/
       
       JSONObject extractJSON = api.extract(params).getJSONObject(0);
       
@@ -253,7 +267,7 @@ public class GistofitResource {
     // rate more than 1 write/second. Date date = new Date();
     
 	Long longId = Long.parseLong(id); 
-	Key urlKey = KeyFactory.createKey("URL", url);
+	Key urlKey = KeyFactory.createKey("Gist", url);
 	
     ShardedCounter likeCounter = new ShardedCounter("Likes");
     Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);

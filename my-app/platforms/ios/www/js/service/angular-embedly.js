@@ -21,7 +21,7 @@ var angularEmbedly = angular.module('angular-embedly', []);
                 var embedlyRequest = 'http://api.embed.ly/1/oembed?key=' + key + '&url=' +  escapedUrl;
                 return $http({method: 'GET', url: embedlyRequest});
             };
-            this.extract = function(inputUrl) {
+            this.extract = function(inputUrl, width, height, retina) {
                 var escapedUrl = encodeURIComponent(inputUrl);
                 var embedlyRequest = 'http://localhost:8080/rest/gists/' + escapedUrl + '/extract';
                 return $http({method: 'GET', url: embedlyRequest});

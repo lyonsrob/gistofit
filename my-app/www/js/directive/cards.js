@@ -2,53 +2,57 @@
  * Created by Ariel Mashraki
  */
 
-function gistCardDirective(embedlyService) {
+function gistCardDirective(GistofitService) {
   return {
     restrict:'E',
     templateUrl: 'views/gist_card.html',
     scope: true,
-    controller: function($scope) {
-        $scope.load_more = function(content) {
-            console.log(content);   
-            $scope.navigator1.pushPage('page2.html'); 
+    controller: function($scope, GistofitService) {
+        $scope.load_more = function(gistId) {
+            $scope.navigator1.pushPage(gistId + '.html'); 
         }
-    },
+        
+        $scope.submit_form = function () {
+            GistofitService.addGist($scope.extract.url, $scope.gist_form.content);
+        }
+    }, 
     link: function(scope, element) {
         scope.$watch('gist.url', function(newVal) {
             var previousEmbedCode = scope.embedCode;
             if (newVal) {
-                embedlyService.extract(newVal, scope.deviceWidth, scope.deviceHeight, scope.retina)
+                GistofitService.getExtract(newVal)
                     .then(function(e){
                         console.log(e.data);
                         scope.extract = e.data;
                     }, function(error) {
                         console.log(error);
-                        // promise rejected
-                        var previousEmbedCode = scope.embedCode;
-                        scope.embedCode = '';
-                        if(previousEmbedCode !== scope.embedCode) {
-                            element.html('<div>' + scope.embedCode + '</div>');
-                        }
                     });
             }
-        });
+            }
+        );
     }
   }
 }
 
-function articleCardDirective(embedlyService) {
+function articleCardDirective(GistofitService) {
   return {
     restrict:'E',
     templateUrl: 'views/article_card.html',
-    scope:{
-        url: '@',
-        extract: '@',
-    },
+    controller: function($scope, GistofitService) {
+        $scope.load_more = function(gistId) {
+            $scope.navigator1.pushPage(gistId + '.html'); 
+        }
+        
+        $scope.submit_form = function () {
+            GistofitService.addGist($scope.extract.url, $scope.gist_form.content);
+        }
+    }, 
+    scope: true,
     link: function(scope, element) {
-        scope.$watch('url', function(newVal) {
+        scope.$watch('feed.link', function(newVal) {
             var previousEmbedCode = scope.embedCode;
             if (newVal) {
-                embedlyService.extract(newVal)
+                GistofitService.getExtract(newVal)
                     .then(function(e){
                         console.log(e.data);
                         scope.extract = e.data;

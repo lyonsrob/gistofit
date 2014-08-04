@@ -7,6 +7,9 @@
     </open-external>
       <h4 >{{ extract.title }}</h4>
       <span>{{ extract.description}}</span>
-      <br/><span>{{url | domain}}</span>
+      <br/><span onClick="var applaunchCount = window.localStorage.getItem('launchCount');console.log(applaunchCount);">{{url | domain}}</span>
+      <button ng-click="load_more(extract.content)" class="button--quiet">More</button>
+      <div id="extract-content" ng-show="more" ng-bind-html="extract.content">
+      </div>
 </div>
 <p>{{likes}} likes &nbsp; 3 comments</p>

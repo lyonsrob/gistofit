@@ -1,230 +1,92 @@
-2014-07-21 15:26:07.421 HelloWorld[55082:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-21 15:26:07.445 HelloWorld[55082:70b] Unlimited access to network resources
-2014-07-21 15:26:07.458 HelloWorld[55082:70b] 
+2014-08-02 12:41:55.341 #GistOfIt[42480:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-02 12:41:55.349 #GistOfIt[42480:70b] Unlimited access to network resources
+2014-08-02 12:41:55.352 #GistOfIt[42480:70b] 
 
 Started backup to iCloud! Please be careful.
 Your application might rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines"
 You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
 
-2014-07-21 15:26:07.504 HelloWorld[55082:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-21 15:26:07.506 HelloWorld[55082:70b] [CDVTimer][splashscreen] 1.767993ms
-2014-07-21 15:26:07.515 HelloWorld[55082:70b] [CDVTimer][TotalPluginStartup] 10.788977ms
-2014-07-21 15:26:07.712 HelloWorld[55082:70b] Resetting plugins due to page load.
-2014-07-21 15:26:08.238 HelloWorld[55082:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html#/default
-2014-07-21 16:52:32.914 HelloWorld[57770:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-21 16:52:33.003 HelloWorld[57770:70b] Unlimited access to network resources
-2014-07-21 16:52:33.034 HelloWorld[57770:70b] 
+2014-08-02 12:41:55.391 #GistOfIt[42480:70b] [CDVTimer][splashscreen] 23.118019ms
+2014-08-02 12:41:55.392 #GistOfIt[42480:70b] [CDVTimer][TotalPluginStartup] 23.635983ms
+2014-08-02 12:41:55.480 #GistOfIt[42480:70b] Resetting plugins due to page load.
+2014-08-02 12:41:55.582 #GistOfIt[42480:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/296E2910-772E-41D0-AE2E-9A7D2BC2F912/%23GistOfIt.app/www/index.html
+2014-08-02 12:43:04.022 #GistOfIt[43749:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-02 12:43:04.058 #GistOfIt[43749:70b] Unlimited access to network resources
+2014-08-02 12:43:04.094 #GistOfIt[43749:70b] 
 
 Started backup to iCloud! Please be careful.
 Your application might rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines"
 You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
 
-2014-07-21 16:52:33.296 HelloWorld[57770:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-21 16:52:33.307 HelloWorld[57770:70b] [CDVTimer][splashscreen] 10.282993ms
-2014-07-21 16:52:33.313 HelloWorld[57770:70b] [CDVTimer][TotalPluginStartup] 16.532004ms
-2014-07-21 16:52:33.600 HelloWorld[57770:70b] Resetting plugins due to page load.
-2014-07-21 16:52:34.155 HelloWorld[57770:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html#/default
-2014-07-21 16:55:34.050 HelloWorld[58875:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-21 16:55:34.070 HelloWorld[58875:70b] Unlimited access to network resources
-2014-07-21 16:55:34.110 HelloWorld[58875:70b] 
+2014-08-02 12:43:04.217 #GistOfIt[43749:70b] [CDVTimer][splashscreen] 31.322002ms
+2014-08-02 12:43:04.247 #GistOfIt[43749:70b] [CDVTimer][TotalPluginStartup] 61.104000ms
+2014-08-02 12:43:04.581 #GistOfIt[43749:70b] Resetting plugins due to page load.
+2014-08-02 12:43:05.106 #GistOfIt[43749:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/296E2910-772E-41D0-AE2E-9A7D2BC2F912/%23GistOfIt.app/www/index.html
+2014-08-02 12:43:41.983 #GistOfIt[43749:70b] Simulator slow-motion animations are now on
+2014-08-02 17:42:37.256 #GistOfIt[45255:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-02 17:42:37.316 #GistOfIt[45255:70b] Unlimited access to network resources
+2014-08-02 17:42:37.334 #GistOfIt[45255:70b] 
 
 Started backup to iCloud! Please be careful.
 Your application might rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines"
 You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
 
-2014-07-21 16:55:34.210 HelloWorld[58875:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-21 16:55:34.231 HelloWorld[58875:70b] [CDVTimer][splashscreen] 20.604968ms
-2014-07-21 16:55:34.262 HelloWorld[58875:70b] [CDVTimer][TotalPluginStartup] 51.311970ms
-2014-07-21 16:55:34.483 HelloWorld[58875:70b] Resetting plugins due to page load.
-2014-07-21 16:55:35.020 HelloWorld[58875:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html#/default
-2014-07-21 16:56:47.491 HelloWorld[59961:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-21 16:56:47.538 HelloWorld[59961:70b] Unlimited access to network resources
-2014-07-21 16:56:47.564 HelloWorld[59961:70b] 
+2014-08-02 17:42:37.700 #GistOfIt[45255:70b] [CDVTimer][splashscreen] 120.916963ms
+2014-08-02 17:42:37.700 #GistOfIt[45255:70b] [CDVTimer][TotalPluginStartup] 121.483982ms
+2014-08-02 17:42:37.925 #GistOfIt[45255:70b] Resetting plugins due to page load.
+2014-08-02 17:42:38.546 #GistOfIt[45255:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/296E2910-772E-41D0-AE2E-9A7D2BC2F912/%23GistOfIt.app/www/index.html
+2014-08-02 17:58:39.102 #GistOfIt[48622:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-02 17:58:39.123 #GistOfIt[48622:70b] Unlimited access to network resources
+2014-08-02 17:58:39.134 #GistOfIt[48622:70b] 
 
 Started backup to iCloud! Please be careful.
 Your application might rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines"
 You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
 
-2014-07-21 16:56:47.644 HelloWorld[59961:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-21 16:56:47.657 HelloWorld[59961:70b] [CDVTimer][splashscreen] 12.541950ms
-2014-07-21 16:56:47.667 HelloWorld[59961:70b] [CDVTimer][TotalPluginStartup] 22.930026ms
-2014-07-21 16:56:48.083 HelloWorld[59961:70b] Resetting plugins due to page load.
-2014-07-21 16:56:48.680 HelloWorld[59961:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html#/default
-Terminating in response to SpringBoard's termination.
-2014-07-21 16:57:49.810 HelloWorld[61577:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-21 16:57:49.822 HelloWorld[61577:70b] Unlimited access to network resources
-2014-07-21 16:57:49.826 HelloWorld[61577:70b] 
+2014-08-02 17:58:39.238 #GistOfIt[48622:70b] [CDVTimer][splashscreen] 48.938036ms
+2014-08-02 17:58:39.241 #GistOfIt[48622:70b] [CDVTimer][TotalPluginStartup] 52.309990ms
+2014-08-02 17:58:39.518 #GistOfIt[48622:70b] Resetting plugins due to page load.
+2014-08-02 17:58:39.789 #GistOfIt[48622:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/296E2910-772E-41D0-AE2E-9A7D2BC2F912/%23GistOfIt.app/www/index.html
+2014-08-02 18:05:43.560 #GistOfIt[49951:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-02 18:05:43.741 #GistOfIt[49951:70b] Unlimited access to network resources
+2014-08-02 18:05:43.770 #GistOfIt[49951:70b] 
 
 Started backup to iCloud! Please be careful.
 Your application might rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines"
 You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
 
-2014-07-21 16:57:49.846 HelloWorld[61577:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-21 16:57:49.846 HelloWorld[61577:70b] [CDVTimer][splashscreen] 0.788033ms
-2014-07-21 16:57:49.847 HelloWorld[61577:70b] [CDVTimer][TotalPluginStartup] 1.329005ms
-2014-07-21 16:57:49.996 HelloWorld[61577:70b] Resetting plugins due to page load.
-2014-07-21 16:57:50.412 HelloWorld[61577:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html#/default
-Terminating in response to SpringBoard's termination.
-2014-07-21 17:04:38.617 HelloWorld[62654:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-21 17:04:38.630 HelloWorld[62654:70b] Unlimited access to network resources
-2014-07-21 17:04:38.636 HelloWorld[62654:70b] 
+2014-08-02 18:05:43.880 #GistOfIt[49951:70b] [CDVTimer][splashscreen] 40.391028ms
+2014-08-02 18:05:43.885 #GistOfIt[49951:70b] [CDVTimer][TotalPluginStartup] 46.182990ms
+2014-08-02 18:05:44.107 #GistOfIt[49951:70b] Resetting plugins due to page load.
+2014-08-02 18:05:44.394 #GistOfIt[49951:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/296E2910-772E-41D0-AE2E-9A7D2BC2F912/%23GistOfIt.app/www/index.html
+2014-08-02 18:07:10.953 #GistOfIt[51222:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-02 18:07:10.962 #GistOfIt[51222:70b] Unlimited access to network resources
+2014-08-02 18:07:10.965 #GistOfIt[51222:70b] 
 
 Started backup to iCloud! Please be careful.
 Your application might rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines"
 You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
 
-2014-07-21 17:04:38.667 HelloWorld[62654:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-21 17:04:38.668 HelloWorld[62654:70b] [CDVTimer][splashscreen] 1.435041ms
-2014-07-21 17:04:38.669 HelloWorld[62654:70b] [CDVTimer][TotalPluginStartup] 2.749979ms
-2014-07-21 17:04:38.933 HelloWorld[62654:70b] Resetting plugins due to page load.
-2014-07-21 21:06:57.562 HelloWorld[65087:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-21 21:06:57.620 HelloWorld[65087:70b] Unlimited access to network resources
-2014-07-21 21:06:57.629 HelloWorld[65087:70b] 
+2014-08-02 18:07:10.994 #GistOfIt[51222:70b] [CDVTimer][splashscreen] 13.325036ms
+2014-08-02 18:07:10.994 #GistOfIt[51222:70b] [CDVTimer][TotalPluginStartup] 13.787031ms
+2014-08-02 18:07:11.203 #GistOfIt[51222:70b] Resetting plugins due to page load.
+2014-08-02 18:07:11.337 #GistOfIt[51222:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/730FCC62-2E3D-45E0-9766-007E7738AF6A/%23GistOfIt.app/www/index.html
+2014-08-02 20:10:09.687 #GistOfIt[52572:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-02 20:10:09.710 #GistOfIt[52572:70b] Unlimited access to network resources
+2014-08-02 20:10:09.714 #GistOfIt[52572:70b] 
 
 Started backup to iCloud! Please be careful.
 Your application might rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines"
 You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
 
-2014-07-21 21:06:57.726 HelloWorld[65087:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-21 21:06:57.733 HelloWorld[65087:70b] [CDVTimer][splashscreen] 7.313013ms
-2014-07-21 21:06:57.742 HelloWorld[65087:70b] [CDVTimer][TotalPluginStartup] 16.250968ms
-2014-07-21 21:06:58.008 HelloWorld[65087:70b] Resetting plugins due to page load.
-2014-07-21 21:06:58.578 HelloWorld[65087:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
-2014-07-22 22:33:38.524 HelloWorld[70063:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-22 22:33:38.592 HelloWorld[70063:70b] Unlimited access to network resources
-2014-07-22 22:33:38.611 HelloWorld[70063:70b] 
-
-Started backup to iCloud! Please be careful.
-Your application might rejected by Apple if you store too much data.
-For more information please read "iOS Data Storage Guidelines"
-You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
-
-2014-07-22 22:33:38.982 HelloWorld[70063:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-22 22:33:38.983 HelloWorld[70063:70b] [CDVTimer][splashscreen] 0.992000ms
-2014-07-22 22:33:38.985 HelloWorld[70063:70b] [CDVTimer][TotalPluginStartup] 2.692997ms
-2014-07-22 22:33:39.230 HelloWorld[70063:70b] Resetting plugins due to page load.
-2014-07-22 22:33:39.521 HelloWorld[70063:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
-2014-07-23 23:32:37.425 HelloWorld[75392:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-23 23:32:37.511 HelloWorld[75392:70b] Unlimited access to network resources
-2014-07-23 23:32:37.543 HelloWorld[75392:70b] 
-
-Started backup to iCloud! Please be careful.
-Your application might rejected by Apple if you store too much data.
-For more information please read "iOS Data Storage Guidelines"
-You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
-
-2014-07-23 23:32:38.172 HelloWorld[75392:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-23 23:32:38.173 HelloWorld[75392:70b] [CDVTimer][splashscreen] 0.559986ms
-2014-07-23 23:32:38.174 HelloWorld[75392:70b] [CDVTimer][TotalPluginStartup] 1.241028ms
-2014-07-23 23:32:38.428 HelloWorld[75392:70b] Resetting plugins due to page load.
-2014-07-23 23:32:38.766 HelloWorld[75392:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
-2014-07-24 00:45:36.637 HelloWorld[77460:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-24 00:45:36.734 HelloWorld[77460:70b] Unlimited access to network resources
-2014-07-24 00:45:36.753 HelloWorld[77460:70b] 
-
-Started backup to iCloud! Please be careful.
-Your application might rejected by Apple if you store too much data.
-For more information please read "iOS Data Storage Guidelines"
-You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
-
-2014-07-24 00:45:37.082 HelloWorld[77460:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-24 00:45:37.083 HelloWorld[77460:70b] [CDVTimer][splashscreen] 0.708997ms
-2014-07-24 00:45:37.084 HelloWorld[77460:70b] [CDVTimer][TotalPluginStartup] 1.383007ms
-2014-07-24 00:45:37.391 HelloWorld[77460:70b] Resetting plugins due to page load.
-2014-07-24 00:45:37.818 HelloWorld[77460:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
-2014-07-28 13:22:27.241 HelloWorld[3916:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-28 13:22:27.293 HelloWorld[3916:70b] Unlimited access to network resources
-2014-07-28 13:22:27.298 HelloWorld[3916:70b] 
-
-Started backup to iCloud! Please be careful.
-Your application might rejected by Apple if you store too much data.
-For more information please read "iOS Data Storage Guidelines"
-You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
-
-2014-07-28 13:22:27.561 HelloWorld[3916:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-28 13:22:27.562 HelloWorld[3916:70b] [CDVTimer][splashscreen] 0.725031ms
-2014-07-28 13:22:27.563 HelloWorld[3916:70b] [CDVTimer][TotalPluginStartup] 1.319051ms
-2014-07-28 13:22:27.806 HelloWorld[3916:70b] Resetting plugins due to page load.
-2014-07-28 13:22:28.080 HelloWorld[3916:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
-2014-07-28 23:44:07.711 HelloWorld[6858:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-28 23:44:07.805 HelloWorld[6858:70b] Unlimited access to network resources
-2014-07-28 23:44:07.811 HelloWorld[6858:70b] 
-
-Started backup to iCloud! Please be careful.
-Your application might rejected by Apple if you store too much data.
-For more information please read "iOS Data Storage Guidelines"
-You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
-
-2014-07-28 23:44:08.020 HelloWorld[6858:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-28 23:44:08.020 HelloWorld[6858:70b] [CDVTimer][splashscreen] 0.593960ms
-2014-07-28 23:44:08.021 HelloWorld[6858:70b] [CDVTimer][TotalPluginStartup] 1.060963ms
-2014-07-28 23:44:08.235 HelloWorld[6858:70b] Resetting plugins due to page load.
-2014-07-28 23:44:08.452 HelloWorld[6858:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
-2014-07-28 23:50:56.750 HelloWorld[8158:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-28 23:50:56.790 HelloWorld[8158:70b] Unlimited access to network resources
-2014-07-28 23:50:56.814 HelloWorld[8158:70b] 
-
-Started backup to iCloud! Please be careful.
-Your application might rejected by Apple if you store too much data.
-For more information please read "iOS Data Storage Guidelines"
-You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
-
-2014-07-28 23:50:56.966 HelloWorld[8158:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-28 23:50:56.966 HelloWorld[8158:70b] [CDVTimer][splashscreen] 0.901997ms
-2014-07-28 23:50:56.967 HelloWorld[8158:70b] [CDVTimer][TotalPluginStartup] 1.677990ms
-2014-07-28 23:50:57.118 HelloWorld[8158:70b] Resetting plugins due to page load.
-2014-07-28 23:50:57.366 HelloWorld[8158:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
-2014-07-28 23:52:04.483 HelloWorld[9404:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-28 23:52:04.497 HelloWorld[9404:70b] Unlimited access to network resources
-2014-07-28 23:52:04.501 HelloWorld[9404:70b] 
-
-Started backup to iCloud! Please be careful.
-Your application might rejected by Apple if you store too much data.
-For more information please read "iOS Data Storage Guidelines"
-You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
-
-2014-07-28 23:52:04.516 HelloWorld[9404:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-28 23:52:04.517 HelloWorld[9404:70b] [CDVTimer][splashscreen] 0.607967ms
-2014-07-28 23:52:04.518 HelloWorld[9404:70b] [CDVTimer][TotalPluginStartup] 1.102984ms
-2014-07-28 23:52:04.716 HelloWorld[9404:70b] Resetting plugins due to page load.
-2014-07-28 23:52:05.103 HelloWorld[9404:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
-2014-07-28 23:52:17.597 HelloWorld[9404:70b] Resetting plugins due to page load.
-2014-07-28 23:52:18.074 HelloWorld[9404:70b] Failed to load webpage with error: The operation couldn’t be completed. (NSURLErrorDomain error -999.)
-2014-07-28 23:52:18.075 HelloWorld[9404:70b] Resetting plugins due to page load.
-2014-07-28 23:52:19.153 HelloWorld[9404:70b] Finished load of: http://m.espn.go.com/general/story?storyId=11267219&src=desktop
-2014-07-30 22:47:33.705 HelloWorld[16832:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-30 22:47:33.763 HelloWorld[16832:70b] Unlimited access to network resources
-2014-07-30 22:47:33.790 HelloWorld[16832:70b] 
-
-Started backup to iCloud! Please be careful.
-Your application might rejected by Apple if you store too much data.
-For more information please read "iOS Data Storage Guidelines"
-You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
-
-2014-07-30 22:47:34.102 HelloWorld[16832:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-30 22:47:34.103 HelloWorld[16832:70b] [CDVTimer][splashscreen] 0.494003ms
-2014-07-30 22:47:34.103 HelloWorld[16832:70b] [CDVTimer][TotalPluginStartup] 0.984967ms
-2014-07-30 22:47:34.401 HelloWorld[16832:70b] Resetting plugins due to page load.
-2014-07-30 22:47:34.720 HelloWorld[16832:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
-Terminating in response to SpringBoard's termination.
-2014-07-30 22:55:28.590 HelloWorld[18108:70b] Multi-tasking -> Device: YES, App: YES
-2014-07-30 22:55:28.603 HelloWorld[18108:70b] Unlimited access to network resources
-2014-07-30 22:55:28.608 HelloWorld[18108:70b] 
-
-Started backup to iCloud! Please be careful.
-Your application might rejected by Apple if you store too much data.
-For more information please read "iOS Data Storage Guidelines"
-You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
-
-2014-07-30 22:55:28.635 HelloWorld[18108:70b] CDVPlugin class CDVSplashScreen (pluginName: splashscreen) does not exist.
-2014-07-30 22:55:28.636 HelloWorld[18108:70b] [CDVTimer][splashscreen] 0.661016ms
-2014-07-30 22:55:28.637 HelloWorld[18108:70b] [CDVTimer][TotalPluginStartup] 1.309991ms
-2014-07-30 22:55:29.061 HelloWorld[18108:70b] Resetting plugins due to page load.
-2014-07-30 22:55:29.379 HelloWorld[18108:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/169190B4-41A8-4FC4-AAA4-E5D816AA50DB/HelloWorld.app/www/index.html
+2014-08-02 20:10:09.752 #GistOfIt[52572:70b] [CDVTimer][splashscreen] 15.502036ms
+2014-08-02 20:10:09.753 #GistOfIt[52572:70b] [CDVTimer][TotalPluginStartup] 15.980005ms
+2014-08-02 20:10:09.950 #GistOfIt[52572:70b] Resetting plugins due to page load.
+2014-08-02 20:10:10.077 #GistOfIt[52572:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/D96775F6-BF95-475A-8379-9355F2486B01/%23GistOfIt.app/www/index.html

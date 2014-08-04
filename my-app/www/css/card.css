@@ -124,3 +124,7 @@
     border: none;
     font-size: 12px;
 }
+
+#extract-content img {
+    width: 100%;
+}

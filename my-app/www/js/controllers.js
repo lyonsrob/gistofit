@@ -20,9 +20,8 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
   function ($scope, $http, Gistofit) {
 
     $scope.loadRecentGists = function() {
-        var url = 'http://localhost:8080/rest/gists/recent';
 
-        Gistofit.getGists(url).then(function (response) {
+        Gistofit.getRecent().then(function (response) {
             console.log(response);
             $scope.gists = response.data.gists; 
             $scope.cursor = response.data.cursor; 
@@ -32,11 +31,7 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
     }
     
     $scope.loadTrendingGists = function() {
-        var url = 'http://localhost:8080/rest/gists/trending';
-
-        console.log("trending");
-
-        Gistofit.getGists(url).then(function (response) {
+        Gistofit.getTrending().then(function (response) {
             console.log(response);
             $scope.gists = response.data.gists; 
             $scope.cursor = response.data.cursor; 
@@ -62,6 +57,11 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
           });
     };
     
+    $scope.load_extract_content = function (content) {
+        console.log(content);
+        $scope.extract_content = content;
+    };
+    
     $scope.like_gist = function (url, id) {
         console.log(url);
         $http.post(
@@ -79,19 +79,51 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
           });
     };
 
+    $scope.detectViewport = function() {
+		$scope.screenWidth = window.innerWidth,
+		$scope.screenHeight = window.innerHeight;
+		
+		// Retina detect
+		if(window.devicePixelRatio >= 2) {
+			$scope.retina = 1;
+		} else {
+			$scope.retina = 0;
+		}
+    }
+
+    $scope.detectViewport();
     $scope.loadRecentGists();
 }    
 ]);
 
 angular.module('guestbook').factory('GistofitService', ['$http', function ($http) {
+    var domain = 'http://localhost:8080/';
+
+    function buildURL (method) {
+        return domain + method;
+    }
+
     return {
-        getGists: function (url) {
-            return $http.get(url);
-        }
+        getRecent: function () {
+            var url = buildURL('rest/gists/recent');
+            return $http({method: 'GET', url: url});
+        },
+        getTrending: function () {
+            var url = buildURL('rest/gists/trending');
+            return $http({method: 'GET', url: url});
+        },
+        getExtract: function (inputUrl, width, height, retina) {
+            var escapedUrl = encodeURIComponent(inputUrl);
+            var url = buildURL('rest/gists/'+ escapedUrl + '/extract'); 
+            return $http({method: 'GET', url: url});
+        },
+        addGist: function (url, content) {
+            var url = buildURL ('rest/gists/' + encodeURIComponent(url));
+            var data = {'content': content};
+            return $http.post(url, data);
+        },
     }
 }]);
-
-
 
 angular.module('guestbook').controller("FeedCtrl", ['$scope','FeedService', function ($scope,Feed) {    
     var feedURLs = [
@@ -160,4 +192,23 @@ angular.module('guestbook').factory('FeedService',['$http',function($http){
             return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=2&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
         }
     }
+}]);
+
+angular.module('guestbook').controller("PageCtrl", ['$scope', function ($scope) {    
+    ons.ready(function() {
+      console.log("ONS READY");
+      //Check if it already exists or not
+      console.log(show_welcome);
+      
+      if(show_welcome){
+        var options = {
+            animation: 'lift'
+        };
+        navigator1.pushPage('welcome.html', options); 
+        console.log("Launch Count!");
+        console.log($scope.tabs);
+        tabs.setTabbarVisibility(false);
+          //This is a second time launch, and count = applaunchCount
+      }
+    });
 }]);

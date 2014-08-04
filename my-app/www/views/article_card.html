@@ -5,8 +5,13 @@
         <div class="hdr">
             <div class="provider provider-gt-35">
                 <img ng-src="{{extract.favicon_url}}" width="16" height="16" class="provider-favicon">
-                <a class="provider-name" target="_blank" href="http://www.businessinsider.com">{{extract.provider_name}}</a>
-                <span class="via">&nbsp;</span>
+                <a class="provider-name" target="_blank" ng-href="{{extract.provider_url}}">{{extract.provider_name}}</a>
+   <form ng-submit="submit_form()" ng-show="gistIt">
+      Gist of it:<br>
+      <textarea name="content" rows="5" cols="100" ng-model="gist_form.content"></textarea><br>
+      <input class="button form" type="submit" value="Submit" name="submit">
+    </form>
+                <span class="via"><button ng-click="gistIt = !gistIt;">#gistofit</button></span>
             </div>
             <div class="action-mod">
                 <div class="dd-mod dd-share">
@@ -23,7 +28,7 @@
                     <a class="dd-trigger dd-actions" ontouchstart="" href="#">Actions</a>
                     <ul class="dd-menu dd-info">
                         <li>
-                            <a class="dd-link dd-source" ontouchstart="" target="_blank" href="http://www.businessinsider.com/one-thing-successful-people-always-do-2014-7">View original source</a>
+                            <a class="dd-link dd-source" ontouchstart="" target="_blank" ng-href="{{extract.url}}">View original source</a>
                         </li>
                     </ul>
                 </div>
@@ -33,16 +38,16 @@
     <div class="bd" style="border-left-color: rgb(44, 97, 114);">
         <div class="pair-bd">
             <div class="art-bd">
-                <a target="_blank" href="http://www.businessinsider.com/one-thing-successful-people-always-do-2014-7" class="" style="padding-bottom: 32.56578947368421%; background-color: rgb(255, 255, 255);">
+                <a target="_blank" ng-href="{{extract.url}}" class="" style="padding-bottom: 32.56578947368421%; background-color: rgb(255, 255, 255);">
                     <img class="art-bd-img" ng-src="{{extract.images[0].url}}" style="opacity: 1;">
                 </a>
             </div>
             <div class="txt-bd">
                 <h1 class="title">
-                    <a target="_blank" href="http://www.businessinsider.com/one-thing-successful-people-always-do-2014-7">{{extract.title}}</a>
+                    <a target="_blank" ng-href="{{extract.url}}">{{extract.title}}</a>
                 </h1>
                 <p class="description">{{extract.description}}</p>
-                <a class="action" target="_blank" href="http://www.businessinsider.com/one-thing-successful-people-always-do-2014-7">Read the article on {{extract.provider_url}} &gt;</a>
+                <a class="action" target="_blank" ng-href="{{extract.url}}">Read the article on {{extract.provider_url}} &gt;</a>
             </div>
         </div>
     </div>

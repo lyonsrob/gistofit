@@ -1,3 +1,11 @@
+<script type="text/ons-template" id="{{gist.id}}.html">
+<div>
+This is {{gist.id}} extract content
+</div>
+}
+</script>
+
+
 <div class="gist_card">
     <open-external url=url exit="closeBrowser()" 
                    load-start="loadStart()"
@@ -8,5 +16,8 @@
       <h4 >{{ extract.title }}</h4>
       <span>{{ extract.description}}</span>
       <br/><span>{{url | domain}}</span>
+      <button ng-click="load_more(gist.id)" class="button--quiet">More</button>
+      <div id="extract-content" ng-show="more" ng-bind-html="extract.content">
+      </div>
 </div>
 <p>{{likes}} likes &nbsp; 3 comments</p>
