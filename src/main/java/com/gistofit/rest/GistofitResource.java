@@ -18,6 +18,8 @@ package com.gistofit.rest;
 
 import com.gistofit.domain.Gist;
 import com.gistofit.domain.GistListResponse;
+import com.gistofit.domain.Comment;
+import com.gistofit.domain.CommentListResponse;
 import com.gistofit.domain.GistResponse;
 import com.gistofit.domain.ShardedCounter;
 import com.gistofit.domain.UserServiceInfo;
@@ -90,9 +92,9 @@ public class GistofitResource {
       gists.add(Gist.fromEntity(gist));
     }
     
-    String cursorString = gistEntities.getCursor().toWebSafeString();
+    String nextCursor = gistEntities.getCursor().toWebSafeString();
     
-    return new GistListResponse(url, gists, UserServiceInfo.get("/"), cursorString);
+    return new GistListResponse(url, gists, UserServiceInfo.get("/"), nextCursor);
   }
 
   private GistListResponse getTrendingGists(String cursor) {
@@ -134,8 +136,6 @@ public class GistofitResource {
 	    } catch (Exception e) {
 	           logger.log(Level.WARNING, e.toString(), e);
 	    }
-	    
-	    String content= (String) gistEntity.getProperty("content");
 	    
 	    return new GistResponse(Gist.fromEntity(gistEntity), UserServiceInfo.get("/"));
 	  }
@@ -279,6 +279,31 @@ public class GistofitResource {
 	    return likeEntities; 
 	  }
 
+  private List<Entity> getGistComments(Key key, String cursor) {
+	    List<Entity> comments = new ArrayList<Entity>();
+	    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+	    
+	    int pageSize = 5;
+	    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(pageSize);
+	    
+	    if (cursor != null) {
+	        fetchOptions.startCursor(Cursor.fromWebSafeString(cursor));
+	    }
+
+	    Query query = new Query("Comment", key).addSort("date", Query.SortDirection.DESCENDING);
+	    
+	    PreparedQuery pq = datastoreService.prepare(query);
+	 
+	    QueryResultList<Entity> commentEntities = pq.asQueryResultList(fetchOptions);
+	    
+	    for (Entity comment : commentEntities) {
+	      comments.add(comment);
+	    }
+	    
+	    String cursorString = commentEntities.getCursor().toWebSafeString();
+	    
+	    return commentEntities; 
+	  }
   
   @POST
   @Path("/{url}/{id}/like")
@@ -321,5 +346,58 @@ public class GistofitResource {
 		  Key urlKey = KeyFactory.createKey("URL", url);
 		  Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
 		  return getGistLikes(idKey, cursor);
-  	}
+  }
+  
+  @POST
+  @Path("/{url}/{id}/comment")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  public String commentGist(
+		  @PathParam("url") final String url, @PathParam("id") final String id,
+		  final Map<String, String> postData) {
+    UserService userService = UserServiceFactory.getUserService();
+	DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+
+	// We set the above parent key on each Greeting entity in order to make the queries strong
+	// consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
+	// rate more than 1 write/second. Date date = new Date();
+
+	Long longId = Long.parseLong(id); 
+	Key urlKey = KeyFactory.createKey("URL", url);
+    Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
+    
+    String content = postData.get("comment");
+    
+	Date date = new Date();
+	Entity comment = new Entity("Comment", idKey);
+	comment.setProperty("user", userService.getCurrentUser());
+	comment.setProperty("comment", content);
+	comment.setProperty("date", date);
+	datastoreService.put(comment);
+
+	   
+	return content;
+  }
+  
+
+
+@GET
+@Path("/{url}/{id}/comments")
+@Produces(MediaType.APPLICATION_JSON)
+public CommentListResponse getComments(@PathParam("url") final String url, @PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
+    Exception {
+		  List<Comment> comments = new ArrayList<Comment>();
+		  List<Entity> commentEntities = new ArrayList<Entity>();
+		  Long longId = Long.parseLong(id); 
+		  Key urlKey = KeyFactory.createKey("URL", url);
+		  Key idKey = KeyFactory.createKey(urlKey, "Gist", longId);
+		  
+		  commentEntities = getGistComments(idKey, cursor);
+		  
+		  for (Entity comment : commentEntities) {
+		      comments.add(Comment.fromEntity(comment));
+		    }
+		  
+		  return new CommentListResponse(null, comments, null, null);
+}
 }

@@ -24,20 +24,20 @@ import java.util.List;
  * Date: 4/8/13
  * Time: 11:43 AM
  */
-public class GistListResponse {
+public class CommentListResponse {
 
   private final String url;
 
-  private final List<Gist> gists;
+  private final List<Comment> comments;
 
   private final UserServiceInfo userServiceInfo;
   
   private final String nextCursor;
   
-  public GistListResponse(String url, List<Gist> gists,
+  public CommentListResponse(String url, List<Comment> comments,
                            UserServiceInfo userServiceInfo, String nextCursor) {
     this.url = url;
-    this.gists = gists;
+    this.comments = comments;
     this.userServiceInfo = userServiceInfo;
     this.nextCursor = nextCursor;
   }
@@ -46,8 +46,8 @@ public class GistListResponse {
     return url;
   }
 
-  public List<Gist> getGists() {
-    return gists;
+  public List<Comment> getComments() {
+    return comments;
   }
 
   public UserServiceInfo getUserServiceInfo() {
