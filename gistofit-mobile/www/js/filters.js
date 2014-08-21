@@ -18,7 +18,7 @@
 
 /* Filters */
 
-angular.module('guestbook.filters', [])
+angular.module('gistofit.filters', [])
 .filter('nl2br', function(){
   return function(text) {
     return text.replace(/\n/g, '<br>');

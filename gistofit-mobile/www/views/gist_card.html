@@ -1,10 +1,6 @@
-<script type="text/ons-template" id="{{gist.id}}.html">
-<div>
-This is {{gist.id}} extract content
-</div>
-}
-</script>
-
+<div class="content-text">
+    <p>{{gist.content}} #gistofit </p>
+    <!-- gist-card url="{{ gist.url }}"></gist-card -->
 
 <div class="gist_card">
     <open-external url=url exit="closeBrowser()" 
@@ -16,8 +12,26 @@ This is {{gist.id}} extract content
       <h4 >{{ extract.title }}</h4>
       <span>{{ extract.description}}</span>
       <br/><span>{{url | domain}}</span>
-      <button ng-click="load_more(gist.id)" class="button--quiet">More</button>
+      <button ng-click="load_more(extract)" class="button--quiet">More</button>
       <div id="extract-content" ng-show="more" ng-bind-html="extract.content">
       </div>
 </div>
-<p>{{likes}} likes &nbsp; 3 comments</p>
+<p>{{gist.likes}} likes &nbsp; <span ng-click="load_comments(gist.url, gist.id);" >{{gist.comments}} comments</span></p>
+
+<div class="content-controller" style="text-align:center;">
+<button ng-click="likeGist(gist.url, gist.id)" class="toolbar-button button-bar-item">
+  <i class="fa fa-thumbs-o-up"></i>&nbsp;Like
+</button>
+<form ng-submit="submit_comment_form()" ng-show="commentIt">
+  Gist of it:<br>
+  <textarea name="comment" rows="5" cols="100" ng-model="gist_form.comment"></textarea><br>
+  <input class="button form" type="submit" value="Submit" name="submit">
+</form>
+<button ng-click="commentIt = !commentIt;" class="toolbar-button button-bar-item">
+  <i class="fa fa-comment"></i>&nbsp;Comment
+</button>
+<button class="toolbar-button button-bar-item">
+  <i class="fa fa-share"></i>&nbsp;Share
+</button>
+</div>
+</div>

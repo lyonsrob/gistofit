@@ -2,7 +2,7 @@
  * Created by Ariel Mashraki
  */
 
-function commenterDirective($timeout, gistService) {
+function commenterDirective($timeout, GistofitService) {
   return {
     restrict:'E',
     templateUrl: 'views/commenter.html',
@@ -25,18 +25,6 @@ function commenterDirective($timeout, gistService) {
         action(val);
         scope.toggle();
       };
-
-      scope.$watch('child.name', function(newUserName) {
-        if(newUserName) {
-          if(timeout) $timeout.cancel(timeout);
-          timeout = $timeout(function() {
-            githubService.fetchUsers(newUserName)
-              .success(function(res) {
-                scope.items = res.data['items'] || [];
-              });
-          }, 300)
-        }
-      });
 
     }//end linkFn
   }

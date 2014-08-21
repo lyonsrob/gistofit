@@ -1,11 +1,6 @@
 <div class="commenter-container panel-body">
   <form name="form" ng-submit="action(child)" class="form-inline" ng-hide="toggled">
     <div class="form-group">
-      <input ng-model="child.name" class="form-control" placeholder="github username"
-             ng-keydown="selected=false" type="text" required />
-      <typeahead class="typeahead" model="items" prompt="Start typing a US state" />
-    </div>
-    <div class="form-group">
       <textarea ng-model="child.text" value="your comment.." class="form-control" rows="1"
                 ng-minlength="5" required></textarea>
     </div>

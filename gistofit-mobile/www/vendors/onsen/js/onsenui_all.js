@@ -1,4 +1,4 @@
-/*! onsenui - v1.1.0 - 2014-07-22 */
+/*! onsenui - v1.1.2 - 2014-08-20 */
 /**
  * @license AngularJS v1.2.10
  * (c) 2010-2014 Google, Inc. http://angularjs.org
@@ -6604,6 +6604,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
     }
   }];
 }
+$CompileProvider.$inject = ['$provide', '$$sanitizeUriProvider'];
 
 var PREFIX_REGEXP = /^(x[\:\-_]|data[\:\-_])/i;
 /**
@@ -23720,7 +23721,7 @@ MicroEvent.prototype  = {
   once : function(event, fct){
     var self = this;
     var wrapper = function() {
-      self.off(wrapper);
+      self.off(event, wrapper);
       return fct.apply(null, arguments);
     };
     this.on(event, wrapper);
@@ -24244,30 +24245,6 @@ window.Modernizr = (function( window, document, undefined ) {
 (function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}})(this,document);
 Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0));};
 ;
-(function() {
-    var lastTime = 0;
-    var vendors = ['webkit', 'moz'];
-    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-        window.cancelAnimationFrame =
-          window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
-    }
-
-    if (!window.requestAnimationFrame)
-        window.requestAnimationFrame = function(callback, element) {
-            var currTime = new Date().getTime();
-            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-            var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-              timeToCall);
-            lastTime = currTime + timeToCall;
-            return id;
-        };
-
-    if (!window.cancelAnimationFrame)
-        window.cancelAnimationFrame = function(id) {
-            clearTimeout(id);
-        };
-}());
 /*
 Copyright (c) 2012 Barnesandnoble.com, llc, Donavon West, and Domenic Denicola
 
@@ -24542,7 +24519,7 @@ catch(err) { app = angular.module("templates-main", []); }
 app.run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("templates/back_button.tpl",
-    "<span class=\"icon-button--quiet {{modifierTemplater('icon-button--quiet--*')}}\" ng-click=\"$root.ons.getDirectiveObject('ons-navigator', $event).popPage()\" style=\"height: 44px; line-height: 0; padding: 0; position: relative;\">\n" +
+    "<span class=\"toolbar-button--quiet {{modifierTemplater('toolbar-button--quiet--*')}}\" ng-click=\"$root.ons.findParentComponentUntil('ons-navigator', $event).popPage()\" style=\"height: 44px; line-height: 0; padding: 0; position: relative;\">\n" +
     "  <i class=\"fa fa-angle-left ons-back-button__icon\" style=\"vertical-align: top; line-height: 44px; font-size: 36px; padding-left: 8px; padding-right: 4px; height: 44px; width: 14px;\"></i><span style=\"vertical-align: top; display: inline-block; line-height: 44px; height: 44px;\" class=\"back-button__label\"></span>\n" +
     "</span>\n" +
     "");
@@ -24555,10 +24532,8 @@ catch(err) { app = angular.module("templates-main", []); }
 app.run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("templates/button.tpl",
-    "<button class=\"{{item.animation}} button--{{onsType}} effeckt-button button no-select {{modifierTemplater('button--*')}}\">\n" +
-    "  <span class=\"label ons-button-inner\" ng-transclude></span>\n" +
-    "  <span class=\"spinner button__spinner {{modifierTemplater('button--*__spinner')}}\"></span>\n" +
-    "</button>\n" +
+    "<span class=\"label ons-button-inner\"></span>\n" +
+    "<span class=\"spinner button__spinner {{modifierTemplater('button--*__spinner')}}\"></span>\n" +
     "");
 }]);
 })();
@@ -24592,17 +24567,6 @@ app.run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("templates/screen.tpl",
     "<div class=\"ons-screen\"></div>\n" +
-    "");
-}]);
-})();
-
-(function(module) {
-try { app = angular.module("templates-main"); }
-catch(err) { app = angular.module("templates-main", []); }
-app.run(["$templateCache", function($templateCache) {
-  "use strict";
-  $templateCache.put("templates/scroller.tpl",
-    "<div class=\"ons-scroller__content ons-scroller-inner\" ng-transclude></div>\n" +
     "");
 }]);
 })();
@@ -24652,7 +24616,7 @@ app.run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("templates/tab_bar.tpl",
     "<div style=\"margin-bottom: {{tabbarHeight}}\" class=\"ons-tab-bar__content\"></div>\n" +
-    "<div ng-hide=\"hideTabs\" class=\"tab-bar ons-tab-bar__footer {{modifierTemplater('tab-bar--*')}} ons-tabbar-inner\" ng-transclude></div>\n" +
+    "<div ng-hide=\"hideTabs\" class=\"tab-bar ons-tab-bar__footer {{modifierTemplater('tab-bar--*')}} ons-tabbar-inner\"></div>\n" +
     "");
 }]);
 })();
@@ -24664,10 +24628,10 @@ app.run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("templates/tab_bar_item.tpl",
     "<label class=\"tab-bar__item {{tabbarModifierTemplater('tab-bar--*__item')}} {{modifierTemplater('tab-bar__item--*')}}\">\n" +
-    "  <input type=\"radio\" name=\"tab-bar-{{tabbarId}}\" ng-click=\"setActive()\">\n" +
-    "  <button class=\"tab-bar__button {{tabbarModifierTemplater('tab-bar--*__button')}} {{modifierTemplater('tab-bar__button--*')}}\" ng-click=\"setActive()\">\n" +
-    "    <i ng-show=\"icon != undefined\" class=\"tab-bar__icon fa fa-2x fa-{{tabIcon}} {{tabIcon}}\"></i>\n" +
-    "    <div class=\"tab-bar__label\">{{label}}</div>\n" +
+    "  <input type=\"radio\" name=\"tab-bar-{{tabbarId}}\" style=\"display: none\">\n" +
+    "  <button class=\"tab-bar__button {{tabbarModifierTemplater('tab-bar--*__button')}} {{modifierTemplater('tab-bar__button--*')}}\" ng-click=\"tryToChange()\">\n" +
+    "    <div ng-if=\"icon != undefined\" class=\"tab-bar__icon\"><ons-icon icon=\"{{tabIcon}}\" style=\"font-size: 28px; line-height: 34px; vertical-align: top;\"></ons-icon></div>\n" +
+    "    <div ng-if=\"label\" class=\"tab-bar__label\">{{label}}</div>\n" +
     "  </button>\n" +
     "</label>\n" +
     "");
@@ -24680,7 +24644,7 @@ catch(err) { app = angular.module("templates-main", []); }
 app.run(["$templateCache", function($templateCache) {
   "use strict";
   $templateCache.put("templates/toolbar_button.tpl",
-    "<span class=\"icon-button--quiet {{modifierTemplater('icon-button--quiet--*')}} navigation-bar__line-height\" ng-transclude></span>\n" +
+    "<span class=\"toolbar-button {{modifierTemplater('toolbar-button--quiet--*')}} navigation-bar__line-height\" ng-transclude></span>\n" +
     "");
 }]);
 })();
@@ -24810,50 +24774,14 @@ limitations under the License.
   'use strict';
 
   var module = angular.module('onsen', ['templates-main']);
-
-  var readyLock = new DoorLock();
-
-  var unlockOnsenUI = readyLock.lock();
-
-  // for BC
-  angular.module('onsen.directives', ['onsen']);
-
-  var onsenService;
-  module.run(function($compile, $rootScope, $onsen) {
-    onsenService = $onsen;
-
-    $rootScope.ons = window.ons;
-    $rootScope.console = window.console;
-    $rootScope.alert = window.alert;
-
-    ons.$compile = $compile;
-    $rootScope.$on('$ons-ready', function() {
-      unlockOnsenUI();
-    });
-
-    // for initialization hook.
-    if (document.readyState === 'loading' || document.readyState == 'uninitialized') {
-      angular.element(document.body).on('DOMContentLoaded', function() {
-        var dom = document.createElement('ons-dummy-for-init');
-        document.body.appendChild(dom);
-      });
-    } else if (document.body) {
-      var dom = document.createElement('ons-dummy-for-init');
-      document.body.appendChild(dom);
-    } else {
-      throw new Error('Invalid initialization state.');
-    }
-
-    if (document.body) {
-      angular.element(document.body).attr('ng-cloak', 'ng-cloak');
-    }
-
-  });
+  angular.module('onsen.directives', ['onsen']); // for BC
 
   // JS Global facade for Onsen UI.
   var ons = window.ons = {
 
-    _readyLock: readyLock,
+    _readyLock: new DoorLock(),
+
+    _onsenService: null,
 
     _unlockersDict: {},
 
@@ -24861,26 +24789,30 @@ limitations under the License.
      * Bootstrap this document as a Onsen UI application.
      *
      * If you want use your AngularJS module, use "ng-app" directive and "angular.module()" manually.
+     *
+     * @param {Array} [deps] dependency modules
      */
-    bootstrap : function() {
+    bootstrap : function(deps) {
+      deps = ['onsen'].concat(angular.isArray(deps) ? deps : []);
+
       var doc = window.document;
       if (doc.readyState == 'loading' || doc.readyState == 'uninitialized') {
         doc.addEventListener('DOMContentLoaded', function() {
-          angular.bootstrap(doc.documentElement, ['onsen']);
+          angular.bootstrap(doc.documentElement, deps);
         }, false);
       } else if (doc.documentElement) {
-        angular.bootstrap(doc.documentElement, ['onsen']);
+        angular.bootstrap(doc.documentElement, deps);
       } else {
         throw new Error('Invalid state');
       }
     },
 
     /**
-     * @param {String} name
+     * @param {String} [name]
      * @param {Object/jqLite/HTMLElement} dom $event object or jqLite object or HTMLElement object.
      * @return {Object}
      */
-    getDirectiveObject: function(name, dom) {
+    findParentComponentUntil: function(name, dom) {
       var element;
       if (dom instanceof HTMLElement) {
         element = angular.element(dom);
@@ -24894,10 +24826,43 @@ limitations under the License.
     },
 
     /**
+     * @param {Function} listener
+     */
+    setDefaultDeviceBackButtonListener: function(listener) {
+      this._getOnsenService().getDefaultDeviceBackButtonHandler().setListener(listener);
+    },
+
+    /**
+     * Disable this framework to handle cordova "backbutton" event.
+     */
+    disableDeviceBackButtonHandler: function() {
+      this._getOnsenService().DeviceBackButtonHandler.disable();
+    },
+
+    /**
+     * Enable this framework to handle cordova "backbutton" event.
+     */
+    enableDeviceBackButtonHandler: function() {
+      this._getOnsenService().DeviceBackButtonHandler.enable();
+    },
+
+    /**
+     * Find view object correspond dom element queried by CSS selector.
+     *
+     * @param {String} selector CSS selector
+     * @param {HTMLElement} [dom]
+     * @return {Object/void}
+     */
+    findComponent: function(selector, dom) {
+      var target = (dom ? dom : document).querySelector(selector);
+      return target ? angular.element(target).data(target.nodeName.toLowerCase()) || null : null;
+    },
+
+    /**
      * @return {Boolean}
      */
     isReady: function() {
-      return !readyLock.isLocked();
+      return !ons._readyLock.isLocked();
     },
 
     /**
@@ -24920,19 +24885,12 @@ limitations under the License.
       ons.$compile(dom)(scope);
     },
 
-    /**
-     * @return {BackButtonHandlerStack}
-     */
-    getBackButtonHandlerStack: function() {
-      return this._getOnsenService().backButtonHandlerStack;
-    },
-
     _getOnsenService: function() {
-      if (!onsenService) {
+      if (!this._onsenService) {
         throw new Error('$onsen is not loaded, wait for ons.ready().');
       }
 
-      return onsenService;
+      return this._onsenService;
     },
 
     /**
@@ -24944,7 +24902,7 @@ limitations under the License.
         if (ons.isReady()) {
           callback();
         } else {
-          readyLock.waitUnlock(callback);
+          ons._readyLock.waitUnlock(callback);
         }
       } else if (angular.isArray(callback) && arguments[1] instanceof Function) {
         var dependencies = callback;
@@ -24970,15 +24928,50 @@ limitations under the License.
     }
   };
 
+  waitDeviceReady();
+  waitOnsenUILoad();
+  init();
 
-  var unlockDeviceReady = readyLock.lock();
-  window.addEventListener('DOMContentLoaded', function() {
-    if (ons.isWebView()) {
-      window.document.addEventListener('deviceready', unlockDeviceReady, false);
-    } else {
-      unlockDeviceReady();
-    }
-  }, false);
+  function waitDeviceReady() {
+    var unlockDeviceReady = ons._readyLock.lock();
+    window.addEventListener('DOMContentLoaded', function() {
+      if (ons.isWebView()) {
+        window.document.addEventListener('deviceready', unlockDeviceReady, false);
+      } else {
+        unlockDeviceReady();
+      }
+    }, false);
+  }
+
+  function waitOnsenUILoad() {
+    var unlockOnsenUI = ons._readyLock.lock();
+    module.run(['$compile', '$rootScope', '$onsen', function($compile, $rootScope, $onsen) {
+      // for initialization hook.
+      if (document.readyState === 'loading' || document.readyState == 'uninitialized') {
+        window.addEventListener('DOMContentLoaded', function() {
+          document.body.appendChild(document.createElement('ons-dummy-for-init'));
+        });
+      } else if (document.body) {
+        document.body.appendChild(document.createElement('ons-dummy-for-init'));
+      } else {
+        throw new Error('Invalid initialization state.');
+      }
+
+      $rootScope.$on('$ons-ready', unlockOnsenUI);
+    }]);
+  }
+
+  function init() {
+    module.run(['$compile', '$rootScope', '$onsen', function($compile, $rootScope, $onsen) {
+      ons._onsenService = $onsen;
+
+      $rootScope.ons = window.ons;
+      $rootScope.console = window.console;
+      $rootScope.alert = window.alert;
+
+      ons.$compile = $compile;
+    }]);
+  }
 
 })();
 
@@ -25004,7 +24997,7 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  module.factory('FadeTransitionAnimator', function(NavigatorTransitionAnimator) {
+  module.factory('FadeTransitionAnimator', ['NavigatorTransitionAnimator', function(NavigatorTransitionAnimator) {
 
     /**
      * Fade-in screen transition.
@@ -25020,7 +25013,7 @@ limitations under the License.
 
         animit.runAll(
 
-          animit(enterPage.controller.getContentElement())
+          animit(enterPage.getPageView().getContentElement())
             .queue({
               css: {
                 transform: 'translate3D(0, 0, 0)',
@@ -25042,7 +25035,7 @@ limitations under the License.
               done();
             }),
 
-          animit(enterPage.controller.getToolbarElement())
+          animit(enterPage.getPageView().getToolbarElement())
             .queue({
               css: {
                 transform: 'translate3D(0, 0, 0)',
@@ -25071,7 +25064,7 @@ limitations under the License.
       pop: function(enterPage, leavePage, callback) {
         animit.runAll(
 
-          animit(leavePage.controller.getContentElement())
+          animit(leavePage.getPageView().getContentElement())
             .queue({
               css: {
                 transform: 'translate3D(0, 0, 0)',
@@ -25092,7 +25085,7 @@ limitations under the License.
               done();
             }),
 
-          animit(leavePage.controller.getToolbarElement())
+          animit(leavePage.getPageView().getToolbarElement())
             .queue({
               css: {
                 transform: 'translate3D(0, 0, 0)',
@@ -25114,7 +25107,7 @@ limitations under the License.
     });
 
     return FadeTransitionAnimator;
-  });
+  }]);
 
 })();
 
@@ -25140,10 +25133,7 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  /**
-   * Fade-in screen transition.
-   */
-  module.factory('IOSSlideTransitionAnimator', function(NavigatorTransitionAnimator) {
+  module.factory('IOSSlideTransitionAnimator', ['NavigatorTransitionAnimator', 'PageView', function(NavigatorTransitionAnimator, PageView) {
 
     /**
      * Slide animator for navigator transition like iOS's screen slide transition.
@@ -25159,8 +25149,8 @@ limitations under the License.
       _decompose: function(page) {
         var elements = [];
 
-        var left = page.controller.getToolbarLeftItemsElement();
-        var right = page.controller.getToolbarRightItemsElement();
+        var left = page.getPageView().getToolbarLeftItemsElement();
+        var right = page.getPageView().getToolbarRightItemsElement();
 
         var other = []
           .concat(left.children.length === 0 ? left : excludeBackButtonLabel(left.children))
@@ -25168,16 +25158,16 @@ limitations under the License.
 
 
         var pageLabels = [
-          page.controller.getToolbarCenterItemsElement(),
-          page.controller.getToolbarBackButtonLabelElement()
+          page.getPageView().getToolbarCenterItemsElement(),
+          page.getPageView().getToolbarBackButtonLabelElement()
         ];
 
         return {
           pageLabels: pageLabels,
           other: other,
-          content: page.controller.getContentElement(),
-          toolbar: page.controller.getToolbarElement(),
-          bottomToolbar: page.controller.getBottomToolbarElement()
+          content: page.getPageView().getContentElement(),
+          toolbar: page.getPageView().getToolbarElement(),
+          bottomToolbar: page.getPageView().getBottomToolbarElement()
         };
 
         function excludeBackButtonLabel(elements) {
@@ -25230,12 +25220,12 @@ limitations under the License.
           });
 
         var bothPageHasToolbar =
-          enterPage.controller.hasToolbarElement() &&
-          leavePage.controller.hasToolbarElement();
+          enterPage.getPageView().hasToolbarElement() &&
+          leavePage.getPageView().hasToolbarElement();
 
         var isToolbarNothing = 
-          !enterPage.controller.hasToolbarElement() &&
-          !leavePage.controller.hasToolbarElement();
+          !enterPage.getPageView().hasToolbarElement() &&
+          !leavePage.getPageView().hasToolbarElement();
 
         if (bothPageHasToolbar) {
           animit.runAll(
@@ -25271,7 +25261,6 @@ limitations under the License.
               .resetStyle({
                 duration: 0.1,
                 transition:
-                  'background 0.1s linear, ' +
                   'background-color 0.1s linear, ' + 
                   'border-color 0.1s linear'
               }),
@@ -25440,12 +25429,12 @@ limitations under the License.
 
 
         var bothPageHasToolbar =
-          enterPage.controller.hasToolbarElement() &&
-          leavePage.controller.hasToolbarElement();
+          enterPage.getPageView().hasToolbarElement() &&
+          leavePage.getPageView().hasToolbarElement();
 
         var isToolbarNothing = 
-          !enterPage.controller.hasToolbarElement() &&
-          !leavePage.controller.hasToolbarElement();
+          !enterPage.getPageView().hasToolbarElement() &&
+          !leavePage.getPageView().hasToolbarElement();
 
         if (bothPageHasToolbar || isToolbarNothing) {
           animit.runAll(
@@ -25630,7 +25619,7 @@ limitations under the License.
     });
 
     return IOSSlideTransitionAnimator;
-  });
+  }]);
 
 })();
 
@@ -25656,7 +25645,7 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  module.factory('LiftTransitionAnimator', function(NavigatorTransitionAnimator) {
+  module.factory('LiftTransitionAnimator', ['NavigatorTransitionAnimator', function(NavigatorTransitionAnimator) {
 
     /**
      * Lift screen transition.
@@ -25791,7 +25780,7 @@ limitations under the License.
     });
 
     return LiftTransitionAnimator;
-  });
+  }]);
 
 })();
 
@@ -25818,7 +25807,151 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  module.factory('NavigatorView', function($http, $parse, $templateCache, $compile, $onsen,
+  module.factory('ModalView', ['$onsen', function($onsen) {
+
+    var ModalView = Class.extend({
+      _element: undefined,
+      _scope: undefined,
+
+      /**
+       * @param {Object} scope
+       * @param {jqLite} element
+       */
+      init: function(scope, element) {
+        this._scope = scope;
+        this._element = element;
+
+        this._scope.$on('$destroy', this._destroy.bind(this));
+        this._deviceBackButtonHandler = $onsen.DeviceBackButtonHandler.create(this._element, this._onDeviceBackButton.bind(this));
+
+        this.hide();
+      },
+
+      getDeviceBackButtonHandler: function() {
+        return this._deviceBackButtonHandler;
+      },
+
+      /**
+       * Show modal view.
+       */
+      show: function() {
+        this._element.css('display', 'table');
+      },
+
+      _isVisible: function() {
+        return this._element[0].clientWidth > 0;
+      },
+
+      _onDeviceBackButton: function() {
+        // Do nothing and stop device-backbutton handler chain.
+        return;
+      },
+
+      /**
+       * Hide modal view.
+       */
+      hide: function() {
+        this._element.css('display', 'none');
+      },
+
+      /**
+       * Toggle modal view visibility.
+       */
+      toggle: function() {
+        if (this._isVisible()) {
+          return this.hide.apply(this, arguments);
+        } else {
+          return this.show.apply(this, arguments);
+        }
+      },
+
+      _destroy: function() {
+        this.emit('destroy', {page: this});
+
+        this._deviceBackButtonHandler.destroy();
+
+        this._element = this._scope = null;
+      }
+    });
+    MicroEvent.mixin(ModalView);
+
+    return ModalView;
+  }]);
+})();
+
+
+/*
+Copyright 2013-2014 ASIAL CORPORATION
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+*/
+
+(function() {
+  'use strict;';
+
+  var module = angular.module('onsen');
+
+  var NavigatorPageObject = Class.extend({
+    /**
+     * @param {Object} params
+     * @param {Object} params.page
+     * @param {Object} params.element
+     * @param {Object} params.pageScope
+     * @param {Object} params.options
+     * @param {Object} params.navigator
+     */
+    init: function(params) {
+      this.page = params.page;
+      this.name = params.page;
+      this.element = params.element;
+      this.pageScope = params.pageScope;
+      this.options = params.options;
+      this.navigator = params.navigator;
+    },
+
+    /**
+     * @return {PageView}
+     */
+    getPageView: function() {
+      if (!this._pageView) {
+        this._pageView = this.element.inheritedData('ons-page');
+        if (!this._pageView) {
+          throw new Error('Fail to fetch PageView from ons-page element.');
+        }
+      }
+      return this._pageView;
+    },
+
+    destroy: function() {
+      this.pageScope.$destroy();
+
+      this.element.remove();
+      this._pageView = null;
+      this.element = null;
+      this.pageScope = null;
+      this.options = null;
+
+      var index = this.navigator.pages.indexOf(this);
+      if (index !== -1) {
+        this.navigator.pages.splice(index, 1);
+      }
+
+      this.navigator = null;
+    }
+  });
+
+  module.factory('NavigatorView', ['$http', '$parse', '$templateCache', '$compile', '$onsen', '$timeout', 'SimpleSlideTransitionAnimator', 'NavigatorTransitionAnimator', 'LiftTransitionAnimator', 'NullTransitionAnimator', 'IOSSlideTransitionAnimator', 'FadeTransitionAnimator', function($http, $parse, $templateCache, $compile, $onsen, $timeout,
     SimpleSlideTransitionAnimator, NavigatorTransitionAnimator, LiftTransitionAnimator,
     NullTransitionAnimator, IOSSlideTransitionAnimator, FadeTransitionAnimator) {
 
@@ -25867,7 +26000,7 @@ limitations under the License.
         this._doorLock = new DoorLock();
         this.pages = [];
 
-        this._backButtonHandler = $onsen.backButtonHandlerStack.push(this._onBackButton.bind(this));
+        this._deviceBackButtonHandler = $onsen.DeviceBackButtonHandler.create(this._element, this._onDeviceBackButton.bind(this));
         this._scope.$on('$destroy', this._destroy.bind(this));
       },
 
@@ -25878,17 +26011,16 @@ limitations under the License.
           page.destroy();
         });
 
-        this._backButtonHandler.remove();
-        this._backButtonHandler = null;
+        this._deviceBackButtonHandler.destroy();
+        this._deviceBackButtonHandler = null;
       },
 
-      _onBackButton: function() {
+      _onDeviceBackButton: function(event) {
         if (this.pages.length > 1) {
           this.popPage();
-          return true;
+        } else {
+          event.callParentHandler();
         }
-
-        return false;
       },
 
       /**
@@ -25903,6 +26035,107 @@ limitations under the License.
         }
 
         throw new Error('invalid state');
+      },
+
+
+      _createPageElementAndLinkFunction : function(templateHTML, pageScope, done) {
+        var div = document.createElement('div');
+        div.innerHTML = templateHTML.trim();
+        var pageElement = angular.element(div);
+
+        var hasPage = div.childElementCount === 1 &&
+          div.childNodes[0].nodeName.toLowerCase() === 'ons-page';
+        if (hasPage) {
+          pageElement = angular.element(div.childNodes[0]);
+        } else {
+          throw new Error('You can not supply no "ons-page" element to "ons-navigator".');
+        }
+
+        var link = $compile(pageElement);
+        return {
+          element: pageElement,
+          link: function() {
+            link(pageScope);
+            safeApply(pageScope);
+          }
+        };
+
+        function safeApply(scope) {
+          var phase = scope.$root.$$phase;
+          if (phase !== '$apply' && phase !== '$digest') {
+            scope.$apply();
+          }
+        }
+      },
+
+      /**
+       * Insert page object that has the specified pageUrl into the page stack and
+       * if options object is specified, apply the options.
+       *
+       * @param {Number} index
+       * @param {String} page
+       * @param {Object} [options]
+       * @param {String/NavigatorTransitionAnimator} [options.animation]
+       */
+      insertPage: function(index, page, options) {
+        options = options || {};
+
+        if (options && typeof options != 'object') {
+          throw new Error('options must be an object. You supplied ' + options);
+        }
+
+        if (this.pages.length === 0) {
+          return this.pushPage.apply(this, arguments);
+        }
+
+        this._doorLock.waitUnlock(function() {
+          var unlock = this._doorLock.lock();
+
+          $onsen.getPageHTMLAsync(page).then(function(templateHTML) {
+
+            var pageScope = this._createPageScope();
+            var object = this._createPageElementAndLinkFunction(templateHTML, pageScope);
+            var element = object.element;
+            var link = object.link;
+
+            element = this._normalizePageElement(element);
+
+            var pageObject = this._createPageObject(page, element, pageScope, options);
+
+            if (this.pages.length > 0) {
+              index = normalizeIndex(index);
+
+              this._element[0].insertBefore(element[0], this.pages[index] ? this.pages[index].element[0] : null);
+              this.pages.splice(index, 0, pageObject);
+              link();
+
+              setTimeout(function() {
+                if (this.getCurrentPage() !== pageObject) {
+                  element.css('display', 'none');
+                }
+                unlock();
+                element = null;
+              }.bind(this), 1000 / 60);
+
+            } else {
+              this._element.append(element);
+              this.pages.push(pageObject);
+              link();
+              unlock();
+              element = null;
+            }
+          }.bind(this), function() {
+            unlock();
+            throw new Error('Page is not found: ' + page);
+          });
+        }.bind(this));
+
+        var normalizeIndex = function(index) {
+          if (index < 0) {
+            index = this.pages.length + index;
+          }
+          return index;
+        }.bind(this);
       },
 
       /**
@@ -25922,80 +26155,72 @@ limitations under the License.
         options = options || {};
 
         if (options && typeof options != 'object') {
-          throw new Error('options must be an objected. You supplied ' + options);
+          throw new Error('options must be an object. You supplied ' + options);
         }
 
         if (this._emitPrePushEvent()) {
           return;
         }
 
-        options.animator = getAnimatorOption();
-
-        var self = this;
         this._doorLock.waitUnlock(function() {
-          var unlock = self._doorLock.lock();
-          var done = function() {
-            unlock();
-            if (self._profiling) {
-              console.timeEnd('pushPage');
-            }
-          };
+          this._pushPage(page, options);
+        }.bind(this));
+      },
 
-          $onsen.getPageHTMLAsync(page).then(function(templateHTML) {
-            var pageScope = self._createPageScope();
-            var pageElement = createPageElement(templateHTML, pageScope);
-
-            setImmediate(function() {
-              self._pushPageDOM(page, pageElement, pageScope, options, done);
-            });
-
-          }, function() {
-            unlock();
-            if (self._profiling) {
-              console.timeEnd('pushPage');
-            }
-            throw new Error('Page is not found: ' + page);
-          });
-        });
-
-        function createPageElement(templateHTML, pageScope, done) {
-          var div = document.createElement('div');
-          div.innerHTML = templateHTML.trim();
-          var pageElement = angular.element(div);
-
-          var hasPage = div.childElementCount === 1 &&
-            div.childNodes[0].nodeName.toLowerCase() === 'ons-page';
-          if (hasPage) {
-            pageElement = angular.element(div.childNodes[0]);
-          } else {
-            throw new Error('You can not supply no "ons-page" element to "ons-navigator".');
+      _pushPage: function(page, options) {
+        var unlock = this._doorLock.lock();
+        var done = function() {
+          unlock();
+          if (this._profiling) {
+            console.timeEnd('pushPage');
           }
+        };
 
-          var element = $compile(pageElement)(pageScope);
-          return element;
+        $onsen.getPageHTMLAsync(page).then(function(templateHTML) {
+          var pageScope = this._createPageScope();
+          var object = this._createPageElementAndLinkFunction(templateHTML, pageScope);
+
+          setImmediate(function() {
+            this._pushPageDOM(page, object.element, object.link, pageScope, options, done);
+            object = null;
+          }.bind(this));
+        }.bind(this), function() {
+          done();
+          throw new Error('Page is not found: ' + page);
+        }.bind(this));
+      },
+
+      getDeviceBackButtonHandler: function() {
+        return this._deviceBackButtonHandler;
+      },
+
+      /**
+       * @param {Object} options pushPage()'s options parameter
+       */
+      _getAnimatorOption: function(options) {
+        var animator = null;
+
+        if (options.animation instanceof NavigatorTransitionAnimator) {
+          return options.animation;
         }
 
-        function getAnimatorOption() {
-          var animator = null;
-
-          if (options.animation instanceof NavigatorTransitionAnimator) {
-            return options.animation;
-          }
-
-          if (typeof options.animation === 'string') {
-            animator = NavigatorView._transitionAnimatorDict[options.animation];
-          }
-
-          if (!animator) {
-            animator = NavigatorView._transitionAnimatorDict['default'];
-          }
-
-          if (!(animator instanceof NavigatorTransitionAnimator)) {
-            throw new Error('"animator" is not an instance of NavigatorTransitionAnimator.');
-          }
-
-          return animator;
+        if (typeof options.animation === 'string') {
+          animator = NavigatorView._transitionAnimatorDict[options.animation];
         }
+
+        if (!animator && this._element.attr('animation')) {
+          animator = NavigatorView._transitionAnimatorDict[this._element.attr('animation')];
+        }
+
+        if (!animator) {
+          animator = NavigatorView._transitionAnimatorDict['default'];
+        }
+
+        if (!(animator instanceof NavigatorTransitionAnimator)) {
+          throw new Error('"animator" is not an instance of NavigatorTransitionAnimator.');
+        }
+
+        return animator;
       },
 
 
@@ -26004,49 +26229,41 @@ limitations under the License.
       },
 
       /**
+       * @param {String} page
+       * @param {jqLite} element
+       * @param {Object} pageScope
+       * @param {Object} options
+       */
+      _createPageObject: function(page, element, pageScope, options) {
+        options.animator = this._getAnimatorOption(options);
+
+        return new NavigatorPageObject({
+          page: page,
+          element: element,
+          pageScope: pageScope,
+          options: options,
+          navigator: this
+        });
+      },
+
+      /**
        * @param {String} page Page name.
-       * @param {Object} element Compiled page element.
+       * @param {Object} element
+       * @param {Function} link
        * @param {Object} pageScope
        * @param {Object} options
        * @param {Function} [unlock]
        */
-      _pushPageDOM: function(page, element, pageScope, options, unlock) {
+      _pushPageDOM: function(page, element, link, pageScope, options, unlock) {
         if (this._profiling) {
           console.time('pushPageDOM');
         }
+
         unlock = unlock || function() {};
         options = options || {};
         element = this._normalizePageElement(element);
 
-        var pageController = element.inheritedData('ons-page');
-        if (!pageController) {
-          throw new Error('Fail to fetch $onsPageController.');
-        }
-
-        var self = this;
-
-        var pageObject = {
-          page: page,
-          name: page,
-          element: element,
-          pageScope: pageScope,
-          controller: pageController,
-          options: options,
-          destroy: function() {
-            pageObject.element.remove();
-            pageObject.pageScope.$destroy();
-
-            pageObject.controller = null;
-            pageObject.element = null;
-            pageObject.pageScope = null;
-            pageObject.options = null;
-
-            var index = self.pages.indexOf(this);
-            if (index !== -1) {
-              self.pages.splice(index, 1);
-            }
-          }
-        };
+        var pageObject = this._createPageObject(page, element, pageScope, options);
 
         var event = {
           enterPage: pageObject,
@@ -26057,33 +26274,37 @@ limitations under the License.
         this.pages.push(pageObject);
 
         var done = function() {
-          if (self.pages[self.pages.length - 2]) {
-            self.pages[self.pages.length - 2].element.css('display', 'none');
+          if (this.pages[this.pages.length - 2]) {
+            this.pages[this.pages.length - 2].element.css('display', 'none');
           }
 
-          if (self._profiling) {
+          if (this._profiling) {
             console.timeEnd('pushPageDOM');
           }
 
           unlock();
 
-          self.emit('postpush', event);
+          this.emit('postpush', event);
 
           if (typeof options.onTransitionEnd === 'function') {
             options.onTransitionEnd();
           }
-        };
+          element = null;
+        }.bind(this);
 
         if (this.pages.length > 1) {
           var leavePage = this.pages.slice(-2)[0];
           var enterPage = this.pages.slice(-1)[0];
 
-          options.animator.push(enterPage, leavePage, done);
           this._element.append(element);
-
+          link();
+          options.animator.push(enterPage, leavePage, done);
+          element = null;
         } else {
           this._element.append(element);
+          link();
           done();
+          element = null;
         }
       },
 
@@ -26139,34 +26360,40 @@ limitations under the License.
           return;
         }
 
-        var self = this;
         this._doorLock.waitUnlock(function() {
-          var unlock = self._doorLock.lock();
+          this._popPage(options);
+        }.bind(this));
+      },
 
-          var leavePage = self.pages.pop();
+      _popPage: function(options) {
+        var unlock = this._doorLock.lock();
 
-          if (self.pages[self.pages.length - 1]) {
-            self.pages[self.pages.length - 1].element.css('display', 'block');
+        var leavePage = this.pages.pop();
+
+        if (this.pages[this.pages.length - 1]) {
+          this.pages[this.pages.length - 1].element.css('display', 'block');
+        }
+
+        var enterPage = this.pages[this.pages.length -1];
+
+        var event = {
+          leavePage: leavePage,
+          enterPage: this.pages[this.pages.length - 1],
+          navigator: this
+        };
+
+        var callback = function() {
+          leavePage.destroy();
+          unlock();
+          this.emit('postpop', event);
+          event.leavePage = null;
+
+          if (typeof options.onTransitionEnd === 'function') {
+            options.onTransitionEnd();
           }
+        }.bind(this);
 
-          var enterPage = self.pages[self.pages.length -1];
-
-          var event = {
-            leavePage: leavePage,
-            enterPage: self.pages[self.pages.length - 1],
-            navigator: self
-          };
-
-          var callback = function() {
-            leavePage.destroy();
-            unlock();
-            self.emit('postpop', event);
-            if (typeof options.onTransitionEnd === 'function') {
-              options.onTransitionEnd();
-            }
-          };
-          leavePage.options.animator.pop(enterPage, leavePage, callback);
-        });
+        leavePage.options.animator.pop(enterPage, leavePage, callback);
       },
 
       /**
@@ -26250,7 +26477,7 @@ limitations under the License.
     MicroEvent.mixin(NavigatorView);
 
     return NavigatorView;
-  });
+  }]);
 })();
 
 /*
@@ -26316,10 +26543,10 @@ limitations under the License.
   /**
    * Null animator do screen transition with no animations.
    */
-  module.factory('NullTransitionAnimator', function(NavigatorTransitionAnimator) {
+  module.factory('NullTransitionAnimator', ['NavigatorTransitionAnimator', function(NavigatorTransitionAnimator) {
     var NullTransitionAnimator = NavigatorTransitionAnimator.extend({});
     return NullTransitionAnimator;
-  });
+  }]);
 })();
 
 
@@ -26344,7 +26571,7 @@ limitations under the License.
   'use strict';
   var module = angular.module('onsen');
 
-  module.factory('OverlaySlidingMenuAnimator', function(SlidingMenuAnimator) {
+  module.factory('OverlaySlidingMenuAnimator', ['SlidingMenuAnimator', function(SlidingMenuAnimator) {
 
     var OverlaySlidingMenuAnimator = SlidingMenuAnimator.extend({
 
@@ -26532,9 +26759,11 @@ limitations under the License.
           .queue(menuPageStyle)
           .play();
 
-        animit(this._mainPage[0])
-          .queue(mainPageStyle)
-          .play();
+        if (Object.keys(mainPageStyle).length > 0) {
+          animit(this._mainPage[0])
+            .queue(mainPageStyle)
+            .play();
+        }
       },
 
       _generateMenuPageStyle: function(distance) {
@@ -26564,7 +26793,7 @@ limitations under the License.
     });
 
     return OverlaySlidingMenuAnimator;
-  });
+  }]);
 
 })();
 
@@ -26590,8 +26819,7 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  module.factory('PageView', function($onsen) {
-
+  module.factory('PageView', ['$onsen', '$parse', function($onsen, $parse) {
 
     var PageView = Class.extend({
       _registeredToolbarElement : false,
@@ -26599,13 +26827,13 @@ limitations under the License.
 
       _nullElement : window.document.createElement('div'),
 
-      _toolbarElement : angular.element(this.nullElement),
-      _bottomToolbarElement : angular.element(this.nullElement),
+      _toolbarElement : null,
+      _bottomToolbarElement : null,
 
-      init: function(scope, element) {
-
+      init: function(scope, element, attrs) {
         this._scope = scope;
         this._element = element;
+        this._attrs = attrs;
 
         this._registeredToolbarElement = false;
         this._registeredBottomToolbarElement = false;
@@ -26615,9 +26843,46 @@ limitations under the License.
         this._toolbarElement = angular.element(this._nullElement);
         this._bottomToolbarElement = angular.element(this._nullElement);
 
-        scope.$on('$destroy', function() {
-          this._destroy();
-        }.bind(this));
+        this._clearListener = scope.$on('$destroy', this._destroy.bind(this));
+        this._userDeviceBackButtonListener = angular.noop;
+
+        if (this._attrs.ngDeviceBackbutton || this._attrs.onDeviceBackbutton) {
+          this._deviceBackButtonHandler = $onsen.DeviceBackButtonHandler.create(this._element, this._onDeviceBackButton.bind(this));
+        }
+      },
+
+      _onDeviceBackButton: function($event) {
+        this._userDeviceBackButtonListener($event);
+
+        // ng-device-backbutton
+        if (this._attrs.ngDeviceBackbutton) {
+          $parse(this._attrs.ngDeviceBackbutton)(this._scope, {$event: $event});
+        }
+
+        // on-device-backbutton
+        if (this._attrs.onDeviceBackbutton) {
+          with (window) with ({event: $event}) {
+            eval(this._attrs.onDeviceBackbutton);
+          }
+        }
+      },
+
+      /**
+       * @param {Function} callback
+       */
+      setDeviceBackButtonHandler: function(callback) {
+        if (!this._deviceBackButtonHandler) {
+          this._deviceBackButtonHandler = $onsen.DeviceBackButtonHandler.create(this._element, this._onDeviceBackButton.bind(this));
+        }
+
+        this._userDeviceBackButtonListener = callback;
+      },
+
+      /**
+       * @return {Object/null}
+       */
+      getDeviceBackButtonHandler: function() {
+        return this._deviceBackButtonHandler || null;
       },
 
       /**
@@ -26625,7 +26890,7 @@ limitations under the License.
        *
        * @param {jqLite} element
        */
-      registerToolbar : function(element) {
+      registerToolbar: function(element) {
         if (this._registeredToolbarElement) {
           throw new Error('This page\'s toolbar is already registered.');
         }
@@ -26647,7 +26912,7 @@ limitations under the License.
        *
        * @param {jqLite} element
        */
-      registerBottomToolbar : function(element) {
+      registerBottomToolbar: function(element) {
         if (this._registeredBottomToolbarElement) {
           throw new Error('This page\'s bottom-toolbar is already registered.');
         }
@@ -26663,6 +26928,21 @@ limitations under the License.
 
         this._element.prepend(fill);
         this._element.append(element);
+      },
+
+      /**
+       * @param {jqLite} element
+       */
+      registerExtraElement: function(element) {
+        if (!this._extraElement) {
+          this._extraElement = angular.element('<div></div>');
+          this._extraElement.addClass('page__extra');
+          this._extraElement.css({
+            'z-index': '10001'
+          });
+          this._element.append(this._extraElement);
+        }
+        this._extraElement.append(element.remove());
       },
 
       /**
@@ -26738,15 +27018,26 @@ limitations under the License.
 
       _destroy: function() {
         this.emit('destroy', {page: this});
+
+        if (this._deviceBackButtonHandler) {
+          this._deviceBackButtonHandler.destroy();
+          this._deviceBackButtonHandler = null;
+        }
+
+        this._element = null;
         this._toolbarElement = null;
         this._nullElement = null;
         this._bottomToolbarElement = null;
+        this._extraElement = null;
+        this._scope = null;
+
+        this._clearListener();
       }
     });
     MicroEvent.mixin(PageView);
 
     return PageView;
-  });
+  }]);
 })();
 
 
@@ -26771,7 +27062,7 @@ limitations under the License.
   'use strict';
   var module = angular.module('onsen');
 
-  module.factory('PushSlidingMenuAnimator', function(SlidingMenuAnimator) {
+  module.factory('PushSlidingMenuAnimator', ['SlidingMenuAnimator', function(SlidingMenuAnimator) {
 
     var PushSlidingMenuAnimator = SlidingMenuAnimator.extend({
 
@@ -26978,7 +27269,7 @@ limitations under the License.
     });
 
     return PushSlidingMenuAnimator;
-  });
+  }]);
 
 })();
 
@@ -27003,7 +27294,7 @@ limitations under the License.
   'use strict';
   var module = angular.module('onsen');
 
-  module.factory('RevealSlidingMenuAnimator', function(SlidingMenuAnimator) {
+  module.factory('RevealSlidingMenuAnimator', ['SlidingMenuAnimator', function(SlidingMenuAnimator) {
 
     var RevealSlidingMenuAnimator = SlidingMenuAnimator.extend({
 
@@ -27099,8 +27390,14 @@ limitations under the License.
           this._blackMask = null;
         }
 
-        this._mainPage.removeAttr('style');
-        this._menuPage.removeAttr('style');
+        if (this._mainPage) {
+          this._mainPage.attr('style', '');
+        }
+
+        if (this._menuPage) {
+          this._menuPage.attr('style', '');
+        }
+
         this._mainPage = this._menuPage = this._element = undefined;
       },
 
@@ -27214,9 +27511,11 @@ limitations under the License.
       },
 
       _generateBehindPageStyle: function(distance) {
-        var max = this._menuPage[0].clientWidth;
+        var max = this._menuPage[0].getBoundingClientRect().width;
 
-        var behindDistance = Math.min((distance - max) / max * 10, 0);
+        var behindDistance = (distance - max) / max * 10;
+        behindDistance = isNaN(behindDistance) ? 0 : Math.max(Math.min(behindDistance, 0), -10);
+
         var behindX = this._isRight ? -behindDistance : behindDistance;
         var behindTransform = 'translate3d(' + behindX + '%, 0, 0)';
         var opacity = 1 + behindDistance / 100;
@@ -27233,7 +27532,7 @@ limitations under the License.
     });
 
     return RevealSlidingMenuAnimator;
-  });
+  }]);
 
 })();
 
@@ -27260,7 +27559,7 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  module.factory('SimpleSlideTransitionAnimator', function(NavigatorTransitionAnimator) {
+  module.factory('SimpleSlideTransitionAnimator', ['NavigatorTransitionAnimator', function(NavigatorTransitionAnimator) {
 
     /**
      * Slide animator for navigator transition.
@@ -27421,7 +27720,7 @@ limitations under the License.
     });
 
     return SimpleSlideTransitionAnimator;
-  });
+  }]);
 
 })();
 
@@ -27582,7 +27881,7 @@ limitations under the License.
   MicroEvent.mixin(SlidingMenuViewModel);
 
   var MAIN_PAGE_RATIO = 0.9;
-  module.factory('SlidingMenuView', function($onsen, $compile, SlidingMenuAnimator, RevealSlidingMenuAnimator, 
+  module.factory('SlidingMenuView', ['$onsen', '$compile', 'SlidingMenuAnimator', 'RevealSlidingMenuAnimator', 'PushSlidingMenuAnimator', 'OverlaySlidingMenuAnimator', function($onsen, $compile, SlidingMenuAnimator, RevealSlidingMenuAnimator, 
                                              PushSlidingMenuAnimator, OverlaySlidingMenuAnimator) {
 
     var SlidingMenuView = Class.extend({
@@ -27639,7 +27938,7 @@ limitations under the License.
           this.setMenuPage(attrs.behindPage);
         }
 
-        this._backButtonHandler = $onsen.backButtonHandlerStack.push(this._onBackButton.bind(this));
+        this._deviceBackButtonHandler = $onsen.DeviceBackButtonHandler.create(this._element, this._onDeviceBackButton.bind(this));
 
         var unlock = this._doorLock.lock();
 
@@ -27667,35 +27966,34 @@ limitations under the License.
         scope.$on('$destroy', this._destroy.bind(this));
       },
 
-      _onBackButton: function() {
+      getDeviceBackButtonHandler: function() {
+        return this._deviceBackButtonHandler;
+      },
+
+      _onDeviceBackButton: function(event) {
         if (this.isMenuOpened()) {
           this.closeMenu();
-          return true;
+        } else {
+          event.callParentHandler();
         }
-        return false;
       },
 
       _refreshBehindPageWidth: function() {
         var width = ('maxSlideDistance' in this._attrs) ? this._attrs.maxSlideDistance : '90%';
 
-        if (('maxSlideDistance' in this._attrs) && this._animator) {
-          this._animator.onResized(
-            {
-              isOpened: this._logic.isOpened(),
-              width: width
-            }
-          );
+        if (this._animator) {
+          this._animator.onResized({
+            isOpened: this._logic.isOpened(),
+            width: width
+          });
         }
       },
 
       _destroy: function() {
         this.emit('destroy', {slidingMenu: this});
 
-        this._backButtonHandler.remove();
-
-        this._element = null;
-        this._scope = null;
-        this._attrs = null;
+        this._deviceBackButtonHandler.destroy();
+        this._element = this._scope = this._attrs = null;
       },
 
       _getAnimatorOption: function() {
@@ -27779,7 +28077,8 @@ limitations under the License.
 
       _appendAbovePage: function(pageUrl, templateHTML) {
         var pageScope = this._scope.$parent.$new();
-        var pageContent = $compile(templateHTML)(pageScope);
+        var pageContent = angular.element(templateHTML);
+        var link = $compile(pageContent);
 
         this._abovePage.append(pageContent);
 
@@ -27787,6 +28086,8 @@ limitations under the License.
           this._currentPageElement.remove();
           this._currentPageScope.$destroy();
         }
+
+        link(pageScope);
 
         this._currentPageElement = pageContent;
         this._currentPageScope = pageScope;
@@ -27798,7 +28099,8 @@ limitations under the License.
        */
       _appendBehindPage: function(templateHTML) {
         var pageScope = this._scope.$parent.$new();
-        var pageContent = $compile(templateHTML)(pageScope);
+        var pageContent = angular.element(templateHTML);
+        var link = $compile(pageContent);
 
         this._behindPage.append(pageContent);
 
@@ -27806,6 +28108,8 @@ limitations under the License.
           this._currentBehindPageScope.$destroy();
           this._currentBehindPageElement.remove();
         }
+
+        link(pageScope);
 
         this._currentBehindPageElement = pageContent;
         this._currentBehindPageScope = pageScope;
@@ -28123,7 +28427,7 @@ limitations under the License.
     MicroEvent.mixin(SlidingMenuView);
 
     return SlidingMenuView;
-  });
+  }]);
 })();
 
 /*
@@ -28225,7 +28529,7 @@ limitations under the License.
   'use strict';
   var module = angular.module('onsen');
 
-  module.factory('SplitView', function($compile, RevealSlidingMenuAnimator, $onsen) {
+  module.factory('SplitView', ['$compile', 'RevealSlidingMenuAnimator', '$onsen', function($compile, RevealSlidingMenuAnimator, $onsen) {
     var SPLIT_MODE = 0;
     var COLLAPSE_MODE = 1;
     var MAIN_PAGE_RATIO = 0.9;
@@ -28255,8 +28559,11 @@ limitations under the License.
 
         scope.$watch('swipable', this._onSwipableChanged.bind(this));
 
-        window.addEventListener('orientationchange', this._onOrientationChange.bind(this));
-        window.addEventListener('resize', this._onResize.bind(this));
+        if ($onsen.isIOS()) {
+          window.addEventListener('orientationchange', this._onResize.bind(this));
+        } else {
+          window.addEventListener('resize', this._onResize.bind(this));
+        }
 
         this._animator = new RevealSlidingMenuAnimator();
 
@@ -28349,20 +28656,15 @@ limitations under the License.
         }
       },
 
-      _onOrientationChange: function() {
-        this._onResize();
-      },
-
       _onResize: function() {
+        var lastMode = this._mode;
         this._considerChangingCollapse();
 
-        if (this._mode === COLLAPSE_MODE) {
-          this._animator.onResized(
-            {
-              isOpened: this._startX > 0,
-              width: '90%'
-            }
-          );
+        if (lastMode === COLLAPSE_MODE && this._mode === COLLAPSE_MODE) {
+          this._animator.onResized({
+            isOpened: this._currentX > 0,
+            width: '90%'
+          });
         }
 
         this._max = this._abovePage[0].clientWidth * MAIN_PAGE_RATIO;
@@ -28439,8 +28741,8 @@ limitations under the License.
 
       _activateCollapseMode: function() {
         if (this._mode !== COLLAPSE_MODE) {
-          this._behindPage.removeAttr('style');
-          this._abovePage.removeAttr('style');
+          this._behindPage.attr('style', '');
+          this._abovePage.attr('style', '');
 
           this._mode = COLLAPSE_MODE;
 
@@ -28452,24 +28754,19 @@ limitations under the License.
             this._behindPage,
             {isRight: false, width: '90%'}
           );
-
-          this._translate(0);
+          this._currentX = this._startX = 0;
         }
       },
 
       _activateSplitMode: function() {
-        if (this._mode !== SPLIT_MODE) {
-          this._animator.destroy();
+        this._animator.destroy();
 
-          this._behindPage.removeAttr('style');
-          this._abovePage.removeAttr('style');
+        this._behindPage.attr('style', '');
+        this._abovePage.attr('style', '');
 
-          this._setSize();
-          this._deactivateHammer();
-          this._mode = SPLIT_MODE;
-        } else {
-          this._setSize();
-        }
+        this._mode = SPLIT_MODE;
+        this._setSize();
+        this._deactivateHammer();
       },
 
       _activateHammer: function() {
@@ -28496,9 +28793,9 @@ limitations under the License.
         }
 
         switch (event.type) {
-
           case 'dragleft':
           case 'dragright':
+            event.preventDefault();
             event.gesture.preventDefault();
             var deltaX = event.gesture.deltaX;
 
@@ -28618,9 +28915,7 @@ limitations under the License.
     MicroEvent.mixin(SplitView);
 
     return SplitView;
-
-  });
-
+  }]);
 })();
 
 /*
@@ -28644,7 +28939,7 @@ limitations under the License.
   'use strict';
   var module = angular.module('onsen');
 
-  module.factory('SwitchView', function($onsen) {
+  module.factory('SwitchView', ['$onsen', function($onsen) {
 
     var SwitchView = Class.extend({
 
@@ -28682,7 +28977,8 @@ limitations under the License.
        * @param {Boolean}
        */
       setChecked: function(isChecked) {
-        this._checkbox[0].checked = !!isChecked;
+        this._scope.model = !!isChecked;
+        this._scope.$evalAsync();
       },
 
       /**
@@ -28695,7 +28991,339 @@ limitations under the License.
     MicroEvent.mixin(SwitchView);
 
     return SwitchView;
+  }]);
+})();
+
+/*
+Copyright 2013-2014 ASIAL CORPORATION
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+*/
+
+(function() {
+  'use strict;';
+
+  var module = angular.module('onsen');
+
+  module.factory('TabbarAnimator', function() {
+
+    var TabbarAnimator = Class.extend({
+      /**
+       * @param {jqLite} enterPage
+       * @param {jqLite} leavePage
+       */
+      apply: function(enterPage, leavePage, done) {
+        throw new Error('This method must be implemented.');
+      }
+    });
+
+    return TabbarAnimator;
   });
+
+  module.factory('TabbarNoneAnimator', ['TabbarAnimator', function(TabbarAnimator) {
+
+    var TabbarNoneAnimator = TabbarAnimator.extend({
+      /**
+       * @param {jqLite} enterPage
+       * @param {jqLite} leavePage
+       */
+      apply: function(enterPage, leavePage, done) {
+        done();
+      }
+    });
+
+    return TabbarNoneAnimator;
+  }]);
+
+  module.factory('TabbarFadeAnimator', ['TabbarAnimator', function(TabbarAnimator) {
+
+    var TabbarFadeAnimator = TabbarAnimator.extend({
+      /**
+       * @param {jqLite} enterPage
+       * @param {jqLite} leavePage
+       */
+      apply: function(enterPage, leavePage, done) {
+        animit.runAll(
+          animit(enterPage[0])
+            .queue({
+              transform: 'translate3D(0, 0, 0)',
+              opacity: 0
+            })
+            .queue({
+              transform: 'translate3D(0, 0, 0)',
+              opacity: 1
+            }, {
+              duration: 0.4,
+              timing: 'linear'
+            })
+            .resetStyle()
+            .queue(function(callback) {
+              done();
+              callback();
+            }),
+          animit(leavePage[0])
+            .queue({
+              transform: 'translate3D(0, 0, 0)',
+              opacity: 1
+            })
+            .queue({
+              transform: 'translate3D(0, 0, 0)',
+              opacity: 0
+            }, {
+              duration: 0.4,
+              timing: 'linear'
+            })
+        );
+      }
+    });
+
+    return TabbarFadeAnimator;
+  }]);
+
+  module.factory('TabbarView', ['$onsen', '$compile', 'TabbarAnimator', 'TabbarNoneAnimator', 'TabbarFadeAnimator', function($onsen, $compile, TabbarAnimator, TabbarNoneAnimator, TabbarFadeAnimator) {
+    var TabbarView = Class.extend({
+      _tabbarId: undefined,
+
+      _tabItems: undefined,
+
+      init: function(scope, element, attrs) {
+        this._scope = scope;
+        this._element = element;
+        this._attrs = attrs;
+
+        this._tabbarId = Date.now();
+        this._tabItems = [];
+
+        this._containerElement = angular.element(element[0].querySelector('.ons-tab-bar__content'));
+        this._footerElement = angular.element(element[0].querySelector('.ons-tab-bar__footer'));
+
+        this._scope.$on('$destroy', this._destroy.bind(this));
+      },
+
+      /**
+       * @param {Number} index
+       * @param {Object} [options]
+       * @param {Boolean} [options.keepPage]
+       * @return {Boolean} success or not
+       */
+      setActiveTab: function(index, options) {
+        options = options || {};
+        var previousTabItem = this._tabItems[this.getActiveTabIndex()];
+        var selectedTabItem = this._tabItems[index];
+        var needLoad = selectedTabItem.page && !options.keepPage;
+
+        if (!selectedTabItem) {
+          return false;
+        }
+
+        var canceled = false;
+        this.emit('prechange', {
+          index: index,
+          tabItem: selectedTabItem,
+          cancel: function() {
+            canceled = true;
+          }
+        });
+
+        if (canceled) {
+          selectedTabItem.setInactive();
+          if (previousTabItem) {
+            previousTabItem.setActive();
+          }
+          return false;
+        }
+
+        selectedTabItem.setActive();
+
+        if (needLoad) {
+          this._loadPage(selectedTabItem.page, {
+            callback: function() {
+              this.emit('postchange', {index: index, tabItem: selectedTabItem});
+            }.bind(this)
+          });
+        }
+
+        for (var i = 0; i < this._tabItems.length; i++) {
+          if (this._tabItems[i] != selectedTabItem) {
+            this._tabItems[i].setInactive();
+          } else {
+            this._triggerActiveTabChanged(i, selectedTabItem);
+
+            if (!needLoad) {
+              this.emit('postchange', {index: index, tabItem: selectedTabItem});
+            }
+          }
+        }
+
+        return true;
+      },
+
+      _triggerActiveTabChanged: function(index, tabItem){
+        this._scope.onActiveTabChanged({
+          $index: index,
+          $tabItem: tabItem
+        });
+      },
+
+      /**
+       * @param {Boolean} visible
+       */
+      setTabbarVisibility: function(visible) {
+        this._scope.hideTabs = !visible;
+        this._onTabbarVisibilityChanged();
+      },
+
+      _onTabbarVisibilityChanged: function() {
+        if (this._scope.hideTabs) {
+          this._scope.tabbarHeight = 0;
+        } else {
+          this._scope.tabbarHeight = this._footerElement[0].clientHeight + 'px';
+        }
+      },
+
+      /**
+       * @param {Object} tabItem
+       */
+      addTabItem: function(tabItem) {
+        this._tabItems.push(tabItem);
+      },
+
+      /**
+       * @return {Number} When active tab is not found, returns -1.
+       */
+      getActiveTabIndex: function() {
+        var tabItem;
+        for (var i = 0; i < this._tabItems.length; i++) {
+          tabItem = this._tabItems[i];
+          if (tabItem.isActive()) {
+            return i;
+          }
+        }
+
+        return -1;
+      },
+
+      /**
+       * @param {String} page
+       * @param {Object} [options]
+       * @param {Object} [options.animation]
+       * @param {Object} [options.callback]
+       */
+      loadPage: function(page, options) {
+        return this._loadPage(page, options);
+      },
+
+      /**
+       * @param {String} page
+       * @param {Object} [options]
+       * @param {Object} [options.animation]
+       */
+      _loadPage: function(page, options) {
+
+        $onsen.getPageHTMLAsync(page).then(function(html) {
+          var pageElement = angular.element(html.trim());
+
+          this._loadPageDOM(page, pageElement, options);
+
+        }.bind(this), function() {
+          throw new Error('Page is not found: ' + page);
+        });
+      },
+
+      /**
+       * @param {String} page
+       * @param {jqLite} element
+       * @param {Object} options
+       * @param {Object} options.animation
+       */
+      _loadPageDOM: function(page, element, options) {
+        options = options || {};
+        var pageScope = this._scope.$parent.$new();
+        var link = $compile(element);
+
+        this._containerElement.append(element);
+        var pageContent = link(pageScope);
+        pageScope.$evalAsync();
+
+        if (this._currentPageElement) {
+          var oldPageElement = this._currentPageElement;
+          var oldPageScope = this._currentPageScope;
+
+          this._currentPageElement = pageContent;
+          this._currentPageScope = pageScope;
+
+          this._getAnimatorOption(options).apply(pageContent, oldPageElement, function() {
+            oldPageElement.remove();
+            oldPageScope.$destroy();
+
+            if (options.callback instanceof Function) {
+              options.callback();
+            }
+          });
+
+        } else {
+          this._currentPageElement = pageContent;
+          this._currentPageScope = pageScope;
+
+          if (options.callback instanceof Function) {
+            options.callback();
+          }
+        }
+      },
+
+      /**
+       * @param {Object} options
+       * @param {String} [options.animation]
+       * @return {TabbarAnimator}
+       */
+      _getAnimatorOption: function(options) {
+        var animationAttr = this._element.attr('animation') || 'default';
+
+        return TabbarView._animatorDict[options.animation || animationAttr] || TabbarView._animatorDict['default'];
+      },
+
+      _destroy: function() {
+        this.emit('destroy', {tabbar: this});
+
+        this._element = this._scope = this._attrs = null;
+      }
+    });
+    MicroEvent.mixin(TabbarView);
+
+    // Preset transition animators.
+    TabbarView._animatorDict = {
+      'default': new TabbarNoneAnimator(),
+      'none': new TabbarNoneAnimator(),
+      'fade': new TabbarFadeAnimator()
+    };
+
+    /**
+     * @param {String} name
+     * @param {NavigatorTransitionAnimator} animator
+     */
+    TabbarView.registerAnimator = function(name, animator) {
+      if (!(animator instanceof TabbarAnimator)) {
+        throw new Error('"animator" param must be an instance of TabbarAnimator');
+      }
+
+      this._transitionAnimatorDict[name] = animator;
+    };
+
+
+    return TabbarView;
+  }]);
+
 })();
 
 /**
@@ -28703,15 +29331,18 @@ limitations under the License.
  * @id back_button
  * @name ons-back-button
  * @description
- *   [en]Provides back button for toolbar that can be used for navigation.[/en]
+ *   [en]Back button component for ons-toolbar. Can be used with ons-navigator to provide back button support.[/en]
+ *   [ja]ons-toolbarに配置できる「戻るボタン」用コンポーネント。ons-navigatorと共に使用し、ページを1つ前に戻る動作を行います。[/ja]
  * @codepen aHmGL
- * @seealso ons-toolbar ons-toolbar component
+ * @seealso ons-toolbar [en]ons-toolbar component[/en][ja]ons-toolbarコンポーネント[/ja]
+ * @guide Addingatoolbar [en]Adding a toolbar[/en][ja]ツールバーの追加[/ja]
+ * @guide Returningfromapage [en]Returning from a page[/en][ja]一つ前のページに戻る[/ja]
  */
 (function(){
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsBackButton', function($onsen, $compile) {
+  module.directive('onsBackButton', ['$onsen', '$compile', 'ComponentCleaner', function($onsen, $compile, ComponentCleaner) {
     return {
       restrict: 'E',
       replace: false,
@@ -28727,12 +29358,23 @@ limitations under the License.
           scope.modifierTemplater = $onsen.generateModifierTemplater(attrs);
 
           transclude(scope, function(clonedElement) {
-            element[0].querySelector('.back-button__label').appendChild(clonedElement[0]);
+            if (clonedElement[0]) {
+              element[0].querySelector('.back-button__label').appendChild(clonedElement[0]);
+            }
+          });
+
+          ComponentCleaner.onDestroy(scope, function() {
+            ComponentCleaner.destroyScope(scope);
+            ComponentCleaner.destroyAttributes(attrs);
+
+            element = null;
+            scope = null;
+            attrs = null;
           });
         }
       }
     };
-  });
+  }]);
 })();
 
 /**
@@ -28740,15 +29382,17 @@ limitations under the License.
  * @id bottom_toolbar
  * @name ons-bottom-toolbar
  * @description
- * Use this component to have toolbar position at the bottom of the page.
- * @seealso ons-toolbar ons-toolbar component
+ * [en]Toolbar component that is positioned at the bottom of the page. Has same functionality as the ons-toolbar component.[/en]
+ * [ja]ページ下部に配置されるツールバー用コンポーネント。機能的にはons-toolbarと同様です。[/ja]
+ * @seealso ons-toolbar [en]ons-toolbar component[/en][ja]ons-toolbarコンポーネント[/ja]
+ * @guide Addingatoolbar [en]Adding a toolbar[/en][ja]ツールバーの追加[/ja]
  */
 (function(){
   'use strict';
 
   var module = angular.module('onsen');
 
-  module.directive('onsBottomToolbar', function($onsen) {
+  module.directive('onsBottomToolbar', ['$onsen', function($onsen) {
     return {
       restrict: 'E',
       replace: false,
@@ -28779,7 +29423,7 @@ limitations under the License.
         };
       }
     };
-  });
+  }]);
 })();
 
 
@@ -28788,70 +29432,95 @@ limitations under the License.
  * @id button
  * @name ons-button
  * @description
- * Button component. It includes a spinner useful for showing work in progress.
- * @param type The type of the button. Can be any of [ 'quiet', 'large', 'large--quiet', 'cta', 'large--cta' ]
- * @param should-spin Whether the button should switch to show spinner
- * @param animation The animation when the button transitions to and from the spinner. Can be any of [ 'expand-left', 'expand-right', 'expand-up', 'expand-down', 'slide-left', 'slide-right', 'slide-up', 'slide-down', 'zoom-out', 'zoom-in' ]. The default is 'slide-left'
- * @param disabled Whether the button should be disabled.
+ *    [en]Button component. If you want to place a button in a toolbar, use ons-toolbar-button or ons-back-button instead.[/en]
+ *    [ja]ボタン用コンポーネント。ツールバーにボタンを設置する場合は、ons-toolbar-buttonもしくはons-back-buttonコンポーネントを使用してください。[/ja]
+ * @param modifier
+ *    [en]The appearance of the button. Predefined modifiers are quiet, light, large, large--quiet, cta, and large--cta.[/en]
+ *    [ja]ボタンの表現を指定します。次の値からも選択できます: quiet, light, large, large--quiet, cta, large--cta[/ja]
+ * @param should-spin
+ *    [en]Specify if the button should have a spinner.[/en]
+ *    [ja]ボタンにスピナーを表示する場合は指定してください。[/ja]
+ * @param animation
+ *    [en]The animation when the button transitions to and from the spinner. Possible values are slide-left (default), slide-right, slide-up, slide-down, expand-left, expand-right, expand-up, expand-down, zoom-out, zoom-in.[/en]
+ *    [ja]スピナーを表示する場合のアニメーションを指定します。次の値から選択してください: slide-left (デフォルト), slide-right, slide-up, slide-down, expand-left, expand-right, expand-up, expand-down, zoom-out, zoom-in[/ja]
+ * @param disabled
+ *    [en]Specify if button should be disabled.[/en]
+ *    [ja]ボタンを無効化する場合は指定してください。[/ja]
  * @codepen hLayx
- * @guide button Guide for ons-button
+ * @guide Button [en]Guide for ons-button[/en][ja]ons-buttonの使い方[/ja]
+ * @guide OverridingCSSstyles [en]More details about modifier attribute[/en][ja]modifier属性の使い方[/ja]
  */
 (function(){
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsButton', function($onsen) {
+  module.directive('onsButton', ['$onsen', function($onsen) {
     return {
       restrict: 'E',
       replace: false,
       transclude: true,
       scope: {
-        shouldSpin: '@',
         animation: '@',
-        onsType: '@',
-        disabled: '@'
       },
       templateUrl: $onsen.DIRECTIVE_TEMPLATE_URL + '/button.tpl',
-      link: function(scope, element, attrs){
+      link: function(scope, element, attrs, _, transclude) {
+        var initialAnimation = 'slide-left';
+
+        scope.modifierTemplater = $onsen.generateModifierTemplater(attrs);
+        element.addClass('button effeckt-button');
+        element.addClass(scope.modifierTemplater('button--*'));
+        element.addClass(initialAnimation);
+
+        transclude(scope, function(cloned) {
+          angular.element(element[0].querySelector('.ons-button-inner')).append(cloned);
+        });
+
         if (attrs.ngController) {
           throw new Error('This element can\'t accept ng-controller directive.');
         }
 
-        var effectButton = element;
-        var TYPE_PREFIX = 'button--';
         scope.item = {};
-
-        scope.modifierTemplater = $onsen.generateModifierTemplater(attrs);
-
         // if animation is not specified -> default is slide-left
-        if (scope.animation === undefined || scope.animation === '') {
-          scope.item.animation = 'slide-left';
-        }
+        scope.item.animation = initialAnimation;
 
-        scope.$watch('disabled', function(disabled) {
+        attrs.$observe('disabled', function(disabled) {
           if (disabled === 'true') {
-            effectButton.attr('disabled', true);
+            element.attr('disabled', true);
           } else {
-            effectButton.attr('disabled', false);
+            element.attr('disabled', false);
           }
         });
 
         scope.$watch('animation', function(newAnimation) {
           if (newAnimation) {
+            if (scope.item.animation) {
+              element.removeClass(scope.item.animation);
+            }
             scope.item.animation = newAnimation;
+            element.addClass(scope.item.animation);
           }
         });
 
-        scope.$watch('shouldSpin', function(shouldSpin) {
+        attrs.$observe('shouldSpin', function(shouldSpin) {
           if (shouldSpin === 'true') {
-            effectButton.attr('data-loading', true);
+            element.attr('data-loading', true);
           } else {
-            effectButton.removeAttr('data-loading');
+            element.removeAttr('data-loading');
           }
+        });
+
+        $onsen.cleaner.onDestroy(scope, function() {
+          $onsen.clearComponent({
+            scope: scope,
+            attrs: attrs,
+            element: element
+          });
+
+          scope = element = attrs = null;
         });
       }
     };
-  });
+  }]);
 })();
 
 /**
@@ -28859,20 +29528,28 @@ limitations under the License.
  * @id col
  * @name ons-col
  * @description
- * Use to layout component.
- * @param align Vertical align the column. Valid values are [top/center/bottom].
- * @param width The width of the column. Valid values are css "width" value. eg. "10%", "50px"
- * @note For Android 4.3 and earlier, and iOS6 and earlier, when using mixed alignment with ons-row and ons-column, they may not be displayed correctly. You can use only one align.
- * @codepen GgujC
- * @guide layouting Layouting guide
- * @seealso ons-row ons-row component
+ *    [en]Represents a column in the grid system. Use with ons-row to layout components.[/en]
+ *    [ja]グリッドシステムにて列を定義します。ons-rowとともに使用し、コンポーネントの配置に使用します。[/ja]
+ * @param align
+ *    [en]Vertical align the column. Valid values are top, center, and bottom.[/en]
+ *    [ja]縦の配置を指定します。次の値から選択してください: top, center, bottom[/ja]
+ *
+ * @param width
+ *    [en]The width of the column. Valid values are css width values ("10%", "50px").[/en]
+ *    [ja]カラムの横幅を指定します。パーセントもしくはピクセルで指定します（10%や50px）。[/ja]
+ * @note
+ *    [en]For Android 4.3 and earlier, and iOS6 and earlier, when using mixed alignment with ons-row and ons-column, they may not be displayed correctly. You can use only one align.[/en]
+ *    [ja]Android 4.3以前、もしくはiOS 6以前のOSの場合、ons-rowとons-columnを組み合わせた場合に描画が崩れる場合があります。[/ja]
+ * @codepen GgujC {wide}
+ * @guide layouting [en]Layouting guide[/en][ja]レイアウト機能[/ja]
+ * @seealso ons-row [en]ons-row component[/en][ja]ons-rowコンポーネント[/ja]
  */
 (function(){
   'use strict';
 
   var module = angular.module('onsen');
 
-  module.directive('onsCol', function($timeout, $onsen) {
+  module.directive('onsCol', ['$timeout', '$onsen', function($timeout, $onsen) {
     return {
       restrict: 'E',
       replace: false,
@@ -28910,6 +29587,15 @@ limitations under the License.
             updateWidth(attrs.width);
           }
 
+          $onsen.cleaner.onDestroy(scope, function() {
+            $onsen.clearComponent({
+              scope: scope,
+              element: element,
+              attrs: attrs
+            });
+            element = attrs = scope = null;
+          });
+
           function updateAlign(align) {
             if (align === 'top' || align === 'center' || align === 'bottom') {
               element.removeClass('col-top col-center col-bottom');
@@ -28940,7 +29626,7 @@ limitations under the License.
         };
       }
     };
-  });
+  }]);
 })();
 
 
@@ -28949,7 +29635,7 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  module.directive('onsDummyForInit', function($rootScope) {
+  module.directive('onsDummyForInit', ['$rootScope', function($rootScope) {
     var isReady = false;
 
     return {
@@ -28966,24 +29652,109 @@ limitations under the License.
         }
       }
     };
-  });
+  }]);
 
 })();
+
+/**
+ * @ngdoc directive
+ * @id gestureDetector
+ * @name ons-gesture-detector
+ * @description
+ *    [en]Component to detect finger gestures within the wrapped element. See the guide for more details.[/en]
+ *    [ja]要素内のジェスチャー操作を検知します。詳しくはガイドを参照してください。[/ja]
+ * @guide DetectingFingerGestures
+ *  [en]Detecting finger gestures[/en]
+ *  [ja]ジェスチャー操作を検知する[/ja]
+ */
+(function() {
+  'use strict';
+
+  var EVENTS =
+    ('drag dragleft dragright dragup dragdown hold release swipe swipeleft swiperight ' +
+      'swipeup swipedown tap doubletap touch transform pinch pinchin pinchout rotate').split(/ +/);
+
+  angular.module('onsen').directive('onsGestureDetector', ['$onsen', function($onsen) {
+
+    var scopeDef = EVENTS.reduce(function(dict, name) {
+      dict['ng' + titlize(name)] = '&';
+      return dict;
+    }, {});
+
+    return {
+      restrict: 'E',
+      scope: scopeDef,
+
+      // NOTE: This element must coexists with ng-controller.
+      // Do not use isolated scope and template's ng-transclude.
+      replace: false,
+      transclude: true,
+
+      compile: function(element, attrs) {
+        return function link(scope, element, attrs, controller, transclude) {
+
+          transclude(scope.$parent.$new(), function(cloned) {
+            element.append(cloned);
+          });
+
+          var hammer = new Hammer(element[0]);
+          hammer.on(EVENTS.join(' '), handleEvent);
+
+          $onsen.cleaner.onDestroy(scope, function() {
+            hammer.off(EVENTS.join(' '), handleEvent);
+            $onsen.clearComponent({
+              scope: scope,
+              element: element,
+              attrs: attrs
+            });
+            hammer.element = scope = element = attrs = null;
+          });
+
+          function handleEvent(event) {
+            var attr = 'ng' + titlize(event.type);
+
+            if (attr in scopeDef) {
+              scope[attr]({$event: event});
+            }
+          }
+        };
+      }
+    };
+
+    function titlize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  }]);
+})();
+
 
 /**
  * @ngdoc directive
  * @id icon
  * @name ons-icon
  * @description
- * Wrapper for font-awesome icon.
- * @param icon The icon name. set the icon name without "fa-" prefix. eg. to use "fa-home" icon, set it to "home". See all icons: http://fontawesome.io/icons/.
- * @param size The sizes of the icon. Valid values are [lg/2x/3x/4x/5x] or css font-size value.
- * @param rotate The degree to rotate the icon. Valid values are [90/180/270]
- * @param flip Flip the icon. Valid values are [horizontal/vertical]
- * @param fixed-width When used in the list, you want the icons to have the same width so that they align vertically by setting the value to true. Valid values are [true/false]. Default is true.
- * @param spin Whether to spin the icon. Valid values are [true/false]
+ *    [en]Displays an icon. Font Awesome and Ionicon icons are supported.[/en]
+ *    [ja]アイコンを表示するコンポーネントです。Font AwesomeもしくはIoniconsから選択できます。[/ja]
+ * @param icon
+ *    [en]The icon name. `fa-` prefix for Font Awesome, `ion-` prefix for Ionicons icons. See all icons at http://fontawesome.io/icons/ and http://ionicons.com.[/en]
+ *    [ja]アイコン名を指定します。`fa-`で始まるものはFont Awesomeとして、`ion-`で始まるものはIoniconsとして扱われます。使用できるアイコンはこちら: http://fontawesome.io/icons/　および　http://ionicons.com。[/ja]
+ * @param size
+ *    [en]The sizes of the icon. Valid values are lg, 2x, 3x, 4x, 5x, or in pixels.[/en]
+ *    [ja]アイコンのサイズを指定します。値は、lg, 2x, 3x, 4x, 5xもしくはピクセル単位で指定できます。[/ja]
+ * @param rotate
+ *    [en]The degree to rotate the icon. Valid values are 90, 180, or 270.[/en]
+ *    [ja]アイコンを回転して表示します。90, 180, 270から指定できます。[/ja]
+ * @param flip
+ *    [en]Flip the icon. Valid values are horizontal and vertical.[/en]
+ *    [ja]アイコンを反転します。horizontalもしくはverticalを指定できます。[/ja]
+ * @param fixed-width
+ *    [en]When used in the list, you want the icons to have the same width so that they align vertically by setting the value to true. Valid values are true, false. Default is true.[/en]
+ *    [ja]リスト内で使う場合に、trueを指定すると縦に整列します。trueもしくはfalseを指定できます。デフォルトはtrueです。[/ja]
+ * @param spin
+ *    [en]Whether to spin the icon. Valid values are true and false.[/en]
+ *    [ja]アイコンを回転するかどうかを指定します。trueもしくはfalseを指定できます。[/ja]
  * @codepen xAhvg
- * @guide using-icons Using icons
+ * @guide UsingIcons [en]Using icons[/en][ja]アイコンを使う[/ja]
  */
 (function(){
   'use strict';
@@ -28999,8 +29770,20 @@ limitations under the License.
   }
 
   function buildClassAndStyle(attrs) {
-    var classList = ['fa'];
+    var classList = ['ons-icon'];
     var style = {};
+
+    // icon
+    if (attrs.icon.indexOf('ion-') === 0) {
+      classList.push(attrs.icon);
+      classList.push('ons-icon--ion');
+    } else if (attrs.icon.indexOf('fa-') === 0) {
+      classList.push(attrs.icon);
+      classList.push('fa');
+    } else {
+      classList.push('fa');
+      classList.push('fa-' + attrs.icon);
+    }
 
     // size
     var size = '' + attrs.size;
@@ -29011,29 +29794,25 @@ limitations under the License.
     } else {
       classList.push('fa-lg');
     }
-
-    // icon
-    classList.push('fa-' + attrs.icon);
     
     // rotate
     if (attrs.rotate === '90' || attrs.rotate === '180' || attrs.rotate === '270') {
-
-      classList.push('fa-rotate-' + attrs.rotate);
+      classList.push('ons-icon--rotate-' + attrs.rotate);
     }
 
     // flip
     if (attrs.flip === 'horizontal' || attrs.flip === 'vertical') {
-      classList.push('fa-flip-' + attrs.flip);
+      classList.push('ons-icon--flip-' + attrs.flip);
     }
 
     // fixed-width
     if (attrs.fixedWidth !== 'false') {
-      classList.push('fa-fw');
+      classList.push('ons-icon--fw');
     }
 
     // spin
     if (attrs.spin === 'true') {
-      classList.push('fa-spin');
+      classList.push('ons-icon--spin');
     }
 
     return {
@@ -29042,12 +29821,12 @@ limitations under the License.
     };
   }
 
-  module.directive('onsIcon', function($onsen) {
+  module.directive('onsIcon', ['$onsen', function($onsen) {
     return {
       restrict: 'E',
       replace: false,
       transclude: false,
-      link: function($scope, element, attrs) {
+      link: function(scope, element, attrs) {
 
         if (attrs.ngController) {
           throw new Error('This element can\'t accept ng-controller directive.');
@@ -29064,9 +29843,25 @@ limitations under the License.
         var builded = buildClassAndStyle(attrs);
         element.css(builded.style);
         element.addClass(builded['class']);
+
+        attrs.$observe('icon', update);
+        attrs.$observe('size', update);
+        attrs.$observe('fixedWidth', update);
+        attrs.$observe('rotate', update);
+        attrs.$observe('flip', update);
+        attrs.$observe('spin', update);
+
+        $onsen.cleaner.onDestroy(scope, function() {
+          $onsen.clearComponent({
+            scope: scope,
+            element: element,
+            attrs: attrs
+          });
+          element = scope = attrs = null;
+        });
       }
     };
-  });
+  }]);
 })();
 
 
@@ -29075,17 +29870,20 @@ limitations under the License.
  * @id if-orientation
  * @name ons-if-orientation
  * @description
- * Conditionally display content depending on screen orientation. Valid values are [portrait/landscape]. Different from other components, this component is used as attribute in any element.
- * @param ons-if-orientation Either "portrait" or "landscape".
- * @seealso ons-if-platform ons-if-platform component
- * @guide utility-apis Other utility APIs
+ *    [en]Conditionally display content depending on screen orientation. Valid values are portrait and landscape. Different from other components, this component is used as attribute in any element.[/en]
+ *    [ja]画面の向きに応じてコンテンツの制御を行います。portraitもしくはlandscapeを指定できます。すべての要素の属性に使用できます。[/ja]
+ * @param ons-if-orientation
+ *    [en]Either portrait or landscape.[/en]
+ *    [ja]portraitもしくはlandscapeを指定します。[/ja]
+ * @seealso ons-if-platform [en]ons-if-platform component[/en][ja]ons-if-platformコンポーネント[/ja]
+ * @guide UtilityAPIs [en]Other utility APIs[/en][ja]他のユーティリティAPI[/ja]
  */
 (function(){
   'use strict';
 
   var module = angular.module('onsen');
 
-  module.directive('onsIfOrientation', function($onsen) {
+  module.directive('onsIfOrientation', ['$onsen', function($onsen) {
     return {
       restrict: 'A',
       replace: false,
@@ -29098,7 +29896,7 @@ limitations under the License.
       compile: function(element) {
         element.css('display', 'none');
 
-        return function($scope, element, attrs) {
+        return function(scope, element, attrs) {
           element.addClass('ons-if-orientation-inner');
 
           window.addEventListener('orientationchange', update, false);
@@ -29106,6 +29904,18 @@ limitations under the License.
           attrs.$observe('onsIfOrientation', update);
 
           update();
+
+          $onsen.cleaner.onDestroy(scope, function() {
+            window.removeEventListener('orientationchange', update, false);
+            window.removeEventListener('resize', update, false);
+
+            $onsen.clearComponent({
+              element: element,
+              scope: scope,
+              attrs: attrs
+            });
+            element = scope = attrs = null;
+          });
 
           function update() {
             var userOrientation = ('' + attrs.onsIfOrientation).toLowerCase();
@@ -29136,7 +29946,7 @@ limitations under the License.
         };
       }
     };
-  });
+  }]);
 })();
 
 
@@ -29145,17 +29955,20 @@ limitations under the License.
  * @id if-platform
  * @name ons-if-platform
  * @description
- * Conditionally display content depending on the platform/browser. Valid values are [ios/android/blackberry/chrome/safari/firefox/opera]. Different from other components, this component is used as attribute in any element.
- * @param ons-if-platform Either "opera", "firefox", "safari", "chrome", "ie", "android", "blackberry", "ios" or "windows".
- * @seealso ons-if-orientation ons-if-orientation component
- * @guide utility-apis Other utility APIs
+ *    [en]Conditionally display content depending on the platform / browser. Valid values are ios, android, blackberry, chrome, safari, firefox, and opera.[/en]
+ *    [ja]プラットフォームやブラウザーに応じてコンテンツの制御をおこないます。ios, android, blackberry, chrome, safari, firefox, operaを指定できます。[/ja]
+ * @param ons-if-platform
+ *    [en]Either opera, firefox, safari, chrome, ie, android, blackberry, ios or windows.[/en]
+ *    [ja]opera, firefox, safari, chrome, ie, android, blackberry, ios, windowsから指定します。[/ja]
+ * @seealso ons-if-orientation [en]ons-if-orientation component[/en][ja]ons-if-orientationコンポーネント[/ja]
+ * @guide UtilityAPIs [en]Other utility APIs[/en][ja]他のユーティリティAPI[/ja]
  */
 (function() {
   'use strict';
 
   var module = angular.module('onsen');
 
-  module.directive('onsIfPlatform', function($onsen) {
+  module.directive('onsIfPlatform', ['$onsen', function($onsen) {
     return {
       restrict: 'A',
       replace: false,
@@ -29171,7 +29984,7 @@ limitations under the License.
 
         var platform = getPlatformString();
 
-        return function($scope, element, attrs) {
+        return function(scope, element, attrs) {
           attrs.$observe('onsIfPlatform', function(userPlatform) {
             if (userPlatform) {
               update();
@@ -29179,6 +29992,15 @@ limitations under the License.
           });
 
           update();
+
+          $onsen.cleaner.onDestroy(scope, function() {
+            $onsen.clearComponent({
+              element: element,
+              scope: scope,
+              attrs: attrs
+            });
+            element = scope = attrs = null;
+          });
 
           function update() {
             if (attrs.onsIfPlatform.toLowerCase() === platform.toLowerCase()) {
@@ -29238,7 +30060,7 @@ limitations under the License.
         }
       }
     };
-  });
+  }]);
 })();
 
 /**
@@ -29246,19 +30068,20 @@ limitations under the License.
  * @id list
  * @name ons-list
  * @description
- * The container for list-item. Similar to <ul> but styled for mobile.
+ *    [en]Component to defines a list, and the container for ons-list-item(s).[/en]
+ *    [ja]リストを表現するためのコンポーネント。ons-list-itemのコンテナとして使用します。[/ja]
  * @param modifier
- * @seealso ons-list-item ons-list-item component
- * @seealso ons-list-header ons-list-header component
- * @guide using-lists Using lists
+ * @seealso ons-list-item [en]ons-list-item component[/en][ja]ons-list-itemコンポーネント[/ja]
+ * @seealso ons-list-header [en]ons-list-header component[/en][ja]ons-list-headerコンポーネント[/ja]
+ * @guide UsingList [en]Using lists[/en][ja]リストを使う[/ja]
  * @codepen yxcCt
  */
-(function(){
+(function() {
   'use strict';
 
   var module = angular.module('onsen');
 
-  module.directive('onsList', function($onsen) {
+  module.directive('onsList', ['$onsen', function($onsen) {
     return {
       restrict: 'E',
       scope: false,
@@ -29275,7 +30098,7 @@ limitations under the License.
         element.addClass(templater('list--*'));
       }
     };
-  });
+  }]);
 })();
 
 
@@ -29285,10 +30108,11 @@ limitations under the License.
  * @name ons-list-header
  * @param modifier
  * @description
- * Header element for list items. Must be put inside ons-list tag.
- * @seealso ons-list ons-list component
- * @seealso ons-list-item ons-list-item component
- * @guide using-lists Using lists
+ *    [en]Header element for list items. Must be put inside ons-list component.[/en]
+ *    [ja]リスト要素に使用するヘッダー用コンポーネント。ons-listと共に使用します。[/ja]
+ * @seealso ons-list [en]ons-list component[/en][ja]ons-listコンポーネント[/ja]
+ * @seealso ons-list-item [en]ons-list-item component[/en][ja]ons-list-itemコンポーネント[/ja]
+ * @guide UsingList [en]Using lists[/en][ja]リストを使う[/ja]
  * @codepen yxcCt
  */
 (function() {
@@ -29296,7 +30120,7 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  module.directive('onsListHeader', function($onsen) {
+  module.directive('onsListHeader', ['$onsen', function($onsen) {
     return {
       restrict: 'E',
 
@@ -29311,7 +30135,7 @@ limitations under the License.
         elem.addClass(templater('list__header--*'));
       }
     };
-  });
+  }]);
 })();
 
 /**
@@ -29320,10 +30144,11 @@ limitations under the License.
  * @name ons-list-item
  * @param modifier
  * @description
- * Works like <li> but styled for mobile. Must be put inside ons-list tag.
- * @seealso ons-list ons-list component
- * @seealso ons-list-header ons-list-header component
- * @guide using-lists Using lists
+ *    [en]Component that represents each item in the list. Must be put inside ons-list component.[/en]
+ *    [ja]リストの各要素を表現するためのコンポーネント。ons-listコンポーネントと共に使用します。[/ja]
+ * @seealso ons-list [en]ons-list component[/en][ja]ons-listコンポーネント[/ja]
+ * @seealso ons-list-header [en]ons-list-header component[/en][ja]ons-list-headerコンポーネント[/ja]
+ * @guide UsingList [en]Using lists[/en][ja]リストを使う[/ja]
  * @codepen yxcCt
  */
 (function() {
@@ -29331,7 +30156,7 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  module.directive('onsListItem', function($onsen) {
+  module.directive('onsListItem', ['$onsen', function($onsen) {
     return {
       restrict: 'E',
 
@@ -29346,7 +30171,102 @@ limitations under the License.
         elem.addClass(templater('list__item--*'));
       }
     };
-  });
+  }]);
+})();
+
+/**
+ * @ngdoc directive
+ * @id modal
+ * @name ons-modal
+ * @description 
+ *  [en]Modal component that mask current screen. Underlying components are not noticed from any events while the modal component is shown.[/en]
+ *  [ja]画面全体をマスクするモーダル用コンポーネントです。下側にあるコンポーネントは、モーダルが表示されている間はイベント通知が行われません。[/ja]
+ * @param var 
+ *  [en]Variable name to refer this modal.[/en]
+ *  [ja]このコンポーネントを参照するための変数名を指定します。[/ja]
+ * @property toggle()
+ *  [en]Toggle modal view visibility.[/en]
+ *  [ja]モーダルの表示を切り替えます。[/ja]
+ * @property show()
+ *  [en]Show modal view.[/en]
+ *  [ja]モーダルを表示します。[/ja]
+ * @property hide()
+ *  [en]Hide modal view.[/en]
+ *  [ja]モーダルを非表示にします。[/ja]
+ * @property getDeviceBackButtonHandler()
+ *  [en]Retrieve the back-button handler.[/en]
+ *  [ja]ons-modalに紐付いているバックボタンハンドラを取得します。[/ja]
+ * @guide UsingModal [en]Using ons-modal component[/en][ja]モーダルの使い方[/ja]
+ * @guide CallingComponentAPIsfromJavaScript [en]Using navigator from JavaScript[/en][ja]JavaScriptからコンポーネントを呼び出す[/ja]
+ * @codepen devIg
+ */
+(function() {
+  'use strict';
+
+  var module = angular.module('onsen');
+
+  /**
+   * Modal directive.
+   */
+  module.directive('onsModal', ['$onsen', 'ModalView', function($onsen, ModalView) {
+    return {
+      restrict: 'E',
+      replace: false,
+
+      // NOTE: This element must coexists with ng-controller.
+      // Do not use isolated scope and template's ng-transclde.
+      scope: false, 
+      transclude: false,
+
+      compile: function(element, attrs) {
+        compile(element, attrs);
+
+        return {
+          pre: function(scope, element, attrs) {
+            var page = element.inheritedData('ons-page');
+            if (page) {
+              page.registerExtraElement(element);
+            }
+
+            var modal = new ModalView(scope, element);
+
+            $onsen.declareVarAttribute(attrs, modal);
+
+            $onsen.aliasStack.register('ons.modal', modal);
+            element.data('ons-modal', modal);
+
+            scope.$on('$destroy', function() {
+              element.data('ons-modal', undefined);
+              $onsen.aliasStack.unregister('ons.modal', modal);
+            });
+          },
+
+          post: function() {
+
+          }
+        };
+      }
+    };
+
+    function compile(element, attrs) {
+      var modifierTemplater = $onsen.generateModifierTemplater(attrs);
+
+      var html = element[0].innerHTML;
+      element[0].innerHTML = '';
+
+      var wrapper = angular.element('<div></div>');
+      wrapper.addClass('modal__content');
+      wrapper.addClass(modifierTemplater('modal--*__content'));
+
+      element.css('display', 'none');
+      element.addClass('modal');
+      element.addClass(modifierTemplater('modal--*'));
+
+      wrapper[0].innerHTML = html;
+      element.append(wrapper);
+    }
+  }]);
+
 })();
 
 /**
@@ -29354,28 +30274,50 @@ limitations under the License.
  * @id navigator
  * @name ons-navigator
  * @description
- *  [en]Manages the page navigation backed by page stack.[/en]
- *  [ja]ページスタックを用いたページの切り替えを管理します。[/ja]
- * @param page First page to show when navigator is initialized
- * @param var Variable name to refer this navigator.
+ *  [en]A component that provides page stack management and navigation. This component does not have a visible content.[/en]
+ *  [ja]ページスタックの管理とナビゲーション機能を提供するコンポーネント。画面上への出力はありません。[/ja]
+ * @param page
+ *  [en]First page to show when navigator is initialized.[/en]
+ *  [ja]ナビゲーターが初期化された時に表示するページを指定します。[/ja]
+ * @param var
+ *  [en]Variable name to refer this navigator.[/en]
+ *  [ja]ナビゲーターを参照するための変数を指定します。[/ja]
  * @property pushPage(pageUrl,options)
- *  [en]Pushes the specified pageUrl into the page stack and if options object is specified, apply the options. eg. pushPage('page2.html')[/en]
- *  [ja]指定したpageUrlを新しいページスタックに追加します。[/ja]
- * @property popPage() Pops current page from the page stack
- * @property resetToPage(pageUrl,options) Clears page stack and add the specified pageUrl to the page stack. If options object is specified, apply the options. the options object include all the attributes of this navigator
- * @property getCurrentPage() Get current page's navigator item. Use this method to access options passed by pushPage() or resetToPage() method. eg. ons.navigator.getCurrentPage().options
- * @property getPages() Retrieve the entire page stages of the navigator.
- * @property on(eventName,listener) Added an event listener. Preset events are 'prepop', 'prepush', 'postpop' and 'postpush'.
+ *  [en]Pushes the specified pageUrl into the page stack.[/en]
+ *  [ja]指定したpageUrlを新しいページスタックに追加します。新しいページが表示されます。[/ja]
+ * @property insertPage(index,pageUrl,options)
+ *  [en]Insert the specified pageUrl into the page stack with specified index.[/en]
+ *  [ja]指定したpageUrlをページスタックのindexで指定した位置に追加します。[/ja]
+ * @property popPage()
+ *  [en]Pops current page from the page stack. One previous page will be displayed.[/en]
+ *  [ja]現在表示中のページをページスタックから取り除きます。一つ前のページに戻ります。[/ja]
+ * @property resetToPage(pageUrl,options)
+ *  [en]Clears page stack and add the specified pageUrl to the page stack.[/en]
+ *  [ja]ページスタックをリセットし、指定したページを表示します。[/ja]
+ * @property getCurrentPage()
+ *  [en]Get current page's navigator item. Use this method to access options passed by pushPage() or resetToPage() method.[/en]
+ *  [ja]現在のページを取得します。pushPage()やresetToPage()メソッドの引数を取得できます。[/ja]
+ * @property getPages()
+ *  [en]Retrieve the entire page stacks of the navigator.[/en]
+ *  [ja]ナビゲーターの持つページスタックの一覧を取得します。[/ja]
+ * @property getDeviceBackButtonHandler()
+ *  [en]Retrieve the back button handler for overriding the default behavior.[/en]
+ *  [ja]バックボタンハンドラを取得します。デフォルトの挙動を変更することができます。[/ja]
+ * @property on(eventName,listener)
+ *  [en]Add an event listener. Preset events are prepop, prepush, postpop and postpush.[/en]
+ *  [ja]イベントリスナーを追加します。prepop, prepush, postpop, postpushを指定できます。[/ja]
  * @codepen yrhtv
- * @guide page-navigation Guide for navigation
- * @guide calling-component-apis-from-javascript Using navigator from JavaScript
- * @seealso ons-toolbar ons-toolbar component
+ * @guide PageNavigation [en]Guide for page navigation[/en][ja]ページナビゲーションの概要[/ja]
+ * @guide CallingComponentAPIsfromJavaScript [en]Using navigator from JavaScript[/en][ja]JavaScriptからコンポーネントを呼び出す[/ja]
+ * @guide EventHandling [en]Event handling descriptions[/en][ja]イベント処理の使い方[/ja]
+ * @guide DefiningMultiplePagesinSingleHTML [en]Defining multiple pages in single html[/en][ja]複数のページを1つのHTMLに記述する[/ja]
+ * @seealso ons-toolbar [en]ons-toolbar component[/en][ja]ons-toolbarコンポーネント[/ja]
  */
 (function() {
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsNavigator', function($compile, NavigatorView, $onsen) {
+  module.directive('onsNavigator', ['$compile', 'NavigatorView', '$onsen', function($compile, NavigatorView, $onsen) {
     return {
       restrict: 'E',
 
@@ -29389,7 +30331,7 @@ limitations under the License.
         element.contents().remove();
 
         return {
-          pre: function(scope, element, attrs, controller, transclude) {
+          pre: function(scope, element, attrs, controller) {
             var navigator = new NavigatorView({
               scope: scope, 
               element: element
@@ -29401,8 +30343,14 @@ limitations under the License.
               navigator.pushPage(attrs.page, {});
             } else {
               var pageScope = navigator._createPageScope();
-              var compiledPage = $compile(angular.element(html))(pageScope);
-              navigator._pushPageDOM('', compiledPage, pageScope, {});
+              var pageElement = angular.element(html);
+              var linkScope = $compile(pageElement);
+              var link = function() {
+                linkScope(pageScope);
+              };
+
+              navigator._pushPageDOM('', pageElement, link, pageScope, {});
+              pageElement = null;
             }
 
             $onsen.aliasStack.register('ons.navigator', navigator);
@@ -29411,50 +30359,68 @@ limitations under the License.
             scope.$on('$destroy', function() {
               element.data('ons-navigator', undefined);
               $onsen.aliasStack.unregister('ons.navigator', navigator);
+              element = null;
             });
           }
         };
       }
     };
-  });
+  }]);
 })();
 
 /**
  * @ngdoc directive
  * @id page
  * @name ons-page
- * @param var Variable name to refer this page.
- * @param modifier Modifier name.
  * @description
- * Should be used as root component of each page. The content inside page component is not scrollable. If you need scroll behavior, you can put inside this component.
+ *  [en]Should be used as root component of each page. The content inside page component is scrollable.[/en]
+ *  [ja]ページ定義のためのコンポーネントです。このコンポーネントの内容はスクロールが許可されます。[/ja]
+ * @param var
+ *  [en]Variable name to refer this page.[/en]
+ *  [ja]このページを参照するための変数名を指定します。[/ja]
+ * @param modifier
+ *  [en]Specify modifier name to specify custom styles.[/en]
+ *  [ja]スタイル定義をカスタマイズするための名前を指定します。[/ja]
+ * @param on-device-backbutton
+ *  [en]Allows you to specify custom behavior when the back button is pressed.[/en]
+ *  [ja]デバイスのバックボタンが押された時の挙動を設定できます。[/ja]
+ * @param ng-device-backbutton
+ *  [en]Allows you to specify custom behavior with AngularJS expresion when the back button is pressed.[/en]
+ *  [ja]デバイスのバックボタンが押された時の挙動を設定できます。AngularJSのexpressionを指定できます。[/ja]
+ * @property getDeviceBackButtonHandler()
+ *  [en]Get the associated back button handler. This method may return null if no handler is assigned.[/en]
+ *  [ja]バックボタンハンドラを取得します。このメソッドはnullを返す場合があります。[/ja]
+ * @guide ManagingMultiplePages
+ *  [en]Managing multiple pages[/en]
+ *  [ja]複数のページを管理する[/ja]
+ * @guide Pageinitevent
+ *  [en]Event for page initialization[/en]
+ *  [ja]ページ初期化のイベント[/ja]
+ * @guide HandlingBackButton
+ *  [en]Handling back button[/en]
+ *  [ja]バックボタンに対応する[/ja]
+ * @guide OverridingCSSstyles
+ *  [en]Overriding CSS styles[/en]
+ *  [ja]CSSスタイルのオーバーライド[/ja]
+ * @guide DefiningMultiplePagesinSingleHTML
+ *  [en]Defining multiple pages in single html[/en]
+ *  [ja]複数のページを1つのHTMLに記述する[/ja]
  */
 (function() {
   'use strict';
 
   var module = angular.module('onsen');
 
-  module.directive('onsPage', function($onsen, $timeout, PageView) {
+  module.directive('onsPage', ['$onsen', 'PageView', function($onsen, PageView) {
 
     function firePageInitEvent(element) {
-      function isAttached(element) {
-        if (document.documentElement === element) {
-          return true;
-        }
-        return element.parentNode ? isAttached(element.parentNode) : false;
-      }
-
-      function fire() {
-        var event = document.createEvent('HTMLEvents');    
-        event.initEvent('pageinit', true, true);
-        element.dispatchEvent(event);    
-      }
 
       // TODO: remove dirty fix
       var i = 0;
       var f = function() {
         if (i++ < 5)  {
           if (isAttached(element)) {
-            fire();
+            fireActualPageInitEvent(element);
           } else {
             setImmediate(f);
           }
@@ -29466,15 +30432,62 @@ limitations under the License.
       f();
     }
 
+    function fireActualPageInitEvent(element) {
+      var event = document.createEvent('HTMLEvents');    
+      event.initEvent('pageinit', true, true);
+      element.dispatchEvent(event);    
+    }
+
+    function isAttached(element) {
+      if (document.documentElement === element) {
+        return true;
+      }
+      return element.parentNode ? isAttached(element.parentNode) : false;
+    }
+
+    function preLink(scope, element, attrs, controller, transclude) {
+      var page = new PageView(scope, element, attrs);
+
+      $onsen.declareVarAttribute(attrs, page);
+
+      $onsen.aliasStack.register('ons.page', page);
+      element.data('ons-page', page);
+
+      var modifierTemplater = $onsen.generateModifierTemplater(attrs);
+      element.addClass('page ' + modifierTemplater('page--*'));
+
+      var pageContent = angular.element(element[0].querySelector('.page__content'));
+      pageContent.addClass(modifierTemplater('page--*__content'));
+      pageContent = null;
+
+      $onsen.cleaner.onDestroy(scope, function() {
+        element.data('ons-page', undefined);
+        $onsen.aliasStack.unregister('ons.page', page);
+
+        $onsen.clearComponent({
+          element: element,
+          scope: scope,
+          attrs: attrs
+        });
+        scope = element = attrs = null;
+      });
+    }
+
+    function postLink(scope, element, attrs) {
+      firePageInitEvent(element[0]);
+    }
+
     return {
       restrict: 'E',
 
       // NOTE: This element must coexists with ng-controller.
       // Do not use isolated scope and template's ng-transclde.
-      transclude: true,
+      transclude: false,
       scope: true,
 
       compile: function(element) {
+        var children = element.children().remove();
+
         if ($onsen.isWebView() && $onsen.isIOS7Above()) {
           // Adjustments for IOS7
           var fill = angular.element(document.createElement('div'));
@@ -29483,71 +30496,53 @@ limitations under the License.
           element.prepend(fill);
         }
 
+        var content = angular.element('<div class="page__content ons-page-inner"></div>').append(children);
+
+        if (element.attr('style')) {
+          content.attr('style', element.attr('style'));
+          element.attr('style', '');
+        }
+
+        if (Modernizr.csstransforms3d) {
+          element.append(content);
+        } else {
+          content.css('overflow', 'visible');
+
+          var wrapper = angular.element('<div></div>');
+          wrapper.append(children);
+          content.append(wrapper);
+          element.append(content);
+          wrapper = null;
+
+          // IScroll for Android2
+          var scroller = new IScroll(content[0], {
+            momentum: true,
+            bounce: true,
+            hScrollbar: false,
+            vScrollbar: false,
+            preventDefault: false
+          });
+
+          var offset = 10;
+          scroller.on('scrollStart', function(e) {
+            var scrolled = scroller.y - offset;
+            if (scrolled < (scroller.maxScrollY + 40)) {
+              // TODO: find a better way to know when content is upated so we can refresh
+              scroller.refresh();
+            }
+          });
+        }
+
+        content = null;
+        children = null;
+
         return {
-          pre: function(scope, element, attrs, controller, transclude) {
-            var page = new PageView(scope, element);
-
-            $onsen.declareVarAttribute(attrs, page);
-
-            $onsen.aliasStack.register('ons.page', page);
-            element.data('ons-page', page);
-
-            scope.$on('$destroy', function() {
-              element.data('ons-page', undefined);
-              $onsen.aliasStack.unregister('ons.page', page);
-            });
-
-            var modifierTemplater = $onsen.generateModifierTemplater(attrs);
-            element.addClass('page ' + modifierTemplater('page--*'));
-
-            transclude(scope, function(clonedElement) {
-              var content = angular.element('<div class="page__content ons-page-inner"></div>');
-              content.addClass(modifierTemplater('page--*__content'));
-              if (element.attr('style')) {
-                content.attr('style', element.attr('style'));
-                element.removeAttr('style');
-              }
-              element.append(content);
-
-              if (Modernizr.csstransforms3d) {
-                content.append(clonedElement);
-              }  else {
-                content.css('overflow', 'visible');
-
-                var wrapper = angular.element('<div></div>');
-                content.append(wrapper);
-                wrapper.append(clonedElement);
-
-                // IScroll for Android2
-                var scroller = new IScroll(content[0], {
-                  momentum: true,
-                  bounce: true,
-                  hScrollbar: false,
-                  vScrollbar: false,
-                  preventDefault: false
-                });
-
-                var offset = 10;
-                scroller.on('scrollStart', function(e) {
-                  var scrolled = scroller.y - offset;
-                  if (scrolled < (scroller.maxScrollY + 40)) {
-                    // TODO: find a better way to know when content is upated so we can refresh
-                    scroller.refresh();
-                  }
-                });
-              }
-            });
-
-
-          },
-
-          post: function(scope, element, attrs) {
-            firePageInitEvent(element[0]);
-          }
+          pre: preLink,
+          post: postLink
         };
       }
     };
-  });
+  }]);
 })();
 
 /**
@@ -29555,19 +30550,23 @@ limitations under the License.
  * @id row
  * @name ons-row
  * @description
- * Use <ons-row> and <ons-col> grid system to layout component. By default, all <ons-col> inside a <ons-row> will have the same width. You can specify any <ons-col> to have a specific width and let others take the remaining width in a <ons-row>. You can event vertical align each <ons-col> in a <ons-row>
- * @param align Short hand attribute for aligning all colum in a row. Valid values are [top/bottom/center].
- * @note For Android 4.3 and earlier, and iOS6 and earlier, when using mixed alignment with ons-row and ons-column, they may not be displayed correctly. You can use only one align.
- * @codepen GgujC
- * @guide layouting Layouting guide
- * @seealso ons-col ons-col component
+ *  [en]Represents a row in the grid system. Use with ons-col to layout components.[/en]
+ *  [ja]グリッドシステムにて行を定義します。ons-colとともに使用し、コンポーネントの配置に使用します。[/ja]
+ * @param align
+ *  [en]Short hand attribute for aligning vertically. Valid values are top, bottom, and center.[/en]
+ *  [ja]縦に整列するために指定します。top、bottom、centerのいずれかを指定できます。[/ja]
+ *  [en]For Android 4.3 and earlier, and iOS6 and earlier, when using mixed alignment with ons-row and ons-column, they may not be displayed correctly. You can use only one align.[/en]
+ *  [ja]Android 4.3以前、もしくはiOS 6以前のOSの場合、ons-rowとons-columnを組み合わせた場合に描画が崩れる場合があります。[/ja]
+ * @codepen GgujC {wide}
+ * @guide Layouting [en]Layouting guide[/en][ja]レイアウト調整[/ja]
+ * @seealso ons-col [en]ons-col component[/en][ja]ons-colコンポーネント[/ja]
  */
 (function(){
   'use strict';
 
   var module = angular.module('onsen');
 
-  module.directive('onsRow', function($onsen, $timeout) {
+  module.directive('onsRow', ['$onsen', '$timeout', function($onsen, $timeout) {
     return {
       restrict: 'E',
       replace: false,
@@ -29597,7 +30596,7 @@ limitations under the License.
         };
       }
     };
-  });
+  }]);
 })();
 
 
@@ -29727,7 +30726,7 @@ limitations under the License.
     }
   });
 
-  module.service('Screen', function($compile, $onsen) {
+  module.service('Screen', ['$compile', '$onsen', function($compile, $onsen) {
     var TRANSITION_END = 'webkitTransitionEnd transitionend msTransitionEnd oTransitionEnd';
     var TRANSITION_START = 'webkitAnimationStart animationStart msAnimationStart oAnimationStart';
 
@@ -29856,9 +30855,9 @@ limitations under the License.
     });
 
     return Screen;
-  });
+  }]);
 
-  module.directive('onsScreen', function($compile, Screen, $onsen) {
+  module.directive('onsScreen', ['$compile', 'Screen', '$onsen', function($compile, Screen, $onsen) {
 
     return {
       restrict: 'E',
@@ -29895,7 +30894,7 @@ limitations under the License.
 
       }
     };
-  });
+  }]);
 })();
 
 /**
@@ -29909,7 +30908,7 @@ limitations under the License.
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsScroller', function($onsen, $timeout) {
+  module.directive('onsScroller', ['$onsen', '$timeout', function($onsen, $timeout) {
     return {
       restrict: 'E',
       replace: false,
@@ -29920,15 +30919,22 @@ limitations under the License.
         infinitScrollEnable: '='
       },
 
-      templateUrl: $onsen.DIRECTIVE_TEMPLATE_URL + '/scroller.tpl',
-
       compile: function(element, attrs) {
-        element.addClass('ons-scroller');
+        var content = element.addClass('ons-scroller').children().remove();
+        
+        var wrapper = angular.element('<div></div>');
+        wrapper.addClass('ons-scroller__content ons-scroller-inner');
+        element.append(wrapper);
 
-        return function(scope, element, attrs) {
+        return function(scope, element, attrs, controller, transclude) {
           if (attrs.ngController) {
             throw new Error('"ons-scroller" can\'t accept "ng-controller" directive.');
           }
+
+          transclude(scope.$parent, function(cloned) {
+            wrapper.append(cloned);
+            wrapper = null;
+          });
 
           // inifinte scroll
           var scrollWrapper;
@@ -29983,7 +30989,7 @@ limitations under the License.
         };
       }
     };
-  });
+  }]);
 })();
 
 /**
@@ -29991,32 +30997,72 @@ limitations under the License.
  * @id sliding_menu
  * @name ons-sliding-menu
  * @description
- * Facebook/Path like sliding UI where one page is overlayed over another page. The above page can be slided aside to reveal the page behind.
+ *  [en]Component for sliding UI where one page is overlayed over another page. The above page can be slided aside to reveal the page behind.[/en]
+ *  [ja]スライディングメニューを表現するためのコンポーネントで、片方のページが別のページの上にオーバーレイで表示されます。above-pageで指定されたページは、横からスライドして表示します。[/ja]
+ * @param behind-page
+ *  [en]The url of the page to be set to the behind layer.[/en]
+ *  [ja]後方のレイヤーにセットされたページのURLを指定します。[/ja]
+ * @param above-page
+ *  [en]The url of the page to be set to the above layer.[/en]
+ *  [ja]前方のレイヤーにセットされたページのURLを指定します。[/ja]
+ * @param swipable
+ *  [en]Whether to enable swipe interaction.[/en]
+ *  [ja]スワイプ操作を有効にする場合に指定します。[/ja]
+ * @param swipe-target-width
+ *  [en]The width of swipable area calculated from the left (in pixel). Use this to enable swipe only when the finger touch on the screen edge.[/en]
+ *  [ja]スワイプの判定領域をピクセル単位で指定します。画面の端から指定した距離に達するとページが表示されます。[/ja]
+ * @param max-slide-distance
+ *  [en]How far the behind page will slide open. Can specify both in px and %. eg. 90%, 200px[/en]
+ *  [ja]behind-pageで指定されたページの表示幅を指定します。ピクセルもしくは%の両方で指定できます（例: 90%, 200px）[/ja]
+ * @param var
+ *  [en]Variable name to refer this sliding menu.[/en]
+ *  [ja]JavaScriptから操作するための変数名を指定します。[/ja]
+ * @param side
+ *  [en]Specify which side of the screen the behind page is located on. Possible values are left and right.[/en]
+ *  [ja]behind-pageで指定されたページが画面のどちら側から表示されるかを指定します。leftもしくはrightのいずれかを指定できます。[/ja]
  *
- * @param behind-page The url of the page to be set to the behind layer.
- * @param above-page The url of the page to be set to the above layer
- * @param swipable Wether to enable swipe interaction
- * @param swipe-target-width The width of swipable area calculated from the left (in pixel). Eg. Use this to enable swipe only when the finger touch on the left edge.
- * @param max-slide-distance How far the above page will slide open. Can specify both in px and %. eg. 90%, 200px
- * @param var Variable name to refer this sliding menu.
- *
- * @property setMainPage(pageUrl,[options]) Show the page specified in pageUrl in the main contents pane.
- * @property setMenuPage(pageUrl,[options]) Show the page specified in pageUrl in the side menu pane.
- * @property setAbovePage(pageUrl) [Deprecated]Show the page specified in pageUrl in the above layer.
- * @property setBehindPage(pageUrl) [Deprecated]Show the page specified in pageUrl in the behind layer.
- * @property openMenu() Slide the above layer to reveal the layer behind.
- * @property closeMenu() Slide the above layer to hide the layer behind.
- * @property toggleMenu() Slide the above layer to reveal the layer behind if it is currently hidden, otherwies, hide the layer behind.
- * @property on(eventName,listener) Added an event listener. Preset events are 'preopen', 'preclose', 'postopen' and 'postclose'.
- * @property isMenuOpend()
+ * @property setMainPage(pageUrl,[options])
+ *  [en]Show the page specified in pageUrl in the main contents pane.[/en]
+ *  [ja]中央部分に表示されるページをpageUrlに指定します。[/ja]
+ * @property setMenuPage(pageUrl,[options])
+ *  [en]Show the page specified in pageUrl in the side menu pane.[/en]
+ *  [ja]メニュー部分に表示されるページをpageUrlに指定します。[/ja]
+ * @property setAbovePage(pageUrl)
+ *  [en][Deprecated]Show the page specified in pageUrl in the above layer.[/en]
+ *  [ja][非推奨]上部に表示されるページをpageUrlに指定します。[/ja]
+ * @property setBehindPage(pageUrl)
+ *  [en][Deprecated]Show the page specified in pageUrl in the behind layer.[/en]
+ *  [ja][非推奨]下部に表示されるページをpageUrlに指定します。[/ja]
+ * @property openMenu()
+ *  [en]Slide the above layer to reveal the layer behind.[/en]
+ *  [ja]メニューページを表示します。[/ja]
+ * @property closeMenu()
+ *  [en]Slide the above layer to hide the layer behind.[/en]
+ *  [ja]メニューページを非表示にします。[/ja]
+ * @property toggleMenu()
+ *  [en]Slide the above layer to reveal the layer behind if it is currently hidden, otherwies, hide the layer behind.[/en]
+ *  [ja]現在の状況に合わせて、メニューページを表示もしくは非表示にします。[/ja]
+ * @property on(eventName,listener)
+ *  [en]Add an event listener. Preset events are preopen, preclose, postopen and postclose.[/en]
+ *  [ja]イベントリスナーを追加します。preopen, preclose, postopen, postcloseのイベントに対応しています。[/ja]
+ * @property isMenuOpened()
+ *  [en]Returns true if the menu page is open, otherwise false.[/en]
+ *  [ja]メニューページが開いている場合はtrue、そうでない場合はfalseを返します。[/ja]
+ * @property getDeviceBackButtonHandler()
+ *  [en]Retrieve the back-button handler.[/en]
+ *  [ja]ons-sliding-menuに紐付いているバックボタンハンドラを取得します。[/ja]
  * @codepen IDvFJ
- * @guide using-sliding-menu Using sliding menu
+ * @seealso ons-page [en]ons-page component[/en][ja]ons-pageコンポーネント[/ja]
+ * @guide UsingSlidingMenu [en]Using sliding menu[/en][ja]スライディングメニューを使う[/ja]
+ * @guide EventHandling [en]Using events[/en][ja]イベントの利用[/ja]
+ * @guide CallingComponentAPIsfromJavaScript [en]Using navigator from JavaScript[/en][ja]JavaScriptからコンポーネントを呼び出す[/ja]
+ * @guide DefiningMultiplePagesinSingleHTML [en]Defining multiple pages in single html[/en][ja]複数のページを1つのHTMLに記述する[/ja]
  */
 (function() {
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsSlidingMenu', function($compile, SlidingMenuView, $onsen) {
+  module.directive('onsSlidingMenu', ['$compile', 'SlidingMenuView', '$onsen', function($compile, SlidingMenuView, $onsen) {
     return {
       restrict: 'E',
       replace: false,
@@ -30046,7 +31092,7 @@ limitations under the License.
         });
       }
     };
-  });
+  }]);
 })();
 
 /**
@@ -30054,25 +31100,39 @@ limitations under the License.
  * @id split-view
  * @name ons-split-view
  * @description
- * Divides the screen into left and right section. This component can also act as sliding menu which can be controlled by 'collapse' attribute
- * @param secondary-page The url of the page on the left
- * @param main-page The url of the page on the right
- * @param main-page-width Main page's width percentage. The width of secondary page take the remaining percentage
- * @param collapse [Deprecated] Specify the collapse behavior. Valid values are [portrait/landscape/width ##px]. "portrait" means the view will collapse when device is in portrait orien0ation. "landscape" means the view will collapse when device is in landscape orientation. "width ##px" means the view will collapse when the window width is smaller than the specified ##px
- * @param var Variable name to refer this split view.
+ *  [en]Divides the screen into left and right section. This component can also act as sliding menu which can be controlled by collapse attribute.[/en]
+ *  [ja]画面を左右に分割します。collapse属性を用いることで、スライディングメニューとしての使い方もできます。[/ja]
+ *
+ * @param main-page
+ *  [en]The url of the page on the right.[/en]
+ *  [ja]右側に表示するページのURLを指定します。[/ja]
+ * @param main-page-width
+ *  [en]Main page's width percentage. The width of secondary page take the remaining percentage.[/en]
+ *  [ja]右側のページの幅をパーセント単位で指定します。[/ja]
+ * @param secondary-page
+ *  [en]The url of the page on the left.[/en]
+ *  [ja]左側に表示するページのURLを指定します。[/ja]
+ * @param collapse
+ *  [en]Specify the collapse behavior. Valid values are portrait, landscape, width ##px. "portrait" or "landscape" means the view will collapse when device is in landscape or portrait orientation. "width ##px" means the view will collapse when the window width is smaller than the specified ##px.[/en]
+ *  [ja]左側のページを非表示にする条件を指定します。portrait, landscapeもしくはwidth ##pxの指定が可能です。portraitもしくはlandscapeを指定すると、デバイスの画面が縦向きもしくは横向きになった時に適用されます。width ##pxを指定すると、画面が指定した横幅よりも短い場合に適用されます。[/ja]
+ * @param var 
+ *  [en]Variable name to refer this split view.[/en]
+ *  [ja]JavaScriptからスプリットビューコンポーネントにアクセスするための変数を定義します。[/ja]
+ *
  * @property setMainPage(pageUrl) Show the page specified in pageUrl in the right section
  * @property setSecondaryPage(pageUrl) Show the page specified in pageUrl in the left section
- * @property [Deprecated] open() Reveal the secondary page if the view is in collapse mode
- * @property [Deprecated] close() hide the secondary page if the view is in collapse mode
- * @property [Deprecated] toggle() Reveal the secondary page if it is currently hidden, otherwies, reveal it
- * @codepen nKqfv
- * @guide multi-screen-support Multi screen support
+ * @property open() [Deprecated] Reveal the secondary page if the view is in collapse mode
+ * @property close() [Deprecated] hide the secondary page if the view is in collapse mode
+ * @property toggle() [Deprecated] Reveal the secondary page if it is currently hidden, otherwies, reveal it
+ * @codepen nKqfv {wide}
+ * @guide Usingonssplitviewcomponent [en]Using ons-split-view.[/en][ja]ons-split-viewコンポーネントを使う[/ja]
+ * @guide CallingComponentAPIsfromJavaScript [en]Using navigator from JavaScript[/en][ja]JavaScriptからコンポーネントを呼び出す[/ja]
  */
 (function() {
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsSplitView', function($compile, SplitView, $onsen) {
+  module.directive('onsSplitView', ['$compile', 'SplitView', '$onsen', function($compile, SplitView, $onsen) {
 
     return {
       restrict: 'E',
@@ -30106,7 +31166,7 @@ limitations under the License.
         });
       }
     };
-  });
+  }]);
 })();
 
 /**
@@ -30114,23 +31174,41 @@ limitations under the License.
  * @id switch
  * @name ons-switch
  * @description
- * Switch component.
- * @param disabled Wether the switch shoud be disabled.
- * @param checked Wether the switch is checked.
- * @param var Variable name to refer this switch.
- * @param modifier Modifier name.
+ *  [en]Switch component.[/en]
+ *  [ja]スイッチを表示するコンポーネントです。[/ja]
+ * @param disabled
+ *  [en]Whether the switch should be disabled.[/en]
+ *  [ja]スイッチを無効の状態にする場合に指定します。[/ja]
+ * @param checked
+ *  [en]Whether the switch is checked.[/en]
+ *  [ja]スイッチがONの状態にするときに指定します。[/ja]
+ * @param var
+ *  [en]Variable name to refer this switch.[/en]
+ *  [ja]JavaScriptから参照するための変数名を指定します。[/ja]
+ * @param modifier
+ *  [en]Modifier name to apply custom styles.[/en]
+ *  [ja]カスタムなスタイルを適用するための名前を指定します。[/ja]
  * @property isChecked()
+ *  [en]Returns true if the switch is ON.[/en]
+ *  [ja]スイッチがONの場合にtrueを返します。[/ja]
  * @property setChecked(isChecked)
- * @property getCheckboxElement() Get inner input[type=checkbox] element.
- * @property on(eventName,listener) Added an event listener. There is 'change' event.
- * @guide using-form-components Using form components
- * @seealso ons-button ons-button component
+ *  [en]Set the value of the switch. isChecked can be either true or false.[/en]
+ *  [ja]スイッチの値を指定します。isCheckedにはtrueもしくはfalseを指定します。[/ja]
+ * @property getCheckboxElement()
+ *  [en]Get inner input[type=checkbox] element.[/en]
+ *  [ja]スイッチが内包する、input[type=checkbox]の要素を取得します。[/ja]
+ * @property on(eventName,listener)
+ *  [en]Add an event listener. Possible event name is change.[/en]
+ *  [ja]イベントリスナーを追加します。changeイベントを使用できます。[/ja]
+ * @guide UsingFormComponents [en]Using form components[/en][ja]フォームを使う[/ja]
+ * @guide EventHandling [en]Event handling descriptions[/en][ja]イベント処理の使い方[/ja]
+ * @seealso ons-button [en]ons-button component[/en][ja]ons-buttonコンポーネント[/ja]
  */
 (function(){
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsSwitch', function($onsen, SwitchView) {
+  module.directive('onsSwitch', ['$onsen', 'SwitchView', function($onsen, SwitchView) {
     return {
       restrict: 'E',
       replace: false,
@@ -30172,37 +31250,66 @@ limitations under the License.
           }
 
           $onsen.declareVarAttribute(attrs, switchView);
-          $onsen.aliasStack.register('ons.switch', switchView);
           element.data('ons-switch', switchView);
+          $onsen.aliasStack.register('ons.switch', switchView);
 
-          scope.$on('$destroy', function() {
+          $onsen.cleaner.onDestroy(scope, function() {
             element.data('ons-switch', undefined);
-            $onsen.aliasStack.unregister('ons.navigator', navigator);
+            $onsen.aliasStack.unregister('ons.switch', switchView);
+            $onsen.clearComponent({
+              element : element,
+              scope : scope,
+              attrs : attrs
+            });
+            checkbox = element = attrs = scope = null;
           });
         };
       }
     };
-  });
+  }]);
 })();
 
 /**
  * @ngdoc directive
  * @id tabbar
  * @name ons-tabbar
- * @param hide-tabs Whether to hide the tabs. Valid values are [true/false] or angular binding. eg: {{ shouldHide }}
- * @param var Variable name to refer this tabbar.
- * @property on(eventName,listener) Added an event listener. Preset events are 'prechange' and 'postchange'.
  * @description
- * Used with tabbar-item to manage pages using tabs.
- * @codepen kxgys
- * @guide using-tab-bar Using tab bar
- * @seealso ons-tabbar-item ons-tabbar-item component
+ *  [en]A component to display a tab bar on the bottom of a page. Used with ons-tabbar-item to manage pages using tabs.[/en]
+ *  [ja]タブバーをページ下部に表示するためのコンポーネントです。ons-tabbar-itemと組み合わせて使うことで、ページを管理できます。[/ja]
+ * @param hide-tabs
+ *  [en]Whether to hide the tabs. Valid values are true/false.[/en]
+ *  [ja]タブを非表示にする場合に指定します。trueもしくはfalseを指定できます。[/ja]
+ * @param var
+ *  [en]Variable name to refer this tabbar.[/en]
+ *  [ja]JavaScriptからコンポーネントにアクセスするための変数名を指定します。[/ja]
+ * @param animation
+ *  [en]Animation name. Preset values are none/fade.[/en]
+ *  [ja]ページ読み込み時のアニメーションを指定します。nodeもしくはfadeを選択できます。デフォルトはnoneです。[/ja]
+ * @property on(eventName,listener)
+ *  [en]Add an event listener. Possible events are prechange and postchange. See the guide for more details.[/en]
+ *  [ja]イベントリスナーを追加します。prechangeおよびpostchangeイベントが定義されています。詳細はガイドを参照してください。[/ja]
+ * @property setActiveTab(index,[options])
+ *  [en]Show specified tab page. Animations and other options can be specified by the second parameter.[/en]
+ *  [ja]指定したインデックスのタブを表示します。アニメーションなどのオプションを指定できます。[/ja]
+ * @property getActiveTabIndex()
+ *  [en]Returns tab index on current active tab. If active tab is not found, returns -1.[/en]
+ *  [ja]現在アクティブになっているタブのインデックスを返します。現在アクティブなタブがない場合には-1を返します。[/ja]
+ * @property loadPage(url)
+ *  [en]Displays a new page without changing the active index.[/en]
+ *  [ja]現在のアクティブなインデックスを変更せずに、新しいページを表示します。[/ja]
+ * @codepen pGuDL
+ * @guide UsingTabBar [en]Using tab bar[/en][ja]タブバーを使う[/ja]
+ * @guide EventHandling [en]Event handling descriptions[/en][ja]イベント処理の使い方[/ja]
+ * @guide CallingComponentAPIsfromJavaScript [en]Using navigator from JavaScript[/en][ja]JavaScriptからコンポーネントを呼び出す[/ja]
+ * @guide DefiningMultiplePagesinSingleHTML [en]Defining multiple pages in single html[/en][ja]複数のページを1つのHTMLに記述する[/ja]
+ * @seealso ons-tabbar-item [en]ons-tabbar-item component[/en][ja]ons-tabbar-itemコンポーネント[/ja]
+ * @seealso ons-page [en]ons-page component[/en][ja]ons-pageコンポーネント[/ja]
  */
 (function() {
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsTabbar', function($timeout, $compile, $onsen) {
+  module.directive('onsTabbar', ['$onsen', '$compile', 'TabbarView', function($onsen, $compile, TabbarView) {
     return {
       restrict: 'E',
       replace: false,
@@ -30212,155 +31319,75 @@ limitations under the License.
         onActiveTabChanged: '&'
       },
       templateUrl: $onsen.DIRECTIVE_TEMPLATE_URL + '/tab_bar.tpl',
-      controller: function($scope, $element, $attrs) {
+      link: function(scope, element, attrs, controller, transclude) {
 
-        if ($attrs.ngController) {
+        if (attrs.ngController) {
           throw new Error('This element can\'t accept ng-controller directive.');
         }
 
-        this.modifierTemplater = $scope.modifierTemplater = $onsen.generateModifierTemplater($attrs);
+        scope.modifierTemplater = $onsen.generateModifierTemplater(attrs);
+        scope.selectedTabItem = {source: ''};
 
-        var container = angular.element($element[0].querySelector('.ons-tab-bar__content'));
-        var footer = $element[0].querySelector('.ons-tab-bar__footer');
-
-        this.tabbarId = Date.now();
-
-        $scope.selectedTabItem = {
-          source: ''
-        };
-
-        $attrs.$observe('hideTabs', function(hide) {
-          $scope.hideTabs = hide;
+        attrs.$observe('hideTabs', function(hide) {
+          scope.hideTabs = hide;
           tabbarView._onTabbarVisibilityChanged();
         });
 
-        var tabbarView = {
-          _tabbarId: this.tabbarId,
+        var tabbarView = new TabbarView(scope, element, attrs);
 
-          _tabItems: [],
-
-          /**
-           * @param {Number} index
-           */
-          setActiveTab: function(index) {
-            var selectedTabItem = this._tabItems[index];
-
-            if (!selectedTabItem) {
-              return;
-            }
-
-            this.emit('prechange', {index: index, tabItem: selectedTabItem});
-            
-            if (selectedTabItem.page) {
-              this._setPage(selectedTabItem.page);
-            }
-
-            for (var i = 0; i < this._tabItems.length; i++) {
-              if (this._tabItems[i] != selectedTabItem) {
-                this._tabItems[i].setInactive();
-              } else {
-                this._triggerActiveTabChanged(i, selectedTabItem);
-                this.emit('postchange', {index: i, tabItem: selectedTabItem});
-              }
-            }
-          },
-
-          _triggerActiveTabChanged: function(index, tabItem){
-            $scope.onActiveTabChanged({
-              $index: index,
-              $tabItem: tabItem
-            });
-          },
-
-          /**
-           * @param {Boolean} visible
-           */
-          setTabbarVisibility: function(visible) {
-            $scope.hideTabs = !visible;
-            this._onTabbarVisibilityChanged();
-          },
-
-          _onTabbarVisibilityChanged: function() {
-            if ($scope.hideTabs) {
-              $scope.tabbarHeight = 0;
-            } else {
-              $scope.tabbarHeight = footer.clientHeight + 'px';
-            }
-          },
-
-          /**
-           * @param {Object} tabItem
-           */
-          addTabItem : function(tabItem) {
-            this._tabItems.push(tabItem);
-          },
-
-          /**
-           * @param {String} page
-           */
-          _setPage: function(page) {
-            if (page) {
-              $onsen.getPageHTMLAsync(page).then(function(html) {
-                var templateHTML = angular.element(html.trim());
-                var pageScope = $scope.$parent.$new();
-                var pageContent = $compile(templateHTML)(pageScope);
-                container.append(pageContent);
-
-                if (this._currentPageElement) {
-                  this._currentPageElement.remove();
-                  this._currentPageScope.$destroy();
-                }
-
-                this._currentPageElement = pageContent;
-                this._currentPageScope = pageScope;
-              }.bind(this), function() {
-                throw new Error('Page is not found: ' + page);
-              });
-            } else {
-              throw new Error('Cannot set undefined page');
-            }
-          },
-
-          _destroy: function() {
-            this.emit('destroy', {tabbar: this});
-          }
-        };
-        MicroEvent.mixin(tabbarView);
+        scope.tabbarId = tabbarView._tabbarId;
 
         $onsen.aliasStack.register('ons.tabbar', tabbarView);
-        $element.data('ons-tabbar', tabbarView);
-        $onsen.declareVarAttribute($attrs, tabbarView);
+        element.data('ons-tabbar', tabbarView);
+        $onsen.declareVarAttribute(attrs, tabbarView);
 
-        $scope.$watch('$destroy', function() {
-          tabbarView._destroy();
-          $element.data('ons-tabbar', undefined);
+        transclude(function(cloned) {
+          angular.element(element[0].querySelector('.ons-tabbar-inner')).append(cloned);
+        });
+
+        scope.$on('$destroy', function() {
+          element.data('ons-tabbar', undefined);
           $onsen.aliasStack.unregister('ons.tabbar', tabbarView);
         });
       }
     };
-  });
+  }]);
 })();
 
 /**
  * @ngdoc directive
  * @id tabbar_item
  * @name ons-tabbar-item
- * @param page The page that this tabbar-item points to
- * @param icon The icon of the tab. To use font-awesome icon, just set the icon name without "fa-" prefix. eg. to use "fa-home" icon, set it to "home". If you need to use your own icon, create a css class with background-image or any css properties and specify the name of your css class here
- * @param active-icon The icon of the tab when active. To use font-awesome icon, just set the icon name without "fa-" prefix. eg. to use "fa-home" icon, set it to "home". If you need to use your own icon, create a css class with background-image or any css properties and specify the name of your css class here
- * @param label The label of the tab
- * @param active Set wether this tab should be active or not. Valid values are [true/false]
  * @description
- * Represents a tab inside tabbar. Each tabbar-item represents a page
- * @codepen kxgys
- * @guide using-tab-bar Using tab bar
- * @seealso ons-tabbar ons-tabbar component
+ *  [en]Represents a tab inside tabbar. Each ons-tabbar-item represents a page.[/en]
+ *  [ja]タブバーに配置される各アイテムのコンポーネントです。それぞれのons-tabbar-itemはページを表します。[/ja]
+ * @param page
+ *  [en]The page that this ons-tabbar-item points to.[/en]
+ *  [ja]ons-tabbar-itemが参照するページへのURLを指定します。[/ja]
+ * @param icon
+ *  [en]The icon name of the tab. Can specify the same icon name as ons-icon. If you need to use your own icon, create a css class with background-image or any css properties and specify the name of your css class here.[/en]
+ *  [ja]アイコン名を指定します。ons-iconと同じアイコン名を指定できます。個別にアイコンをカスタマイズする場合は、background-imageなどのCSSスタイルを用いて指定できます。[/ja]
+ * @param active-icon
+ *  [en]The icon name of the tab when active.[/en]
+ *  [ja]アクティブの際のアイコン名を指定します。[/ja]
+ * @param label
+ *  [en]The label of the tab item.[/en]
+ *  [ja]アイコン下に表示されるラベルを指定します。[/ja]
+ * @param active
+ *  [en]Set whether this item should be active or not. Valid values are true and false.[/en]
+ *  [ja]このタブアイテムをアクティブ状態にするかどうかを指定します。trueもしくはfalseを指定できます。[/ja]
+ * @codepen pGuDL
+ * @guide UsingTabBar [en]Using tab bar[/en][ja]タブバーを使う[/ja]
+ * @guide DefiningMultiplePagesinSingleHTML [en]Defining multiple pages in single html[/en][ja]複数のページを1つのHTMLに記述する[/ja]
+ * @seealso ons-tabbar [en]ons-tabbar component[/en][ja]ons-tabbarコンポーネント[/ja]
+ * @seealso ons-page [en]ons-page component[/en][ja]ons-pageコンポーネント[/ja]
+ * @seealso ons-icon [en]ons-icon component[/en][ja]ons-iconコンポーネント[/ja]
  */
 (function() {
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsTabbarItem', function($onsen) {
+  module.directive('onsTabbarItem', ['$onsen', function($onsen) {
     return {
       restrict: 'E',
       replace: true,
@@ -30374,13 +31401,13 @@ limitations under the License.
       },
       templateUrl: $onsen.DIRECTIVE_TEMPLATE_URL + '/tab_bar_item.tpl',
       link: function(scope, element, attrs) {
-        var radioButton = element[0].querySelector('input');
 
         var tabbarView = element.inheritedData('ons-tabbar');
-
         if (!tabbarView) {
           throw new Error('ons-tabbar-item is must be child of ons-tabbar element.');
         }
+
+        var radioButton = element[0].querySelector('input');
 
         scope.tabbarModifierTemplater = tabbarView.modifierTemplater;
         scope.modifierTemplater = $onsen.generateModifierTemplater(attrs);
@@ -30389,10 +31416,8 @@ limitations under the License.
 
         tabbarView.addTabItem(scope);
 
+        // Make this tab active.
         scope.setActive = function() {
-
-          tabbarView.setActiveTab(tabbarView._tabItems.indexOf(scope));
-
           element.addClass('active');
           radioButton.checked = true;
 
@@ -30401,18 +31426,58 @@ limitations under the License.
           }
         };
 
+        // Make this tab inactive.
         scope.setInactive = function() {
           element.removeClass('active');
+          radioButton.checked = false;
           scope.tabIcon = scope.icon;
         };
 
-        if (scope.active) {
-          scope.setActive();
-        }
+        /**
+         * @return {Boolean}
+         */
+        scope.isActive = function() {
+          return element.hasClass('active');
+        };
 
+        scope.tryToChange = function() {
+          tabbarView.setActiveTab(tabbarView._tabItems.indexOf(scope));
+        };
+
+        if (scope.active) {
+          tabbarView.setActiveTab(tabbarView._tabItems.indexOf(scope));
+        }
       }
     };
-  });
+  }]);
+})();
+
+/**
+ * @ngdoc directive
+ * @id template
+ * @name ons-template
+ * @description
+ *  [en]Define a separate HTML fragment and use as a template.[/en]
+ *  [ja]テンプレートとして使用するためのHTMLフラグメントを定義します。[/ja]
+ * @guide DefiningMultiplePagesinSingleHTML
+ *  [en]Defining multiple pages in single html[/en]
+ *  [ja]複数のページを1つのHTMLに記述する[/ja]
+ */
+(function(){
+  'use strict';
+  var module = angular.module('onsen');
+
+  module.directive('onsTemplate', ['$onsen', '$templateCache', function($onsen, $templateCache) {
+    return {
+      restrict: 'E',
+      transclude: false,
+      priority: 1000,
+      terminal: true,
+      compile: function(element) {
+        $templateCache.put(element.attr('id'), element.remove().html());
+      }
+    };
+  }]);
 })();
 
 /**
@@ -30420,13 +31485,13 @@ limitations under the License.
  * @id toolbar
  * @name ons-toolbar
  * @description
- * Toolbar component that can be used with navigation. Left, center and right container can be specified by class names.
- * @param modifier Modifier name.
+ *  [en]Toolbar component that can be used with navigation. Left, center and right container can be specified by class names.[/en]
+ *  [ja]ナビゲーションで使用するツールバー用コンポーネントです。クラス名により、左、中央、右のコンテナを指定できます。[/ja]
  * @codepen aHmGL
- * @guide adding-a-toolbar Adding a toolbar
- * @seealso ons-bottom-toolbar ons-bottom-toolbar component
- * @seealso ons-back-button ons-back-button component
- * @seealso ons-toolbar-button ons-toolbar-button component
+ * @guide Addingatoolbar [en]Adding a toolbar[/en][ja]ツールバーの追加[/ja]
+ * @seealso ons-bottom-toolbar [en]ons-bottom-toolbar component[/en][ja]ons-bottom-toolbarコンポーネント[/ja]
+ * @seealso ons-back-button [en]ons-back-button component[/en][ja]ons-back-buttonコンポーネント[/ja]
+ * @seealso ons-toolbar-button [en]ons-toolbar-button component[/en][ja]ons-toolbar-buttonコンポーネント[/ja]
  */
 (function() {
   'use strict';
@@ -30533,7 +31598,7 @@ limitations under the License.
   /**
    * Toolbar directive.
    */
-  module.directive('onsToolbar', function($onsen) {
+  module.directive('onsToolbar', ['$onsen', function($onsen) {
     return {
       restrict: 'E',
       replace: false,
@@ -30569,7 +31634,7 @@ limitations under the License.
         };
       }
     };
-  });
+  }]);
 
 })();
 
@@ -30577,36 +31642,46 @@ limitations under the License.
  * @ngdoc directive
  * @id toolbar_button
  * @name ons-toolbar-button
- * @param modifier Modifier name.
  * @description
- * Button component for toolbar.
+ *  [en]Button component for ons-toolbar and ons-bottom-toolbar.[/en]
+ *  [ja]ons-toolbarあるいはons-bottom-toolbarに設置できるボタン用コンポーネントです。[/ja]
+ * @param modifier [en]Specify modifier name to specify custom styles.[/en][ja]スタイル定義をカスタマイズするための名前を指定します。[/ja]
  * @codepen aHmGL
- * @guide adding-a-toolbar Adding a toolbar
- * @seealso ons-toolbar ons-toolbar component
- * @seealso ons-bottom-toolbar ons-bottom-toolbar component
- * @seealso ons-back-button ons-back-button component
+ * @guide Addingatoolbar [en]Adding a toolbar[/en][ja]ツールバーの追加[/ja]
+ * @seealso ons-toolbar [en]ons-toolbar component[/en][ja]ons-toolbarコンポーネント[/ja]
+ * @seealso ons-back-button [en]ons-back-button component[/en][ja]ons-back-buttonコンポーネント[/ja]
+ * @seealso ons-toolbar-button [en]ons-toolbar-button component[/en][ja]ons-toolbar-buttonコンポーネント[/ja]
  */
 (function(){
   'use strict';
   var module = angular.module('onsen');
 
-  module.directive('onsToolbarButton', function($onsen) {
+  module.directive('onsToolbarButton', ['$onsen', function($onsen) {
     return {
       restrict: 'E',
       transclude: true,
       templateUrl: $onsen.DIRECTIVE_TEMPLATE_URL + '/toolbar_button.tpl',
       link: {
-        pre: function(scope, element, attrs, controller, transclude) {
+        pre: function(scope, element, attrs) {
 
           if (attrs.ngController) {
             throw new Error('This element can\'t accept ng-controller directive.');
           }
 
           scope.modifierTemplater = $onsen.generateModifierTemplater(attrs);
+
+          $onsen.cleaner.onDestroy(scope, function() {
+            $onsen.clearComponent({
+              scope: scope,
+              attrs: attrs,
+              element: element,
+            });
+            scope = element = attrs = null;
+          });
         }
       }
     };
-  });
+  }]);
 })();
 
 /*
@@ -30631,13 +31706,140 @@ limitations under the License.
 
   var module = angular.module('onsen');
 
-  var util = {
-    init: function() {
-      var self = this;
+  var ComponentCleaner = {
+    
+    /**
+     * @param {jqLite} element
+     */
+    decomposeNode: function(element) {
+      var children = element.remove().children();
+      for (var i = 0; i < children.length; i++) {
+        ComponentCleaner.decomposeNode(angular.element(children[i]));
+      }
     },
 
-    addListener: function(fn) {
-      if (this._deviceready) {
+    /**
+     * @param {Attributes} attrs
+     */
+    destroyAttributes: function(attrs) {
+      attrs.$$element = null;
+      attrs.$$observers = null;
+    },
+
+    /**
+     * @param {jqLite} element
+     */
+    destroyElement: function(element) {
+      element.remove();
+    },
+
+    /**
+     * @param {Scope} scope
+     */
+    destroyScope: function(scope) {
+      scope.$$listeners = {};
+      scope.$$watchers = null;
+      scope = null;
+    },
+
+    /**
+     * @param {Scope} scope
+     * @param {Function} fn
+     */
+    onDestroy: function(scope, fn) {
+      var clear = scope.$on('$destroy', function() {
+        clear();
+        fn.apply(null, arguments);
+      });
+    }
+  };
+
+  module.factory('ComponentCleaner', function() {
+    return ComponentCleaner;
+  });
+
+  // override builtin ng-(eventname) directives
+  (function() {
+    var ngEventDirectives = {};
+    'click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste'.split(' ').forEach(
+      function(name) {
+        var directiveName = directiveNormalize('ng-' + name);
+        ngEventDirectives[directiveName] = ['$parse', function($parse) {
+          return {
+            compile: function($element, attr) {
+              var fn = $parse(attr[directiveName]);
+              return function(scope, element, attr) {
+                var listener = function(event) {
+                  scope.$apply(function() {
+                    fn(scope, {$event:event});
+                  });
+                };
+                element.on(name, listener);
+
+                ComponentCleaner.onDestroy(scope, function() {
+                  element.off(name, listener);
+                  element = null;
+
+                  ComponentCleaner.destroyScope(scope);
+                  scope = null;
+
+                  ComponentCleaner.destroyAttributes(attr);
+                  attr = null;
+                });
+              };
+            }
+          };
+        }];
+
+        function directiveNormalize(name) {
+          return name.replace(/-([a-z])/g, function(matches) {
+            return matches[1].toUpperCase();
+          });
+        }
+      }
+    );
+    module.config(['$provide', function($provide) {
+      var shift = function($delegate) {
+        $delegate.shift();
+        return $delegate;
+      };
+      Object.keys(ngEventDirectives).forEach(function(directiveName) {
+        $provide.decorator(directiveName + 'Directive', ['$delegate', shift]);
+      });
+    }]);
+    Object.keys(ngEventDirectives).forEach(function(directiveName) {
+      module.directive(directiveName, ngEventDirectives[directiveName]);
+    });
+  })();
+})();
+
+/*
+Copyright 2013-2014 ASIAL CORPORATION
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+*/
+
+(function(){
+  'use strict';
+
+  var util = {
+    init: function() {
+      this.ready = false;
+    },
+
+    addBackButtonListener: function(fn) {
+      if (this._ready) {
         window.document.addEventListener('backbutton', fn, false);
       } else {
         window.document.addEventListener('deviceready', function() {
@@ -30646,8 +31848,8 @@ limitations under the License.
       }
     },
 
-    removeListener: function(fn) {
-      if (this._deviceready) {
+    removeBackButtonListener: function(fn) {
+      if (this._ready) {
         window.document.removeEventListener('backbutton', fn, false);
       } else {
         window.document.addEventListener('deviceready', function() {
@@ -30656,156 +31858,226 @@ limitations under the License.
       }
     }
   };
-
-  window.document.addEventListener('deviceready', function() {
-    util._deviceready = true;
-  }, false);
+  util.init();
 
   /**
-   * 'backbutton' event handler manager.
+   * Internal service class for framework implementation.
    */
-  module.factory('BackButtonHandlerStack', function() {
+  angular.module('onsen').service('DeviceBackButtonHandler', function() {
 
-    var BackButtonHandlerStack = Class.extend({
+    this._init = function() {
+      if (window.ons.isWebView()) {
+        window.document.addEventListener('deviceready', function() {
+          util._ready = true;
+        }, false);
+      } else {
+        util._ready = true;
+      }
 
-      _stack: undefined,
+      this._bindedCallback = this._callback.bind(this);
 
-      _enabled: true,
+      this.enable();
+    };
 
-      init: function() {
-        this._stack = [];
+    this._isEnabled = false;
 
-        this._listener = function() {
-          return this.dispatchHandler.apply(this, arguments);
-        }.bind(this);
+    /**
+     * Enable to handle 'backbutton' events.
+     */
+    this.enable = function() {
+      if (!this._isEnabled) {
+        util.addBackButtonListener(this._bindedCallback);
+        this._isEnabled = true;
+      }
+    };
 
-        util.addListener(this._listener);
-      },
+    /**
+     * Disable to handle 'backbutton' events.
+     */
+    this.disable = function() {
+      if (this._isEnabled) {
+        util.removeBackButtonListener(this._bindedCallback);
+        this._isEnabled = false;
+      }
+    };
 
-      /**
-       * Call handler's listener on backbutton event.
-       */
-      dispatchHandler: function(event) {
-        var availableListeners = this._stack.filter(function(handler) {
-          return handler._enabled;
-        }).map(function(handler) {
-          return handler.listener;
-        });
+    /**
+     * Fire a 'backbutton' event manually.
+     */
+    this.fireDeviceBackButtonEvent = function() {
+      var event = document.createEvent('Event');
+      event.initEvent('backbutton', true, true);
+      document.dispatchEvent(event);
+    };
 
-        event.preventDefault();
+    this._callback = function() {
+      this._dispatchDeviceBackButtonEvent();
+    };
 
-        availableListeners.reverse();
+    /**
+     * @param {jqLite} element
+     * @param {Function} callback
+     */
+    this.create = function(element, callback) {
+      if (!(element instanceof angular.element().constructor)) {
+        throw new Error('element must be an instance of jqLite');
+      }
 
-        for (var i = 0; i < availableListeners.length; i++) {
-          try {
-            if (availableListeners[i].apply(null, arguments)) {
-              return;
-            }
-          } catch (e) {
-            console.log(e);
-          }
+      if (!(callback instanceof Function)) {
+        throw new Error('callback must be an instance of Function');
+      }
+
+      var handler = {
+        _callback: callback,
+        _element: element,
+
+        disable: function() {
+          this._element.data('device-backbutton-handler', null);
+        },
+
+        setListener: function(callback) {
+          this._callback = callback;
+        },
+
+        enable: function() {
+          this._element.data('device-backbutton-handler', this);
+        },
+
+        isEnabled: function() {
+          return this._element.data('device-backbutton-handler') === this;
+        },
+
+        destroy: function() {
+          this._element.data('device-backbutton-handler', null);
+          this._callback = this._element = null;
         }
-      },
+      };
 
-      /**
-       * @return {Object}
-       */
-      _createStackObject: function(listener) {
-        var self = this;
+      handler.enable();
 
+      return handler;
+    };
+
+    /**
+     * @param {Object} event
+     */
+    this._dispatchDeviceBackButtonEvent = function(event) {
+      var tree = this._captureTree();
+      var element = this._findHandlerLeafElement(tree);
+
+      //this._dumpTree(tree);
+      //this._dumpParents(element);
+
+      var handler = element.data('device-backbutton-handler');
+      handler._callback(createEvent(element));
+
+      function createEvent(element) {
         return {
-          _enabled: true,
-          listener: listener,
-          setEnabled: function(enabled) {
-            this._enabled = enabled;
-          },
-          remove: function() {
-            self.remove(this.listener);
+          _element: element,
+          callParentHandler: function() {
+            var parent = this._element.parent();
+            var hander = null;
+
+            while (parent[0]) {
+              if (handler = parent.data('device-backbutton-handler')) {
+                return handler._callback(createEvent(parent));
+              }
+              parent = parent.parent();
+            }
           }
         };
-      },
-
-      /**
-       * @return {Function}
-       */
-      _getTopAvailableListener: function() {
-        var object = this._stack.filter(function(stackObject) {
-          return stackObject._enabled;
-        }).reverse()[0];
-
-        return object ? object.listener : undefined;
-      },
-
-      /**
-       * Enabled "backbutton" event listeners on this stack.
-       */
-      enable: function() {
-        if (!this._enabled) {
-          this._enabled = true;
-          util.addListener(this._listener);
-        }
-      },
-
-      /**
-       * Disabled "backbutton" event listeners on this stack.
-       */
-      disable: function() {
-        if (this._enabled) {
-          this._enabled = false;
-          util.removeListener(this._listener);
-        }
-      },
-
-      /**
-       * @return {Boolean}
-       */
-      getEnabled: function() {
-        return this._enabled;
-      },
-
-      /**
-       * @param {Boolean} enabled
-       */
-      setEnabled: function(enabled) {
-        if (enabled) {
-          this.enable();
-        } else {
-          this.disable();
-        }
-      },
-
-      /**
-       * @param {Function} listener Callback on back button. If this callback returns true, dispatching is stopped.
-       * @reutrn {Object} handler object
-       */
-      push: function(listener) {
-        var handler = this._createStackObject(listener);
-
-        this._stack.push(handler);
-
-        return handler;
-      },
-
-      /**
-       * @param {Function/Object} listener Event listener function or handler object
-       */
-      remove: function(listener) {
-        if (!(listener instanceof Function)) {
-          throw new Error('"listener" argument must be an instance of Function.');
-        }
-
-        var index = this._stack.map(function(handler) {
-          return handler.listener;
-        }).indexOf(listener);
-
-        if (index !== -1) {
-          this._stack.splice(index, 1);
-        }
       }
-    });
+    };
 
-    return BackButtonHandlerStack;
+    this._dumpParents = function(element) {
+      while(element[0]) {
+        console.log(element[0].nodeName.toLowerCase() + '.' + element.attr('class'));
+        element = element.parent();
+      }
+    };
+
+    /**
+     * @return {Object}
+     */
+    this._captureTree = function() {
+      return createTree(angular.element(document.body));
+
+      function createTree(element) {
+        return {
+          element: element,
+          children: Array.prototype.concat.apply([], Array.prototype.map.call(element.children(), function(child) {
+            child = angular.element(child);
+
+            if (child[0].style.display === 'none') {
+              return [];
+            }
+
+            if (child.children().length === 0 && !child.data('device-backbutton-handler')) {
+              return [];
+            }
+
+            var result = createTree(child);
+
+            if (result.children.length === 0 && !child.data('device-backbutton-handler')) {
+              return [];
+            }
+
+            return [result];
+          }))
+        };
+      }
+    };
+
+    this._dumpTree = function(node) {
+      _dump(node, 0);
+
+      function _dump(node, level) {
+        var pad = new Array(level + 1).join('  ');
+        console.log(pad + node.element[0].nodeName.toLowerCase());
+        node.children.forEach(function(node) {
+          _dump(node, level + 1);
+        });
+      }
+    };
+
+    /**
+     * @param {Object} tree
+     * @return {jqLite}
+     */
+    this._findHandlerLeafElement = function(tree) {
+      return find(tree);
+
+      function find(node) {
+        if (node.children.length === 0) {
+          return node.element;
+        } 
+
+        if (node.children.length === 1) {
+          return find(node.children[0]);
+        }
+
+        return node.children.map(function(childNode) {
+          return childNode.element;
+        }).reduce(function(left, right) {
+          if (left === null) {
+            return right;
+          }
+
+          var leftZ = parseInt(window.getComputedStyle(left[0], '').zIndex, 10);
+          var rightZ = parseInt(window.getComputedStyle(right[0], '').zIndex, 10);
+
+          if (!isNaN(leftZ) && !isNaN(rightZ)) {
+            return leftZ > rightZ ? left : right;
+          }
+
+          throw new Error('Capturing backbutton-handler is failure.');
+        }, null);
+      }
+    };
+
+    this._init();
   });
+
 })();
 
 /*
@@ -30833,7 +32105,7 @@ limitations under the License.
   /**
    * Internal service class for framework implementation.
    */
-  module.factory('$onsen', function($rootScope, $window, $cacheFactory, $document, $templateCache, $http, $q, BackButtonHandlerStack) {
+  module.factory('$onsen', ['$rootScope', '$window', '$cacheFactory', '$document', '$templateCache', '$http', '$q', 'ComponentCleaner', 'DeviceBackButtonHandler', function($rootScope, $window, $cacheFactory, $document, $templateCache, $http, $q, ComponentCleaner, DeviceBackButtonHandler) {
 
     var unlockerDict = {
       _unlockersDict: {},
@@ -30953,50 +32225,44 @@ limitations under the License.
 
       aliasStack: aliasStack,
 
-      _defaultBackButtonListener: function() {
+      cleaner: ComponentCleaner,
+
+      DeviceBackButtonHandler: DeviceBackButtonHandler,
+
+      _defaultDeviceBackButtonHandler: DeviceBackButtonHandler.create(angular.element(document.body), function() {
         navigator.app.exitApp();
-        return true;
-      },
+      }),
 
-      backButtonHandlerStack: (function() {
-        var stack = new BackButtonHandlerStack();
-
-        stack.push(function() {
-          return $onsen._defaultBackButtonListener();
-        });
-
-        return stack;
-      })(),
-
-      /**
-       * @param {Function}
-       */
-      setDefaultBackButtonListener: function(listener) {
-        if (!(listener instanceof Function)) {
-          throw new Error('listener argument must be function.');
-        }
-        this._defaultBackButtonListener = listener;
+      getDefaultDeviceBackButtonHandler: function() {
+        return this._defaultDeviceBackButtonHandler;
       },
 
       /**
-       * Cache for predefined template.
-       * eg. <script type="text/ons-template">...</script>
+       * @param {Object} params
+       * @param {Scope} [params.scope]
+       * @param {jqLite} [params.element]
+       * @param {Array} [params.elements]
+       * @param {Attributes} [params.attrs]
        */
-      predefinedPageCache: (function() {
-        var cache = $cacheFactory('$onsenPredefinedPageCache');
-
-        var templates = $document[0].querySelectorAll('script[type="text/ons-template"]');
-
-        for (var i = 0; i < templates.length; i++) {
-          var template = angular.element(templates[i]);
-          var id = template.attr('id');
-          if (typeof id === 'string') {
-            cache.put(id, template.text());
-          }
+      clearComponent: function(params) {
+        if (params.scope) {
+          ComponentCleaner.destroyScope(params.scope);
         }
 
-        return cache;
-      })(),
+        if (params.attrs) {
+          ComponentCleaner.destroyAttributes(params.attrs);
+        }
+
+        if (params.element) {
+          ComponentCleaner.destroyElement(params.element);
+        }
+
+        if (params.elements) {
+          params.elements.forEach(function(element) {
+            ComponentCleaner.destroyElement(element);
+          });
+        }
+      },
 
       /**
        * Find first ancestor of el with tagName
@@ -31043,7 +32309,7 @@ limitations under the License.
        * @return {Promise}
        */
       getPageHTMLAsync: function(page) {
-        var cache = $templateCache.get(page) || $onsen.predefinedPageCache.get(page);
+        var cache = $templateCache.get(page);
 
         if (cache) {
           var deferred = $q.defer();
@@ -31056,16 +32322,12 @@ limitations under the License.
         } else {
           return $http({
             url: page,
-            method: 'GET',
-            cache: $onsen.predefinedPageCache
+            method: 'GET'
           }).then(function(response) {
             var html = response.data;
 
             return this.normalizePageHTML(html);
           }.bind(this));
-        }
-
-        function normalize(html) {
         }
       },
 
@@ -31188,7 +32450,7 @@ limitations under the License.
 
     return $onsen;
     
-  });
+  }]);
 })();
 
 /*
@@ -31331,9 +32593,10 @@ window.animit = (function(){
     /**
      * Reset element's style.
      *
-     * @param {Object} options
-     * @param {Float} options.duration
-     * @param {String} options.timing
+     * @param {Object} [options]
+     * @param {Float} [options.duration]
+     * @param {String} [options.timing]
+     * @param {String} [options.transition]
      */
     resetStyle: function(options) {
       options = options || {};
@@ -31483,6 +32746,7 @@ window.animit = (function(){
   /**
    * @param {Object} options
    * @param {Float} [options.duration]
+   * @param {String} [options.property]
    * @param {String} [options.timing]
    */
   Animit.Transition = function(options) {
@@ -31490,9 +32754,11 @@ window.animit = (function(){
     this.options.duration = this.options.duration || 0;
     this.options.timing = this.options.timing || 'linear';
     this.options.css = this.options.css || {};
+    this.options.property = this.options.property || 'all';
   };
 
   Animit.Transition.prototype = {
+
     /**
      * @param {HTMLElement} element
      * @return {Function}
@@ -31506,7 +32772,7 @@ window.animit = (function(){
       var css = createActualCssProps(this.options.css);
 
       if (this.options.duration > 0) {
-        var transitionValue = 'all ' + this.options.duration + 's ' + this.options.timing;
+        var transitionValue = util.buildTransitionValue(this.options);
         var self = this;
 
         return function(callback) {
@@ -31553,7 +32819,11 @@ window.animit = (function(){
             element.getBoundingClientRect();
           });
 
-          setTimeout(callback, 1000 / 60);
+          if (window.requestAnimationFrame) {
+            requestAnimationFrame(callback);
+          } else {
+            setTimeout(callback, 1000 / 30);
+          }
         };
       }
 
@@ -31596,6 +32866,24 @@ window.animit = (function(){
     // capitalize string
     capitalize : function(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+
+    /**
+     * @param {Object} params
+     * @param {String} params.property
+     * @param {Float} params.duration
+     * @param {String} params.timing
+     */
+    buildTransitionValue: function(params) {
+      params.property = params.property || 'all';
+      params.duration = params.duration || 0.4;
+      params.timing = params.timing || 'linear';
+
+      var props = params.property.split(/ +/);
+
+      return props.map(function(prop) {
+        return prop + ' ' + params.duration + 's ' + params.timing;
+      }).join(', ');
     },
 
     /**
@@ -31658,4 +32946,38 @@ window.animit = (function(){
       'overflowtouch',
       window.getComputedStyle && window.getComputedStyle(elem).getPropertyValue('-webkit-overflow-scrolling') == 'touch');
   });
+})();
+
+/*
+Copyright 2013-2014 ASIAL CORPORATION
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+*/
+
+(function(){
+  'use strict';
+
+  angular.module('onsen').run(['$templateCache', function($templateCache) {
+    var templates = window.document.querySelectorAll('script[type="text/ons-template"]');
+
+    for (var i = 0; i < templates.length; i++) {
+      var template = angular.element(templates[i]);
+      var id = template.attr('id');
+      if (typeof id === 'string') {
+        $templateCache.put(id, template.text());
+      }
+    }
+  }]);
+
 })();

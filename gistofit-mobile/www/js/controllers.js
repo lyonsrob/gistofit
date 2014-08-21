@@ -16,13 +16,12 @@
 
 'use strict';
 
-angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'GistofitService', 
-  function ($scope, $http, Gistofit) {
-
+angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'GistofitService', 
+  function ($scope, $q, $http, Gistofit) {
+    
     $scope.loadRecentGists = function() {
 
         Gistofit.getRecent().then(function (response) {
-            console.log(response);
             $scope.gists = response.data.gists; 
             $scope.cursor = response.data.cursor; 
 
@@ -32,7 +31,6 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
     
     $scope.loadTrendingGists = function() {
         Gistofit.getTrending().then(function (response) {
-            console.log(response);
             $scope.gists = response.data.gists; 
             $scope.cursor = response.data.cursor; 
 
@@ -47,8 +45,23 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
     }
 
     $scope.load_extract_content = function (content) {
-        console.log(content);
         $scope.extract_content = content;
+    };
+
+    $scope.myPagingFunction = function () {
+        Gistofit.getRecent($scope.cursor).then(function (response) {
+            $scope.gists.push(response.data.gists); 
+            $scope.cursor = response.data.cursor; 
+
+            $scope.userServiceInfo = response.data.userServiceInfo;
+          });
+    }
+
+    $scope.load_comments = function (url, id) {
+        Gistofit.getComments(url, id).then(function (response) {
+            $scope.comments = response.data.comments;
+            ons.navigator.pushPage('comment.html', {title: 'Page'});
+          });
     };
     
     $scope.detectViewport = function() {
@@ -63,22 +76,39 @@ angular.module('guestbook').controller('GistCtrl', ['$scope', '$http', 'Gistofit
 		}
     }
 
+   $scope.onReload = function() {
+      var deferred = $q.defer();
+      setTimeout(function() {
+        Gistofit.getRecent().then(function (response) {
+            $scope.gists.push.apply($scope.feeds, res.data.responseData.feed.entries);
+            $scope.$apply(function(){
+                $scope.gists.push(response.data.gists); 
+                $scope.cursor = response.data.cursor; 
+                $scope.userServiceInfo = response.data.userServiceInfo;
+            });
+          });
+        deferred.resolve(true);
+      }, 1000);
+      return deferred.promise;
+    };
+
     $scope.detectViewport();
     $scope.loadRecentGists();
 }    
 ]);
 
-angular.module('guestbook').factory('GistofitService', ['$http', function ($http) {
+angular.module('gistofit').factory('GistofitService', ['$http', function ($http) {
     var domain = 'http://localhost:8080/';
+    //var domain = 'https://erudite-flag-623.appspot.com/';
 
     function buildURL (method) {
         return domain + method;
     }
 
     return {
-        getRecent: function () {
+        getRecent: function (cursor) {
             var url = buildURL('rest/gists/recent');
-            return $http({method: 'GET', url: url});
+            return $http({method: 'GET', url: url, params: {cursor: cursor}});
         },
         getTrending: function () {
             var url = buildURL('rest/gists/trending');
@@ -89,6 +119,11 @@ angular.module('guestbook').factory('GistofitService', ['$http', function ($http
             var url = buildURL('rest/gists/'+ escapedUrl + '/extract'); 
             return $http({method: 'GET', url: url});
         },
+        setExtract: function (inputUrl, data) {
+            var escapedUrl = encodeURIComponent(inputUrl);
+            var url = buildURL('rest/gists/'+ escapedUrl + '/extract'); 
+            return $http({method: 'POST', url: url, data: data, headers: {'Content-Type': 'text/plain'}});
+        },
         addGist: function (url, content) {
             url = buildURL ('rest/gists/' + encodeURIComponent(url));
             var data = {'content': content};
@@ -98,10 +133,18 @@ angular.module('guestbook').factory('GistofitService', ['$http', function ($http
             url = buildURL ('rest/gists/' + encodeURIComponent(url) + "/" + id + "/like");
             return $http.post(url, {});
         },
+        commentGist: function (url, id, comment) {
+            url = buildURL ('rest/gists/' + encodeURIComponent(url) + "/" + id + "/comment");
+            return $http.post(url, {comment: comment});
+        },
+        getComments: function (url, id) {
+            url = buildURL ('rest/gists/' + encodeURIComponent(url) + "/" + id + "/comments");
+            return $http({method: 'GET', url: url});
+        },
     }
 }]);
 
-angular.module('guestbook').controller("FeedCtrl", ['$scope','FeedService', function ($scope,Feed) {    
+angular.module('gistofit').controller("FeedCtrl", ['$scope','FeedService', function ($scope,Feed) {    
     var feedURLs = [
         'http://feeds2.feedburner.com/Mashable',
         'http://www.tmz.com/rss.xml',
@@ -117,7 +160,6 @@ angular.module('guestbook').controller("FeedCtrl", ['$scope','FeedService', func
     $scope.loadButonText="Load";
     $scope.loadFeed=function(e){        
         Feed.parseFeed($scope.feedSrc).then(function(res){
-            console.log(res);
             $scope.loadButonText=angular.element(e.target).text();
             $scope.feeds=res.data.responseData.feed.entries;
         });
@@ -149,7 +191,6 @@ function shuffle(array) {
         $scope.feeds = [];
         for (var i = 0, len = feedURLs.length; i < len; i++) {
             Feed.parseFeed(feedURLs[i]).then(function(res){
-                console.log(res);
                 //$scope.loadButonText=angular.element(e.target).text();
                 if (i>0) {
                     $scope.feeds.push.apply($scope.feeds, res.data.responseData.feed.entries);
@@ -162,7 +203,7 @@ function shuffle(array) {
     $scope.loadAllFeeds();
 }]);
 
-angular.module('guestbook').factory('FeedService',['$http',function($http){
+angular.module('gistofit').factory('FeedService',['$http',function($http){
     return {
         parseFeed : function(url){
             return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=2&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
@@ -170,19 +211,15 @@ angular.module('guestbook').factory('FeedService',['$http',function($http){
     }
 }]);
 
-angular.module('guestbook').controller("PageCtrl", ['$scope', function ($scope) {    
+angular.module('gistofit').controller("PageCtrl", ['$scope', function ($scope) {    
     ons.ready(function() {
-      console.log("ONS READY");
       //Check if it already exists or not
-      console.log(show_welcome);
       
       if(show_welcome){
         var options = {
             animation: 'lift'
         };
         navigator1.pushPage('welcome.html', options); 
-        console.log("Launch Count!");
-        console.log($scope.tabs);
         tabs.setTabbarVisibility(false);
           //This is a second time launch, and count = applaunchCount
       }

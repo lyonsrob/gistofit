@@ -18,4 +18,4 @@
 
 /* Services */
 
-angular.module('guestbook.services', []).value('version', '1.0');
+angular.module('gistofit.services', []).value('version', '1.0');

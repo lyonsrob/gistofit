@@ -6,6 +6,11 @@
         <ons-icon icon="bars">
       </ons-toolbar-button>
       </div>
+      <div class="right">
+      <ons-toolbar-button ng-click="onReload()">
+        <ons-icon icon="refresh">
+      </ons-toolbar-button>
+      </div>
     </ons-toolbar>
 
 <!-- div class="menu-segment position-relative padding-little">
@@ -36,9 +41,9 @@
         </div>
     </div -->
 
-    <div class="scroll-area" >
-      <ul ng-repeat="gist in gists" class="list list-container">
-        <li class="list__item list__item__line-height list-item-adjust">
+    <ons-scroller infinit-scroll-enable="true" on-scrolled="myPagingFunction()">
+      <ul pull-to-refresh="onReload()" class="list list-container list-group list-group-table">
+        <li ng-model="gists" ng-repeat="gist in gists" class="list__item list__item__line-height list-item-adjust list-group-item">
           <div class="list-item-info">
             <div class="list-item-info-icon">
               <img src="images/3152983303_4c0fd3140b_q.jpg">
@@ -56,24 +61,9 @@
               </span>
             </div>
           </div>
-          <div class="content-text">
-            <p>{{gist.content}} #gistofit </p>
-            <!-- gist-card url="{{ gist.url }}"></gist-card -->
             <gist-card></gist-card>
-          </div>
-          <div class="content-controller" style="text-align:center;">
-            <button ng-click="likeGist(gist.url, gist.id)" class="icon-button button-bar-item">
-              <i class="fa fa-thumbs-o-up"></i>&nbsp;Like
-            </button>
-            <button class="icon-button button-bar-item">
-              <i class="fa fa-comment"></i>&nbsp;Comment
-            </button>
-            <button class="icon-button button-bar-item">
-              <i class="fa fa-share"></i>&nbsp;Share
-            </button>
-          </div>
           <br />
         </li>
       </ul>
-    </div>
+    </ons-scroller>
 </ons-page>
