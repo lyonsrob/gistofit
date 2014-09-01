@@ -22,6 +22,15 @@ package com.gistofit.config;
  * Date: 4/5/13
  * Time: 2:57 AM
  */
+//import com.gistofit.rest.GistofitResource;
+import com.gistofit.rest.GsonMessageBodyHandler;
+import com.gistofit.rest.NewGistofitResource;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.ws.rs.core.Application;
+
 import com.gistofit.rest.GistofitResource;
 import com.gistofit.rest.GsonMessageBodyHandler;
 
@@ -30,11 +39,13 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
+
 public class Resources extends Application {
   @Override
   public Set<Class<?>> getClasses() {
     Set<Class<?>> s = new HashSet<Class<?>>();
     s.add(GistofitResource.class);
+    s.add(NewGistofitResource.class);
     s.add(GsonMessageBodyHandler.class);
     return s;
   }

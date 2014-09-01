@@ -18,16 +18,16 @@ package com.gistofit.domain;
 
 public class GistResponse {
 
-  private final Gist gist;
+  private final GistDomain gist;
 
   private final UserServiceInfo userServiceInfo;
   
-  public GistResponse(Gist gist, UserServiceInfo userServiceInfo) {
+  public GistResponse(GistDomain gist, UserServiceInfo userServiceInfo) {
     this.gist = gist;
     this.userServiceInfo = userServiceInfo;
   }
 
-  public Gist getGist() {
+  public GistDomain getGist() {
     return gist;
   }
 

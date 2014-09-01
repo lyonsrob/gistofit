@@ -28,7 +28,7 @@ import java.util.Date;
  * Date: 4/5/13
  * Time: 1:35 AM
  */
-public class Gist {
+public class GistDomain {
 
   private final String url;
   
@@ -44,7 +44,7 @@ public class Gist {
   
   private final Long likes;
 
-  public static Gist fromEntity(Entity gistEntity) {
+  public static GistDomain fromEntity(Entity gistEntity) {
     String author;
     User user = (User) gistEntity.getProperty("user");
     if (user == null) {
@@ -52,11 +52,11 @@ public class Gist {
     } else {
       author = user.getEmail();
     }
-    return new Gist((String) gistEntity.getKey().getParent().getName(), (String) gistEntity.getProperty("content"),
+    return new GistDomain((String) gistEntity.getKey().getParent().getName(), (String) gistEntity.getProperty("content"),
         (Date) gistEntity.getProperty("date"), author, gistEntity.getKey().getId(), (String) gistEntity.getProperty("genre"), (Long) gistEntity.getProperty("likes"));
   }
 
-  public Gist(String url, String content, Date date, String author, Long id, String genre, Long likes) {
+  public GistDomain(String url, String content, Date date, String author, Long id, String genre, Long likes) {
 	this.url = url;
 	this.content = content;
     this.date = date;

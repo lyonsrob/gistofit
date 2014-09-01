@@ -17,6 +17,7 @@
 package com.gistofit.domain;
 
 import java.util.List;
+import com.gistofit.model.Gist;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,24 +27,17 @@ import java.util.List;
  */
 public class GistListResponse {
 
-  private final String url;
-
   private final List<Gist> gists;
 
   private final UserServiceInfo userServiceInfo;
   
   private final String nextCursor;
   
-  public GistListResponse(String url, List<Gist> gists,
+  public GistListResponse(List<Gist> gists,
                            UserServiceInfo userServiceInfo, String nextCursor) {
-    this.url = url;
     this.gists = gists;
     this.userServiceInfo = userServiceInfo;
     this.nextCursor = nextCursor;
-  }
-
-  public String getURL() {
-    return url;
   }
 
   public List<Gist> getGists() {

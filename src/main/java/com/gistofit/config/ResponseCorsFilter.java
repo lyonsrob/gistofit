@@ -13,7 +13,8 @@ public class ResponseCorsFilter implements ContainerResponseFilter {
     public ContainerResponse filter(ContainerRequest req, ContainerResponse contResp) {
  
         ResponseBuilder resp = Response.fromResponse(contResp.getResponse());
-        resp.header("Access-Control-Allow-Origin", "*")
+        resp.header("Access-Control-Allow-Origin", "http://localhost:8000")
+        	.header("Access-Control-Allow-Credentials", "true")
                 .header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
  
         String reqHead = req.getHeaderValue("Access-Control-Request-Headers");

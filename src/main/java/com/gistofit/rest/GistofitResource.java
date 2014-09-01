@@ -16,35 +16,55 @@
 
 package com.gistofit.rest;
 
-import com.gistofit.domain.Gist;
-import com.gistofit.domain.GistListResponse;
+import static com.gistofit.model.OfyService.ofy;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
 import com.gistofit.domain.Comment;
 import com.gistofit.domain.CommentListResponse;
+import com.gistofit.domain.GistDomain;
+import com.gistofit.domain.GistListResponse;
 import com.gistofit.domain.GistResponse;
 import com.gistofit.domain.ShardedCounter;
 import com.gistofit.domain.UserServiceInfo;
-import com.google.appengine.api.datastore.*;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
+import com.gistofit.model.URL;
+import com.gistofit.model.Gist;
+//import com.googlecode.objectify.Key;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.HashMap;
+import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.QueryResultList;
 
-import org.json.JSONObject;
-import org.json.JSONArray;
-
-import com.embedly.api.Api;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheService.SetPolicy;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
-
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -53,7 +73,7 @@ import com.google.appengine.api.memcache.MemcacheServiceFactory;
  * Time: 11:58 PM
  */
 
-@Path("/gists")
+@Path("/old/gists")
 public class GistofitResource {
 
   private static final int CACHE_PERIOD = 86400;
@@ -64,7 +84,7 @@ public class GistofitResource {
   private final Logger logger = Logger.getLogger(GistofitResource.class.getName());
   
   private GistListResponse getGists(String url, String cursor) {
-    List<Gist> gists = new ArrayList<Gist>();
+    List<GistDomain> gists = new ArrayList<GistDomain>();
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
     
     int pageSize = 5;
@@ -89,7 +109,7 @@ public class GistofitResource {
     QueryResultList<Entity> gistEntities = pq.asQueryResultList(fetchOptions);
     
     for (Entity gist : gistEntities) {
-      gists.add(Gist.fromEntity(gist));
+      gists.add(GistDomain.fromEntity(gist));
     }
     
     String nextCursor = gistEntities.getCursor().toWebSafeString();
@@ -98,7 +118,7 @@ public class GistofitResource {
   }
 
   private GistListResponse getTrendingGists(String cursor) {
-	    List<Gist> gists = new ArrayList<Gist>();
+	    List<GistDomain> gists = new ArrayList<GistDomain>();
 	    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
 	    
 	    int pageSize = 5;
@@ -115,7 +135,7 @@ public class GistofitResource {
 	    QueryResultList<Entity> gistEntities = pq.asQueryResultList(fetchOptions);
 	    
 	    for (Entity gist : gistEntities) {
-	      gists.add(Gist.fromEntity(gist));
+	      gists.add(GistDomain.fromEntity(gist));
 	    }
 	    
 	    String cursorString = gistEntities.getCursor().toWebSafeString();
@@ -137,7 +157,7 @@ public class GistofitResource {
 	           logger.log(Level.WARNING, e.toString(), e);
 	    }
 	    
-	    return new GistResponse(Gist.fromEntity(gistEntity), UserServiceInfo.get("/"));
+	    return new GistResponse(GistDomain.fromEntity(gistEntity), UserServiceInfo.get("/"));
 	  }
   
   @GET
@@ -185,16 +205,22 @@ public class GistofitResource {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public GistListResponse addGist(
-      @DefaultValue("default") @PathParam("url") final String url,
+      @DefaultValue("default") @PathParam("url") final String gistUrl,
       final Map<String, String> postData) {
     UserService userService = UserServiceFactory.getUserService();
+    
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
-    Key urlKey = KeyFactory.createKey("URL", url);
+    Key urlKey = KeyFactory.createKey("URL", gistUrl);
     // We set the above parent key on each Greeting entity in order to make the queries strong
     // consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
     // rate more than 1 write/second.
     String content = postData.get("content");
     String genre = postData.get("genre");
+    
+//    URL url = new URL(gistUrl);
+//    ofy().save().entity(url).now();
+//    
+//    Key<URL> parent = Key.create(URL.class, url);
     
     if (content != null && content.length() > 0) {
       Date date = new Date();
@@ -206,7 +232,7 @@ public class GistofitResource {
       gist.setProperty("likes", 0);
       datastoreService.put(gist);
     }
-    return getGists(url, null);
+    return getGists(gistUrl, null);
   }
 
   //TODO: Need to tell GsonMessageBody to ignore an object that is already JSON?
@@ -214,45 +240,28 @@ public class GistofitResource {
   @Path("/{url}/extract")
   @Produces(MediaType.TEXT_PLAIN)
   public String getExtract(
-      @DefaultValue("default") @PathParam("url") final String url, 
-      	@QueryParam("width") final String width, 
-      	@QueryParam("height") final String height, 
-      	@QueryParam("retina") final String retina) throws
+      @DefaultValue("default") @PathParam("url") final String url) throws
     Exception {
 	  String mcKey = url + "_extract";
-	  String cachedExtract = (String) mc.get(mcKey);
-      if (cachedExtract != null) {
-          return cachedExtract;
-      }
-	  
-	  Api api = new Api("Mozilla/5.0 (compatible; gistofit/1.0; lyonsrobp@gmail.com)", "42f4925174814d68b90d0758d932fe14");
-	  HashMap<String, Object> params = new HashMap<String, Object>();
-      params.put("url", url);
-/*
-      params.put("image_error_url", "http%3A%2F%2Fmedia.tumblr.com%2Ftumblr_m9e0vfpA7K1qkbsaa.jpg");
-      
-      String device = postData.get("device");
-      
-      if (device == "mobile") {
-    	  params.put("image_height", "300");
-      	  params.put("image_width", "300");
-      	  params.put("image_method", "fill");
-      }
-*/
-      
-      JSONObject extractJSON = api.extract(params).getJSONObject(0);
-      
-      String embedlyExtract = extractJSON.toString();
-      
-      //Cache both the original URL that the RSS feed or user entered, plus the normalized URL from embed.ly
-      mc.put(mcKey, embedlyExtract, Expiration.byDeltaSeconds(CACHE_PERIOD),
-              SetPolicy.SET_ALWAYS);
-      mc.put(extractJSON.get("url").toString() + "_extract", embedlyExtract, Expiration.byDeltaSeconds(CACHE_PERIOD),
-              SetPolicy.SET_ALWAYS);
-      
-      return embedlyExtract;
+	  return (String) mc.get(mcKey);
   }
 
+  //TODO: Need to tell GsonMessageBody to ignore an object that is already JSON?
+  @POST
+  @Path("/{url}/extract")
+  @Consumes(MediaType.TEXT_PLAIN)
+  public String setExtract(
+      @DefaultValue("default") @PathParam("url") final String url,
+      final String extractData) throws
+    Exception {
+	  String mcKey = url + "_extract";
+	  
+      mc.put(mcKey, extractData, Expiration.byDeltaSeconds(CACHE_PERIOD),
+              SetPolicy.SET_ALWAYS);
+      
+      return extractData;
+  }
+  
   private List<Entity> getGistLikes(Key key, String cursor) {
 	    List<Entity> likes = new ArrayList<Entity>();
 	    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
