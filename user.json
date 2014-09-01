@@ -1,0 +1,18 @@
+{
+  "state":"MI",
+  "access_token":"",
+  "token_type":"",
+  "expires_in":"",
+  "code":"",
+  "id_token":"",
+  "authuser":"",
+  "session_state":"",
+  "prompt":"false",
+  "client_id":"",
+  "scope":"",
+  "g_user_cookie_policy":"",
+  "cookie_policy":"",
+  "issued_at":"",
+  "expires_at":"",
+  "g-oauth-window":""
+}

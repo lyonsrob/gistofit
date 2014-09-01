@@ -71,7 +71,11 @@
         <artifactId>embedly-api</artifactId>
         <version>0.1.5</version>
     </dependency>
-    
+    <dependency>
+        <groupId>com.googlecode.objectify</groupId>
+        <artifactId>objectify</artifactId>
+        <version>5.0.3</version>
+    </dependency>    
     <!-- Test Dependencies -->
     <dependency>
       <groupId>junit</groupId>

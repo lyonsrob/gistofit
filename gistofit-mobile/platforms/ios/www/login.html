@@ -1,0 +1,69 @@
+<style>
+div.float-left {
+    float: left;
+}
+
+.text-centering {
+    text-align: center;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+
+.main-image-wrapper {
+    text-align: center;
+    opacity: 0.2;
+    height: 180px;
+    margin: 30px 0;
+}
+
+.main-image {
+    font-size: 150px;
+    line-height: 200px;
+}
+
+input[type=email], input[type=password] {
+    display: block;
+    width: 80%;
+    height: 48px;
+    margin: 0 auto;
+    font-size: 19px;
+    outline: none;
+    line-height: 48px;
+}
+
+.login-button {
+    display: block;
+    width: 80%;
+    margin: 0 auto 0 auto;
+    font-size: 18px;
+}
+
+.forgot-password {
+    display: block;
+    margin: 8px auto 0 auto;
+    font-size: 14px;
+}
+</style>
+
+
+<ons-toolbar>
+  <div class="center">Likes</div>
+  <div class="left">
+  <ons-toolbar-button ng-click="menu.toggleMenu()">
+    <ons-icon icon="bars">
+  </ons-toolbar-button>
+  </div>
+</ons-toolbar>
+
+<div class="main-image-wrapper">
+<i class="fa fa-html5 main-image"></i>
+</div>
+<input type="email" class="text-input--underbar" placeholder="Email" value="">
+<input type="password" type="text" class="text-input--underbar" placeholder="Password" value="">
+<br>
+<button class="button login-button">Log in</button>
+<br>
+<button class="button--quiet forgot-password">Forgot password? </button>
+<button class="button" onclick="login();">Login with Facebook</div>

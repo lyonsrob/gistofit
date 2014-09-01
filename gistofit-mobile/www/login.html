@@ -1,16 +1,76 @@
-<span class="user_info">
-  <span ng-show="userServiceInfo">
-    <span ng-show="userServiceInfo.currentUser">
-      Hi {{ userServiceInfo.currentUser.email }}
-      <a ng-href="http://localhost:8080{{ userServiceInfo.logoutUrl }}">Logout</a>
-    </span>
-    <span ng-hide="userServiceInfo.currentUser">
-      <a ng-href="http://localhost:8080{{ userServiceInfo.loginUrl }}">Login</a>
-    </span>
+<style>
+div.float-left {
+    float: left;
+}
 
-  </span>
-  <span ng-hide="userServiceInfo">
-    <img src="/img/ajax-loader.gif">
-    Retrieving the user information...
-  </span>
-</span>
+.text-centering {
+    text-align: center;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+
+.main-image-wrapper {
+    text-align: center;
+    opacity: 0.2;
+    height: 180px;
+    margin: 30px 0;
+}
+
+.main-image {
+    font-size: 150px;
+    line-height: 200px;
+}
+
+input[type=email], input[type=password] {
+    display: block;
+    width: 80%;
+    height: 48px;
+    margin: 0 auto;
+    font-size: 19px;
+    outline: none;
+    line-height: 48px;
+}
+
+.login-button {
+    display: block;
+    width: 80%;
+    margin: 0 auto 0 auto;
+    font-size: 18px;
+}
+
+.forgot-password {
+    display: block;
+    margin: 8px auto 0 auto;
+    font-size: 14px;
+}
+</style>
+
+
+<ons-toolbar>
+  <div class="center">Likes</div>
+  <div class="left">
+  <ons-toolbar-button ng-click="menu.toggleMenu()">
+    <ons-icon icon="bars">
+  </ons-toolbar-button>
+  </div>
+</ons-toolbar>
+<div class="main-image-wrapper">
+<i class="fa fa-html5 main-image"></i>
+</div>
+<input type="email" class="text-input--underbar" placeholder="Email" value="">
+<input type="password" type="text" class="text-input--underbar" placeholder="Password" value="">
+<br>
+<button class="button login-button">Log in</button>
+<br>
+<button class="button--quiet forgot-password">Forgot password? </button>
+            <div class="event listening button" onclick="login();">Login with Facebook</div>
+            <div class="event listening button" onclick="showDialog();">Show Dialog with Facebook</div>
+            <div class="event listening button" onclick="apiTest();">Test API with Facebook</div>
+            <div class="event listening button" onclick="getAccessToken();">Get access token with Facebook</div>
+            <div class="event listening button" onclick="getStatus();">Get login status with Facebook</div>
+            <div class="event listening button" onclick="logout();">Logout with Facebook</div>
+        <div id="fb-root"></div>
+        <script type="text/javascript" src="js/facebookConnectPlugin.js"></script>
+        <script type="text/javascript" src="js/fb_methods.js"></script>

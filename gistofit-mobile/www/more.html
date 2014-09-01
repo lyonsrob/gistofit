@@ -1,0 +1,12 @@
+<ons-page ng-swipe-right="ons.navigator.popPage()" class="center">
+    <ons-toolbar>
+      <div class="article-extract-title center">{{more_extract.provider_name}}</div>
+      <div class="left">
+      <ons-toolbar-button ng-click="ons.navigator.popPage()">
+        <ons-icon icon="chevron-left">
+      </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+
+    <article extract-data="more_extract"></article>
+</ons-page>

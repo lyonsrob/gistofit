@@ -18,12 +18,12 @@
 
 angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'GistofitService', 
   function ($scope, $q, $http, Gistofit) {
-    
+
     $scope.loadRecentGists = function() {
 
         Gistofit.getRecent().then(function (response) {
             $scope.gists = response.data.gists; 
-            $scope.cursor = response.data.cursor; 
+            $scope.cursor = response.data.nextCursor; 
 
             $scope.userServiceInfo = response.data.userServiceInfo;
           });
@@ -32,7 +32,7 @@ angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'Gis
     $scope.loadTrendingGists = function() {
         Gistofit.getTrending().then(function (response) {
             $scope.gists = response.data.gists; 
-            $scope.cursor = response.data.cursor; 
+            $scope.cursor = response.data.nextCursor; 
 
             $scope.userServiceInfo = response.data.userServiceInfo;
           });
@@ -50,19 +50,26 @@ angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'Gis
 
     $scope.myPagingFunction = function () {
         Gistofit.getRecent($scope.cursor).then(function (response) {
-            $scope.gists.push(response.data.gists); 
-            $scope.cursor = response.data.cursor; 
+            $scope.gists = $scope.gists.concat(response.data.gists); 
+            $scope.cursor = response.data.nextCursor; 
 
             $scope.userServiceInfo = response.data.userServiceInfo;
           });
     }
-
+    
     $scope.load_comments = function (url, id) {
         Gistofit.getComments(url, id).then(function (response) {
-            $scope.comments = response.data.comments;
+            $scope.comments = response.data;
             ons.navigator.pushPage('comment.html', {title: 'Page'});
           });
     };
+    
+    $scope.load_more = function(extract) {
+        console.log(extract);
+        $scope.more_extract = extract;
+        $scope.navigator1.pushPage('more.html'); 
+    }
+        
     
     $scope.detectViewport = function() {
 		$scope.screenWidth = window.innerWidth,
@@ -91,6 +98,11 @@ angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'Gis
       }, 1000);
       return deferred.promise;
     };
+
+    $scope.loadTabPage = function(index) {
+
+        console.log(navigator1.getPages());
+    }
 
     $scope.detectViewport();
     $scope.loadRecentGists();
@@ -127,7 +139,7 @@ angular.module('gistofit').factory('GistofitService', ['$http', function ($http)
         addGist: function (url, content) {
             url = buildURL ('rest/gists/' + encodeURIComponent(url));
             var data = {'content': content};
-            return $http.post(url, data);
+            return $http({method: 'POST', url: url, data: data, withCredentials: true});
         },
         likeGist: function (url, id) {
             url = buildURL ('rest/gists/' + encodeURIComponent(url) + "/" + id + "/like");
@@ -139,6 +151,7 @@ angular.module('gistofit').factory('GistofitService', ['$http', function ($http)
         },
         getComments: function (url, id) {
             url = buildURL ('rest/gists/' + encodeURIComponent(url) + "/" + id + "/comments");
+            console.log(url);
             return $http({method: 'GET', url: url});
         },
     }
@@ -219,7 +232,7 @@ angular.module('gistofit').controller("PageCtrl", ['$scope', function ($scope) {
         var options = {
             animation: 'lift'
         };
-        navigator1.pushPage('welcome.html', options); 
+        navigator1.pushPage('welcome.html', options);
         tabs.setTabbarVisibility(false);
           //This is a second time launch, and count = applaunchCount
       }

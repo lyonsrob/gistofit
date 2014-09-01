@@ -8,14 +8,8 @@ function gistCardDirective(GistofitService, embedlyService) {
     templateUrl: 'views/gist_card.html',
     scope: true,
     controller: function($scope, GistofitService) {
-        $scope.load_more = function(extract) {
-            console.log(extract);
-            $scope.more_extract = extract;
-            $scope.navigator1.pushPage('views/more.html'); 
-        }
-        
         $scope.submit_comment_form = function () {
-            GistofitService.commentGist($scope.gist.url, $scope.gist.id, $scope.gist_form.comment);
+            GistofitService.commentGist($scope.gist.url.key.raw.name, $scope.gist.id, $scope.gist_form.comment);
         }
         
         $scope.like_gist = function (url, id) {
@@ -23,7 +17,8 @@ function gistCardDirective(GistofitService, embedlyService) {
         }
     }, 
     link: function(scope, element) {
-        scope.$watch('gist.url', function(newVal) {
+        scope.$watch('gist.url.key.raw.name', function(newVal) {
+            console.log(newVal);
             if (newVal) {
                 GistofitService.getExtract(newVal)
                     .then(function(e){

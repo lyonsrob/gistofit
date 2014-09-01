@@ -1,0 +1,71 @@
+2014-08-28 14:28:14.886 #GistOfIt[47229:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 14:28:14.908 #GistOfIt[47229:70b] Unlimited access to network resources
+2014-08-28 14:28:14.917 #GistOfIt[47229:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-28 14:28:15.005 #GistOfIt[47229:70b] CDVPlugin class FacebookConnectPlugin (pluginName: facebookconnectplugin) does not exist.
+2014-08-28 14:28:15.018 #GistOfIt[47229:70b] [CDVTimer][facebookconnectplugin] 12.768984ms
+2014-08-28 14:28:15.028 #GistOfIt[47229:70b] [CDVTimer][TotalPluginStartup] 23.187995ms
+2014-08-28 14:28:15.299 #GistOfIt[47229:70b] Resetting plugins due to page load.
+2014-08-28 14:28:15.938 #GistOfIt[47229:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/3A6E615F-AFF5-40E8-B541-7A6F4B13C86A/%23GistOfIt.app/www/index.html
+2014-08-28 14:35:24.661 #GistOfIt[47991:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 14:35:24.673 #GistOfIt[47991:70b] Unlimited access to network resources
+2014-08-28 14:35:24.677 #GistOfIt[47991:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-28 14:35:24.725 #GistOfIt[47991:70b] CDVPlugin class FacebookConnectPlugin (pluginName: facebookconnectplugin) does not exist.
+2014-08-28 14:35:24.726 #GistOfIt[47991:70b] [CDVTimer][facebookconnectplugin] 0.536025ms
+2014-08-28 14:35:24.727 #GistOfIt[47991:70b] [CDVTimer][TotalPluginStartup] 1.092017ms
+2014-08-28 14:35:24.932 #GistOfIt[47991:70b] Resetting plugins due to page load.
+2014-08-28 14:35:25.474 #GistOfIt[47991:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/3A6E615F-AFF5-40E8-B541-7A6F4B13C86A/%23GistOfIt.app/www/index.html
+2014-08-28 14:45:55.481 #GistOfIt[49996:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 14:45:55.570 #GistOfIt[49996:70b] Unlimited access to network resources
+2014-08-28 14:45:55.590 #GistOfIt[49996:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-28 14:45:55.976 #GistOfIt[49996:70b] CDVPlugin class FacebookConnectPlugin (pluginName: facebookconnectplugin) does not exist.
+2014-08-28 14:45:55.976 #GistOfIt[49996:70b] [CDVTimer][facebookconnectplugin] 0.615001ms
+2014-08-28 14:45:55.977 #GistOfIt[49996:70b] [CDVTimer][TotalPluginStartup] 1.275003ms
+2014-08-28 14:45:56.274 #GistOfIt[49996:70b] Resetting plugins due to page load.
+2014-08-28 14:45:56.772 #GistOfIt[49996:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/3A6E615F-AFF5-40E8-B541-7A6F4B13C86A/%23GistOfIt.app/www/index.html
+2014-08-28 14:54:20.712 #GistOfIt[52007:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 14:54:20.728 #GistOfIt[52007:70b] Unlimited access to network resources
+2014-08-28 14:54:20.733 #GistOfIt[52007:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-28 14:54:20.767 #GistOfIt[52007:70b] Init FacebookConnect Session
+2014-08-28 14:54:20.772 #GistOfIt[52007:70b] [CDVTimer][facebookconnectplugin] 4.428029ms
+2014-08-28 14:54:20.773 #GistOfIt[52007:70b] [CDVTimer][TotalPluginStartup] 5.855024ms
+2014-08-28 14:54:21.771 #GistOfIt[52007:70b] Resetting plugins due to page load.
+2014-08-28 14:54:22.304 #GistOfIt[52007:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/3A6E615F-AFF5-40E8-B541-7A6F4B13C86A/%23GistOfIt.app/www/index.html
+2014-08-28 16:10:57.769 #GistOfIt[53753:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 16:10:58.004 #GistOfIt[53753:70b] Unlimited access to network resources
+2014-08-28 16:10:58.099 #GistOfIt[53753:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-28 16:10:58.788 #GistOfIt[53753:70b] Init FacebookConnect Session
+2014-08-28 16:10:58.797 #GistOfIt[53753:70b] [CDVTimer][facebookconnectplugin] 9.203017ms
+2014-08-28 16:10:58.798 #GistOfIt[53753:70b] [CDVTimer][TotalPluginStartup] 9.878993ms
+2014-08-28 16:11:00.101 #GistOfIt[53753:70b] Resetting plugins due to page load.
+2014-08-28 16:11:00.859 #GistOfIt[53753:70b] Finished load of: file:///Users/robert-lyons/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/3A6E615F-AFF5-40E8-B541-7A6F4B13C86A/%23GistOfIt.app/www/index.html
+2014-08-28 16:14:02.527 #GistOfIt[53753:70b] THREAD WARNING: ['FacebookConnectPlugin'] took '597.590820' ms. Plugin should use a background thread.

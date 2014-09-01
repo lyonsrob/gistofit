@@ -15,6 +15,6 @@
         <img class="comment-avatar" ng-if="comment.avatarUrl" ng-src="{{comment.avatarUrl}}"
              alt="{{comment.name}}" />
       </div>
-      <div class="comment-body panel-body" ng-bind-html="comment.text"></div>
+      <div class="comment-body panel-body" ng-bind-html="comment.comment"></div>
       <div comments-transclude></div>
     </div>

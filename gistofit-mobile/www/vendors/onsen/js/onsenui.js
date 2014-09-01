@@ -8634,7 +8634,7 @@ limitations under the License.
        * @param {Object} [options.animation]
        */
       _loadPage: function(page, options) {
-
+    
         $onsen.getPageHTMLAsync(page).then(function(html) {
           var pageElement = angular.element(html.trim());
 
@@ -10349,11 +10349,15 @@ limitations under the License.
           if (scope.onScrolled) {
             scrollWrapper.addEventListener('scroll', function() {
               if (scope.infinitScrollEnable) {
+                if (scope.paging) return;
+                
                 var scrollTopAndOffsetHeight = scrollWrapper.scrollTop + scrollWrapper.offsetHeight;
                 var scrollHeightMinusOffset = scrollWrapper.scrollHeight - offset;
 
                 if (scrollTopAndOffsetHeight >= scrollHeightMinusOffset) {
+                  scope.paging = 1;
                   scope.onScrolled();
+                  scope.paging = 0;
                 }
               }
             }, false);

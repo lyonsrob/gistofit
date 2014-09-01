@@ -1,0 +1,70 @@
+<ons-page ng-controller="TrendingCtrl">
+    <ons-toolbar>
+      <div class="center">Toolbars</div>
+      <div class="left">
+      <ons-toolbar-button ng-click="menu.toggleMenu()">
+        <ons-icon icon="bars">
+      </ons-toolbar-button>
+      </div>
+      <div class="right">
+      <ons-toolbar-button ng-click="onReload()">
+        <ons-icon icon="refresh">
+      </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+
+<!-- div class="menu-segment position-relative padding-little">
+      <div class="button-bar">
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-briefcase"></i>
+            Business
+          </button>
+        </div>
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-mobile"></i>
+            Tech
+          </button>
+        </div>
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-ticket"></i>
+          Entertainment
+          </button>
+        </div>
+        <div class="button-bar__item">
+          <button class="button-bar__button">
+            <i class="fa fa-globe"></i>
+          US/World
+          </button>
+        </div>
+    </div -->
+
+    <ons-scroller infinit-scroll-enable="true" on-scrolled="myPagingFunction()">
+      <ul pull-to-refresh="onReload()" class="list list-container list-group list-group-table" style="height: 100%;">
+        <li ng-model="gists" ng-repeat="gist in gists" class="list__item list__item__line-height list-item-adjust list-group-item">
+          <div class="list-item-info">
+            <div class="list-item-info-icon">
+              <img src="images/3152983303_4c0fd3140b_q.jpg">
+            </div>
+            <div class="list-item-info-main">
+              <span class="text">
+              <strong>Cassey Song</strong> with
+              <strong>Harrison Smith </strong> with
+              <strong>3 others</strong>
+              </span>
+              </span>
+              <br />
+              <span class="lucent">24 minutes ago
+              <i class="fa fa-globe"></i>
+              </span>
+            </div>
+          </div>
+            <gist-card></gist-card>
+          <br />
+        </li>
+      </ul>
+      <ons-icon ng-show="executing" icon="spinner" size="40px" spin="true" class="ons-icon ons-icon--fw ons-icon--spin fa fa-spinner" style="font-size: 40px;"></ons-icon>
+    </ons-scroller>
+</ons-page>
