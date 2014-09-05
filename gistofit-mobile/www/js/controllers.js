@@ -154,10 +154,14 @@ angular.module('gistofit').factory('GistofitService', ['$http', function ($http)
             console.log(url);
             return $http({method: 'GET', url: url});
         },
+        searchTopUrls: function (query) {
+            var url = buildURL('rest/gists/search/top/urls/?keyword='+ query); 
+            return $http({method: 'GET', url: url});
+        }
     }
 }]);
 
-angular.module('gistofit').controller("FeedCtrl", ['$scope','FeedService', function ($scope,Feed) {    
+angular.module('gistofit').controller("FeedCtrl", ['$scope','FeedService', 'GistofitService', function ($scope, Feed, Gistofit) {    
     var feedURLs = [
         'http://feeds2.feedburner.com/Mashable',
         'http://www.tmz.com/rss.xml',
@@ -167,7 +171,7 @@ angular.module('gistofit').controller("FeedCtrl", ['$scope','FeedService', funct
         'http://feeds.feedburner.com/TechCrunch',
         'http://rss.cnn.com/rss/cnn_topstories.rss',
         'http://sports.espn.go.com/espn/rss/news'
-    ]
+    ];
 
 
     $scope.loadButonText="Load";
@@ -177,6 +181,19 @@ angular.module('gistofit').controller("FeedCtrl", ['$scope','FeedService', funct
             $scope.feeds=res.data.responseData.feed.entries;
         });
     }
+    
+    $scope.loadSearchFeed=function(){        
+        Gistofit.searchTopUrls($scope.searchText).then(function(res){
+            $scope.loadButonText=angular.element().text();
+            $scope.feeds=toArrayObj(res.data);
+        });
+    }
+
+function toArrayObj(array) {
+    for (var i = 0; i < array.length; ++i)
+        array[i] = {link: array[i]};
+    return array;
+}
 
 function shuffle(array) {
   var currentIndex = array.length
@@ -205,12 +222,10 @@ function shuffle(array) {
         for (var i = 0, len = feedURLs.length; i < len; i++) {
             Feed.parseFeed(feedURLs[i]).then(function(res){
                 //$scope.loadButonText=angular.element(e.target).text();
-                if (i>0) {
-                    $scope.feeds.push.apply($scope.feeds, res.data.responseData.feed.entries);
-                }
+                $scope.feeds.push.apply($scope.feeds, res.data.responseData.feed.entries);
             });
         }
-            shuffle($scope.feeds);
+            //shuffle($scope.feeds);
     }
 
     $scope.loadAllFeeds();
@@ -219,7 +234,7 @@ function shuffle(array) {
 angular.module('gistofit').factory('FeedService',['$http',function($http){
     return {
         parseFeed : function(url){
-            return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=2&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
+            return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=5&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
         }
     }
 }]);
@@ -236,5 +251,7 @@ angular.module('gistofit').controller("PageCtrl", ['$scope', function ($scope) {
         tabs.setTabbarVisibility(false);
           //This is a second time launch, and count = applaunchCount
       }
+
+      $scope.loadRecentGists();
     });
 }]);

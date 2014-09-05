@@ -28,3 +28,19 @@
 ons-scroller {
   height: 100%;
 }
+
+.button-bar__item:first-child > .button-bar__button {
+    border-top:none;
+    border-left:none;
+    border-right: 2px solid #1284ff;
+}
+
+.button-bar__item:last-child > .button-bar__button {
+    border:none;
+}
+
+.button-bar__button {
+    border-top:none;
+    border-bottom:none;
+    border-right: 2px solid #1284ff;
+}

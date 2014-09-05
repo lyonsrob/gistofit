@@ -116,7 +116,7 @@
       </div>
       <div class="center">Site Feeds</div>
       <div class="right">
-        <input class="span12" type="text" placeholder="Search" data-ng-model="filterText" />
+        <input class="span12" type="text" placeholder="Search" data-ng-model="searchText" />
       </div>
     </ons-toolbar>
 <div class="container-fluid">
@@ -173,8 +173,8 @@
         </div>
       </div>
             <button ng-click="showMenu = !showMenu;">Show/hide the menu</button>
-            <button ng-click="loadAllFeeds()">Load all feeds</button>
-        <input class="span12" type="text" placeholder="Search" data-ng-model="filterText" />
+            <button ng-click="loadSearchFeed()">Load search feed</button>
+        <input class="span12" type="text" placeholder="Search" data-ng-model="searchText" />
                </div>
             </form>
         </div>

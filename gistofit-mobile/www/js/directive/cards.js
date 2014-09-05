@@ -26,9 +26,6 @@ function gistCardDirective(GistofitService, embedlyService) {
                             embedlyService.extract(newVal)
                             .then(function(e){
                                 GistofitService.setExtract(newVal, e.data);
-                                if (newVal != e.data.url){
-                                    GistofitService.setExtract(e.data.url, e.data);
-                                }
                                 scope.extract = e.data;
                             },
                              function(error) {
@@ -69,9 +66,6 @@ function articleCardDirective(GistofitService,embedlyService) {
                             embedlyService.extract(newVal)
                             .then(function(e){
                                 GistofitService.setExtract(newVal, e.data);
-                                if (newVal != e.data.url){
-                                    GistofitService.setExtract(e.data.url, e.data);
-                                }
                                 scope.extract = e.data;
                             },
                              function(error) {
