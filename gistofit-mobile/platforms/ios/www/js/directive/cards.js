@@ -9,7 +9,7 @@ function gistCardDirective(GistofitService, embedlyService) {
     scope: true,
     controller: function($scope, GistofitService) {
         $scope.submit_comment_form = function () {
-            GistofitService.commentGist($scope.gist.url, $scope.gist.id, $scope.gist_form.comment);
+            GistofitService.commentGist($scope.gist.url.key.raw.name, $scope.gist.id, $scope.gist_form.comment);
         }
         
         $scope.like_gist = function (url, id) {
@@ -17,7 +17,8 @@ function gistCardDirective(GistofitService, embedlyService) {
         }
     }, 
     link: function(scope, element) {
-        scope.$watch('gist.url', function(newVal) {
+        scope.$watch('gist.url.key.raw.name', function(newVal) {
+            console.log(newVal);
             if (newVal) {
                 GistofitService.getExtract(newVal)
                     .then(function(e){
@@ -25,9 +26,6 @@ function gistCardDirective(GistofitService, embedlyService) {
                             embedlyService.extract(newVal)
                             .then(function(e){
                                 GistofitService.setExtract(newVal, e.data);
-                                if (newVal != e.data.url){
-                                    GistofitService.setExtract(e.data.url, e.data);
-                                }
                                 scope.extract = e.data;
                             },
                              function(error) {
@@ -68,9 +66,6 @@ function articleCardDirective(GistofitService,embedlyService) {
                             embedlyService.extract(newVal)
                             .then(function(e){
                                 GistofitService.setExtract(newVal, e.data);
-                                if (newVal != e.data.url){
-                                    GistofitService.setExtract(e.data.url, e.data);
-                                }
                                 scope.extract = e.data;
                             },
                              function(error) {

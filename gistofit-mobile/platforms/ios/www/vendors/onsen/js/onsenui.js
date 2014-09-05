@@ -10349,15 +10349,15 @@ limitations under the License.
           if (scope.onScrolled) {
             scrollWrapper.addEventListener('scroll', function() {
               if (scope.infinitScrollEnable) {
-                if (scope.executing) return;
+                if (scope.paging) return;
                 
                 var scrollTopAndOffsetHeight = scrollWrapper.scrollTop + scrollWrapper.offsetHeight;
                 var scrollHeightMinusOffset = scrollWrapper.scrollHeight - offset;
 
                 if (scrollTopAndOffsetHeight >= scrollHeightMinusOffset) {
-                  scope.executing = 1;
+                  scope.paging = 1;
                   scope.onScrolled();
-                  scope.executing = 0;
+                  scope.paging = 0;
                 }
               }
             }, false);

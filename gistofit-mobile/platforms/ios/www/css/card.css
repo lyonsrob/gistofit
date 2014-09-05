@@ -110,13 +110,12 @@
 
 .list-item-info-icon {
     float: left;
-    width: 15%;
 }
 
 .list-item-info-icon img {
     float: left;
-    width: 40px;
-    height: 40px;
+    width: 16px;
+    height: 16px;
 }
 
 .list-item-info-main {

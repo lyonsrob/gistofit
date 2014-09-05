@@ -1,3 +1,14 @@
+<div class="list-item-info-icon">
+  <img src="{{extract.favicon_url }}">
+</div>
+<div class="list-item-info-main">
+  <span class="text">
+  <strong>{{extract.provider_name}}</strong> with
+  <span class="lucent">24 minutes ago
+  <i class="fa fa-globe"></i>
+  </span>
+</div>
+</div>
 <div class="content-text">
     <p>{{gist.content}} #gistofit </p>
     <!-- gist-card url="{{ gist.url }}"></gist-card -->
@@ -16,10 +27,10 @@
       <div id="extract-content" ng-show="more" ng-bind-html="extract.content">
       </div>
 </div>
-<p>{{gist.likes}} likes &nbsp; <span ng-click="load_comments(gist.url, gist.id);" >{{gist.comments}} comments</span></p>
+<p>{{gist.likes}} likes &nbsp; <span ng-click="load_comments(gist.url.key.raw.name, gist.id);" >{{gist.comments}} comments</span></p>
 
 <div class="content-controller" style="text-align:center;">
-<button ng-click="likeGist(gist.url, gist.id)" class="toolbar-button button-bar-item">
+<button ng-click="likeGist(gist.url.key.raw.name, gist.id)" class="toolbar-button button-bar-item">
   <i class="fa fa-thumbs-o-up"></i>&nbsp;Like
 </button>
 <form ng-submit="submit_comment_form()" ng-show="commentIt">

@@ -56,6 +56,7 @@ input[type=email], input[type=password] {
   </ons-toolbar-button>
   </div>
 </ons-toolbar>
+
 <div class="main-image-wrapper">
 <i class="fa fa-html5 main-image"></i>
 </div>
@@ -65,12 +66,4 @@ input[type=email], input[type=password] {
 <button class="button login-button">Log in</button>
 <br>
 <button class="button--quiet forgot-password">Forgot password? </button>
-            <div class="event listening button" onclick="login();">Login with Facebook</div>
-            <div class="event listening button" onclick="showDialog();">Show Dialog with Facebook</div>
-            <div class="event listening button" onclick="apiTest();">Test API with Facebook</div>
-            <div class="event listening button" onclick="getAccessToken();">Get access token with Facebook</div>
-            <div class="event listening button" onclick="getStatus();">Get login status with Facebook</div>
-            <div class="event listening button" onclick="logout();">Logout with Facebook</div>
-        <div id="fb-root"></div>
-        <script type="text/javascript" src="js/facebookConnectPlugin.js"></script>
-        <script type="text/javascript" src="js/fb_methods.js"></script>
+<button class="button" onclick="login();">Login with Facebook</div>

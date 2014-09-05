@@ -59,7 +59,7 @@ angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'Gis
     
     $scope.load_comments = function (url, id) {
         Gistofit.getComments(url, id).then(function (response) {
-            $scope.comments = response.data.comments;
+            $scope.comments = response.data;
             ons.navigator.pushPage('comment.html', {title: 'Page'});
           });
     };
@@ -139,7 +139,7 @@ angular.module('gistofit').factory('GistofitService', ['$http', function ($http)
         addGist: function (url, content) {
             url = buildURL ('rest/gists/' + encodeURIComponent(url));
             var data = {'content': content};
-            return $http.post(url, data);
+            return $http({method: 'POST', url: url, data: data, withCredentials: true});
         },
         likeGist: function (url, id) {
             url = buildURL ('rest/gists/' + encodeURIComponent(url) + "/" + id + "/like");
@@ -151,6 +151,7 @@ angular.module('gistofit').factory('GistofitService', ['$http', function ($http)
         },
         getComments: function (url, id) {
             url = buildURL ('rest/gists/' + encodeURIComponent(url) + "/" + id + "/comments");
+            console.log(url);
             return $http({method: 'GET', url: url});
         },
     }
@@ -166,7 +167,7 @@ angular.module('gistofit').controller("FeedCtrl", ['$scope','FeedService', funct
         'http://feeds.feedburner.com/TechCrunch',
         'http://rss.cnn.com/rss/cnn_topstories.rss',
         'http://sports.espn.go.com/espn/rss/news'
-    ]
+    ];
 
 
     $scope.loadButonText="Load";
@@ -209,7 +210,7 @@ function shuffle(array) {
                 }
             });
         }
-            shuffle($scope.feeds);
+            //shuffle($scope.feeds);
     }
 
     $scope.loadAllFeeds();
@@ -235,5 +236,7 @@ angular.module('gistofit').controller("PageCtrl", ['$scope', function ($scope) {
         tabs.setTabbarVisibility(false);
           //This is a second time launch, and count = applaunchCount
       }
+
+      $scope.loadRecentGists();
     });
 }]);
