@@ -20,6 +20,7 @@ import static com.gistofit.model.OfyService.ofy;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -41,11 +42,11 @@ import com.gistofit.domain.GistListResponse;
 import com.gistofit.domain.GistResponse;
 import com.gistofit.domain.ShardedCounter;
 import com.gistofit.domain.UserServiceInfo;
+import com.gistofit.model.EmbedlyExtract;
 import com.gistofit.model.Like;
 import com.gistofit.model.URL;
 import com.gistofit.model.Gist;
 import com.gistofit.model.Comment;
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.*;
 import com.google.appengine.api.datastore.Cursor;
@@ -56,7 +57,15 @@ import com.google.appengine.api.memcache.MemcacheService.SetPolicy;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-
+import com.google.appengine.api.search.Index;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.gistofit.domain.GistSearch;
 
 /**
  * Created with IntelliJ IDEA.
@@ -75,8 +84,8 @@ public class NewGistofitResource {
 
 	private final Logger logger = Logger.getLogger(NewGistofitResource.class.getName());
 
-	private GistListResponse getGists(String url, String cursor) {
-		Query<Gist> query = ofy().load().type(Gist.class).limit(5);
+	public GistListResponse getGists(String url, String cursor) {
+		Query<Gist> query = ofy().load().type(Gist.class).limit(15);
 
 		if (url != null) {
 			Key<URL> urlKey = Key.create(URL.class, url);
@@ -99,6 +108,43 @@ public class NewGistofitResource {
 	}
 
 	@GET
+	@Path("/search")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Gist> searchGists(@QueryParam("keyword") final String keyword) throws
+	Exception {
+		GistSearch gistSearch = new GistSearch();
+		LinkedHashSet<String> urls = gistSearch.getUrls(keyword, 15);
+		List<Gist> gists = new ArrayList<Gist>();
+		
+		for (String url : urls) {
+			gists.addAll(getGists(url, null).getGists());
+		}
+		
+		return gists;
+	}
+	
+	@GET
+	@Path("/search/top/keywords")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<String> searchKeywords(@QueryParam("keyword") final String keyword) throws
+	Exception {
+		GistSearch gistSearch = new GistSearch();
+		List<String> top = gistSearch.getKeywords(keyword, 15);
+		return top;
+	}
+	
+	@GET
+	@Path("/search/top/urls")
+	@Produces(MediaType.APPLICATION_JSON)
+	public LinkedHashSet<String> searchTopUrls(@QueryParam("keyword") final String keyword) throws
+	Exception {
+		GistSearch gistSearch = new GistSearch();
+		LinkedHashSet<String> top = gistSearch.getUrls(keyword, 15);
+		return top;
+	}
+	
+	
+	@GET
 	@Path("/recent")
 	@Produces(MediaType.APPLICATION_JSON)
 	public GistListResponse getRecent(@QueryParam("cursor") final String cursor) throws
@@ -107,7 +153,7 @@ public class NewGistofitResource {
 	}
 
 	private GistListResponse getTrendingGists(String cursor) {
-		Query<Gist> query = ofy().load().type(Gist.class).limit(5);
+		Query<Gist> query = ofy().load().type(Gist.class).limit(15);
 
 		if (cursor != null)
 			query = query.startAt(Cursor.fromWebSafeString(cursor));
@@ -168,16 +214,22 @@ public class NewGistofitResource {
 		// consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
 		// rate more than 1 write/second.
 		String content = postData.get("content");
-		String genre = postData.get("genre");
+		String keywords = postData.get("keywords");
+		String entities = postData.get("entities");
+
 
 		URL url = ofy().load().key(Key.create(URL.class, gistUrl)).now();
 
 		if (url == null) {
 			url = new URL(gistUrl);
+			ofy().save().entity(url).now();
 		}
-
-		ofy().save().entity(url).now();
-
+		
+		GistSearch search = new GistSearch();
+		Index index = GistSearch.getIndex();
+		
+		//index.put(search.buildDocument(gistUrl, strings, strings));
+		
 		Key<Gist> gistKey = null; 
 
 		if (content != null && content.length() > 0) {
@@ -187,7 +239,6 @@ public class NewGistofitResource {
 			//     gist.setAuthor(userService.getCurrentUser().getEmail());
 			gist.setDate(date);
 			gist.setContent(content);
-			gist.setGenre(genre);
 			gistKey = ofy().save().entity(gist).now();
 		}
 		return ofy().load().key(gistKey).now();
@@ -210,11 +261,41 @@ public class NewGistofitResource {
 	  @Path("/{url}/extract")
 	  @Consumes(MediaType.TEXT_PLAIN)
 	  public String setExtract(
-	      @DefaultValue("default") @PathParam("url") final String url,
+	      @DefaultValue("default") @PathParam("url") final String urlString,
 	      final String extractData) throws
 	    Exception {
-		  String mcKey = url + "_extract";
+			JsonParser parser = new JsonParser();
+			JsonObject obj = (JsonObject)parser.parse(extractData);
+			Gson gson = new GsonBuilder()
+		    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+		    .create();
+
+			EmbedlyExtract extract = gson.fromJson(obj, EmbedlyExtract.class);
+			
+			String cleanUrl = extract.getUrl();
+			URL url = ofy().load().key(Key.create(URL.class, cleanUrl)).now();
+			
+			if (url == null) {
+				url = new URL(cleanUrl);
+				ofy().save().entity(url).now();
+				
+				GistSearch search = new GistSearch();
+				Index index = GistSearch.getIndex();
+					
+				for (EmbedlyExtract.Keyword keyword : extract.getKeywords()) {
+					index.put(search.buildDocument(keyword.getName(), cleanUrl, keyword.getScore()));
+				}
+				
+				for (EmbedlyExtract.Entity entity : extract.getEntities()) {
+					index.put(search.buildDocument(entity.getName(), cleanUrl, entity.getCount()));		
+				}			
+			}
+
 		  
+		  String mcKey = cleanUrl + "_extract";
+	      mc.put(mcKey, extractData, Expiration.byDeltaSeconds(CACHE_PERIOD),
+	              SetPolicy.SET_ALWAYS);
+	      mcKey = extract.getOriginalUrl() + "_extract";
 	      mc.put(mcKey, extractData, Expiration.byDeltaSeconds(CACHE_PERIOD),
 	              SetPolicy.SET_ALWAYS);
 	      
@@ -269,11 +350,11 @@ public class NewGistofitResource {
 	  
 	  
 	  @POST
-	  @Path("/{url}/{id}/like")
+	  @Path("/{id}/like")
 	  @Produces(MediaType.APPLICATION_JSON)
 	  @Consumes(MediaType.APPLICATION_JSON)
 	  public Gist likeGist(
-			  @PathParam("url") final String url, @PathParam("id") final String id,
+			  @PathParam("id") final String id,
 			  final Map<String, String> postData) {
 	    UserService userService = UserServiceFactory.getUserService();
 		
@@ -294,22 +375,17 @@ public class NewGistofitResource {
 	  }
 	  
 	  
-//	  @GET
-//	  @Path("/{url}/{id}/likes")
-//	  @Produces(MediaType.APPLICATION_JSON)
-//	  public List<Like> getLikes(@PathParam("url") final String url, @PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
-//	      Exception {
-//			  Long longId = Long.parseLong(id);
-//			  Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());
-//			  Query<Gist> query = ofy().load().type(Like.class).limit(5);
-//
-//				if (url != null) {
-//					Key<URL> urlKey = Key.create(URL.class, url);
-//					query = query.filter("url", urlKey);
-//				}
-//				
-//			  return ofy().load().key(Key.create(L.class, gistUrl)).now();
-//	  }
+	  @GET
+	  @Path("/{id}/likes")
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public List<Like> getLikes(@PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
+	      Exception {
+			  Long longId = Long.parseLong(id);
+			  Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());
+			  Query<Like> query = ofy().load().type(Like.class).filter("gist", gistKey).order("-created");
+			  
+			  return query.list();  
+	  }
 	  
 	  @POST
 	  @Path("/{url}/{id}/comment")
