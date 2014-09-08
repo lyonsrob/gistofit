@@ -26,6 +26,7 @@ angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'Gis
             $scope.cursor = response.data.nextCursor; 
 
             $scope.userServiceInfo = response.data.userServiceInfo;
+            $scope.last_seen = response.data.lastSeen;
           });
     }
     
@@ -84,16 +85,13 @@ angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'Gis
     }
 
    $scope.onReload = function() {
+      console.log('reloading');
       var deferred = $q.defer();
       setTimeout(function() {
-        Gistofit.getRecent().then(function (response) {
-            $scope.gists.push.apply($scope.feeds, res.data.responseData.feed.entries);
-            $scope.$apply(function(){
-                $scope.gists.push(response.data.gists); 
-                $scope.cursor = response.data.cursor; 
-                $scope.userServiceInfo = response.data.userServiceInfo;
-            });
-          });
+        Gistofit.getNewest($scope.last_seen).then(function (response) {
+            $scope.gists.unshift.apply($scope.gists, response.data.gists);
+            $scope.last_seen = response.data.lastSeen;
+          })
         deferred.resolve(true);
       }, 1000);
       return deferred.promise;
@@ -118,6 +116,10 @@ angular.module('gistofit').factory('GistofitService', ['$http', function ($http)
     }
 
     return {
+        getNewest: function (id) {
+            var url = buildURL('rest/gists/newest');
+            return $http({method: 'GET', url: url, params: {last_seen: id}});
+        },
         getRecent: function (cursor) {
             var url = buildURL('rest/gists/recent');
             return $http({method: 'GET', url: url, params: {cursor: cursor}});

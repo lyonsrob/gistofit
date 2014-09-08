@@ -73,7 +73,7 @@ ons-toolbar + .page__content {
 }
 
 .page__status-bar-fill + ons-toolbar + .page__content {
-  padding-top: 64px;
+  padding-top: 46px;
 }
 
 .page__content {

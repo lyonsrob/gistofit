@@ -14,40 +14,18 @@
       </div>
     </ons-toolbar>
 
-<div class="menu-segment position-relative">
-      <div class="button-bar">
-        <div class="button-bar__item">
-          <button class="button-bar__button">
-            <i class="fa fa-briefcase"></i>
-          </button>
-        </div>
-        <div class="button-bar__item">
-          <button class="button-bar__button">
-            <i class="fa fa-mobile"></i>
-          </button>
-        </div>
-        <div class="button-bar__item">
-          <button class="button-bar__button">
-            <i class="fa fa-ticket"></i>
-          </button>
-        </div>
-        <div class="button-bar__item">
-          <button class="button-bar__button">
-            <i class="fa fa-globe"></i>
-          </button>
-        </div>
-    </div>
-</div>
-
-<div class="menu-segment position-relative padding-little">
     <ons-scroller infinit-scroll-enable="true" on-scrolled="myPagingFunction()">
-      <ul pull-to-refresh="onReload()" class="list list-container list-group list-group-table" style="height: 100%;">
-        <li ng-model="gists" ng-repeat="gist in gists" class="list__item list__item__line-height list-item-adjust list-group-item">
-          <div class="list-item-info">
-            <gist-card></gist-card>
-          <br />
-        </li>
-      </ul>
+      <div pull-to-refresh="onReload()">
+        <div class="menu-segment position-relative padding-little">
+          <ul class="list list-container list-group list-group-table" style="height: 100%;">
+            <li ng-model="gists" ng-repeat="gist in gists" class="list__item list__item__line-height list-item-adjust list-group-item">
+              <div class="list-item-info">
+                <gist-card></gist-card>
+              </div>
+            </li>
+          </ul>
+        </div>
+       </div>
       <ons-icon ng-show="paging" icon="spinner" size="40px" spin="true" class="ons-icon ons-icon--fw ons-icon--spin fa fa-spinner" style="font-size: 40px;"></ons-icon>
     </ons-scroller>
 </ons-page>

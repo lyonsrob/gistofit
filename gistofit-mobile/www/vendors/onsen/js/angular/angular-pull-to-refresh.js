@@ -16,9 +16,9 @@
       loading: 'refreshing...'
     },
     icon: {
-      pull: 'fa fa-arrow-down',
-      release: 'fa fa-arrow-up',
-      loading: 'fa fa-refresh fa-spin'
+      pull: 'ion ion-arrow-down-c',
+      release: 'ion ion-arrow-up-c',
+      loading: 'ion ion-loading-c'
     }
   }).directive('pullToRefresh', [
     '$compile',
@@ -34,7 +34,9 @@
         compile: function compile(tElement, tAttrs, transclude) {
           return function postLink(scope, iElement, iAttrs) {
             var config = angular.extend({}, pullToRefreshConfig, iAttrs);
-            var scrollElement = iElement.parent();
+
+            //Modification to work with OnsenUI
+            var scrollElement = iElement.parent().parent();
             var ptrElement = window.ptr = iElement.children()[0];
             scope.text = config.text;
             scope.icon = config.icon;

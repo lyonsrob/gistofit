@@ -6,6 +6,10 @@
     float: left;
 }
 
+.menu-segment {
+    background-color: #ACACAC;
+}
+
 .menu-segment .fa {
     font-size: 12px;
 }
@@ -15,7 +19,7 @@
 }
 
 .padding-little {
-    padding: 8px;
+    padding: 8px 4px;
 }
 
 .position-relative {

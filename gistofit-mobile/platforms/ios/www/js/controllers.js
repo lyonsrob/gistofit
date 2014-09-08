@@ -26,6 +26,7 @@ angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'Gis
             $scope.cursor = response.data.nextCursor; 
 
             $scope.userServiceInfo = response.data.userServiceInfo;
+            $scope.last_seen = response.data.lastSeen;
           });
     }
     
@@ -84,16 +85,13 @@ angular.module('gistofit').controller('GistCtrl', ['$scope', '$q', '$http', 'Gis
     }
 
    $scope.onReload = function() {
+      console.log('reloading');
       var deferred = $q.defer();
       setTimeout(function() {
-        Gistofit.getRecent().then(function (response) {
-            $scope.gists.push.apply($scope.feeds, res.data.responseData.feed.entries);
-            $scope.$apply(function(){
-                $scope.gists.push(response.data.gists); 
-                $scope.cursor = response.data.cursor; 
-                $scope.userServiceInfo = response.data.userServiceInfo;
-            });
-          });
+        Gistofit.getNewest($scope.last_seen).then(function (response) {
+            $scope.gists.unshift.apply($scope.gists, response.data.gists);
+            $scope.last_seen = response.data.lastSeen;
+          })
         deferred.resolve(true);
       }, 1000);
       return deferred.promise;
@@ -118,6 +116,10 @@ angular.module('gistofit').factory('GistofitService', ['$http', function ($http)
     }
 
     return {
+        getNewest: function (id) {
+            var url = buildURL('rest/gists/newest');
+            return $http({method: 'GET', url: url, params: {last_seen: id}});
+        },
         getRecent: function (cursor) {
             var url = buildURL('rest/gists/recent');
             return $http({method: 'GET', url: url, params: {cursor: cursor}});
@@ -154,10 +156,14 @@ angular.module('gistofit').factory('GistofitService', ['$http', function ($http)
             console.log(url);
             return $http({method: 'GET', url: url});
         },
+        searchTopUrls: function (query) {
+            var url = buildURL('rest/gists/search/top/urls/?keyword='+ query); 
+            return $http({method: 'GET', url: url});
+        }
     }
 }]);
 
-angular.module('gistofit').controller("FeedCtrl", ['$scope','FeedService', function ($scope,Feed) {    
+angular.module('gistofit').controller("FeedCtrl", ['$scope','FeedService', 'GistofitService', function ($scope, Feed, Gistofit) {    
     var feedURLs = [
         'http://feeds2.feedburner.com/Mashable',
         'http://www.tmz.com/rss.xml',
@@ -177,6 +183,19 @@ angular.module('gistofit').controller("FeedCtrl", ['$scope','FeedService', funct
             $scope.feeds=res.data.responseData.feed.entries;
         });
     }
+    
+    $scope.loadSearchFeed=function(){        
+        Gistofit.searchTopUrls($scope.searchText).then(function(res){
+            $scope.loadButonText=angular.element().text();
+            $scope.feeds=toArrayObj(res.data);
+        });
+    }
+
+function toArrayObj(array) {
+    for (var i = 0; i < array.length; ++i)
+        array[i] = {link: array[i]};
+    return array;
+}
 
 function shuffle(array) {
   var currentIndex = array.length
@@ -205,9 +224,7 @@ function shuffle(array) {
         for (var i = 0, len = feedURLs.length; i < len; i++) {
             Feed.parseFeed(feedURLs[i]).then(function(res){
                 //$scope.loadButonText=angular.element(e.target).text();
-                if (i>0) {
-                    $scope.feeds.push.apply($scope.feeds, res.data.responseData.feed.entries);
-                }
+                $scope.feeds.push.apply($scope.feeds, res.data.responseData.feed.entries);
             });
         }
             //shuffle($scope.feeds);
@@ -219,7 +236,7 @@ function shuffle(array) {
 angular.module('gistofit').factory('FeedService',['$http',function($http){
     return {
         parseFeed : function(url){
-            return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=2&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
+            return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=5&callback=JSON_CALLBACK&q=' + encodeURIComponent(url));
         }
     }
 }]);
