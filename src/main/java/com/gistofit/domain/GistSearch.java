@@ -1,26 +1,20 @@
 package com.gistofit.domain;
 
-import com.gistofit.rest.NewGistofitResource;
-import com.gistofit.model.Gist;
+
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
-import com.google.appengine.api.search.Query;
-import com.google.appengine.api.search.QueryOptions;
+
 import com.google.appengine.api.search.Results;
 import com.google.appengine.api.search.ScoredDocument;
 import com.google.appengine.api.search.SearchServiceFactory;
-import com.google.appengine.api.search.SortExpression;
-import com.google.appengine.api.search.SortOptions;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 public class GistSearch {
 	  private static final String INDEX_NAME = "Gists";
-
+		
 	  public static Index getIndex() {
 	    IndexSpec indexSpec = IndexSpec.newBuilder().setName(INDEX_NAME).build();
 	    return SearchServiceFactory.getSearchService().getIndex(indexSpec);
@@ -53,19 +47,19 @@ public class GistSearch {
 		  return suggestions;
 	  }
 	  
-	  public List<String> getKeywords(String searchString, int resultCount) {
+	  public LinkedHashSet<String> getKeywords(String searchString, int resultCount) {
 
 		    // TODO(user): Use memcache
 		    Results<ScoredDocument> results = getIndex().search(searchString);
 		    
-		    List<String> keywords = new ArrayList<String>();
+		    LinkedHashSet<String> keywords = new LinkedHashSet<String>();
 		    
 		    for (ScoredDocument document : results) {
 		      if (keywords.size() >= resultCount) {
 		        break;
 		      }
 		      
-		      keywords.add(document.getOnlyField("keyword_entity").getText());
+		      keywords.add(document.getOnlyField("keyword_entity").getText().toLowerCase());
 		    
 		    }
 		    return keywords;
@@ -86,6 +80,7 @@ public class GistSearch {
 	      urls.add(document.getOnlyField("url").getText());
 	    
 	    }
+	    
 	    return urls;
 	  }
 }

@@ -33,11 +33,14 @@ public class GistListResponse {
   
   private final String nextCursor;
   
-  public GistListResponse(List<Gist> gists,
-                           UserServiceInfo userServiceInfo, String nextCursor) {
+  private final String lastSeen;
+
+public GistListResponse(List<Gist> gists,
+                           UserServiceInfo userServiceInfo, String nextCursor, String lastSeen) {
     this.gists = gists;
     this.userServiceInfo = userServiceInfo;
     this.nextCursor = nextCursor;
+    this.lastSeen = lastSeen;
   }
 
   public List<Gist> getGists() {
@@ -51,4 +54,9 @@ public class GistListResponse {
   public String getNextCursor() {
 	  return nextCursor;
   }
+  
+  public String getLastSeen() {
+	return lastSeen;
+}
+
 }

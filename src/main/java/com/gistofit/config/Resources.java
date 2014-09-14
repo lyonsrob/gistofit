@@ -31,7 +31,6 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-import com.gistofit.rest.GistofitResource;
 import com.gistofit.rest.GsonMessageBodyHandler;
 
 import java.util.HashSet;
@@ -44,7 +43,6 @@ public class Resources extends Application {
   @Override
   public Set<Class<?>> getClasses() {
     Set<Class<?>> s = new HashSet<Class<?>>();
-    s.add(GistofitResource.class);
     s.add(NewGistofitResource.class);
     s.add(GsonMessageBodyHandler.class);
     return s;

@@ -141,7 +141,7 @@ angular.module('gistofit').factory('GistofitService', ['$http', function ($http)
         addGist: function (url, content) {
             url = buildURL ('rest/gists/' + encodeURIComponent(url));
             var data = {'content': content};
-            return $http({method: 'POST', url: url, data: data, withCredentials: true});
+            return $http({method: 'POST', url: url, data: data});
         },
         likeGist: function (url, id) {
             url = buildURL ('rest/gists/' + encodeURIComponent(url) + "/" + id + "/like");

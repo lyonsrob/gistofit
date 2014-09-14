@@ -24,6 +24,7 @@ import lombok.Setter;
 
 import com.google.gson.annotations.Expose;
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -76,6 +77,14 @@ public class Gist {
   @Index
   @Expose
   public String genre;
+  
+  public Gist() {
+	  if (this.id == null){
+		ObjectifyFactory f = new ObjectifyFactory();
+		Key<Gist> key = f.allocateId(Gist.class);
+		this.id = key.getId();
+	  }
+  }
   
   public URL getUrl() { return url.get(); }
   public void setUrl(URL value) { url = Ref.create(value); }

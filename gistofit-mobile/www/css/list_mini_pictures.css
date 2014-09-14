@@ -1,0 +1,49 @@
+.float-left {
+    float: left;
+}
+
+.list-item-container {
+    line-height: 14px;
+    min-height: 14px;
+    font-size: 12px;
+}
+
+.list-item-main {
+    padding: 15px 0px 15px 5px;
+}
+
+.list-item-main:after {
+    content: ".";
+    display: block;
+    height: 0;
+    font-size: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.list-item-left {
+    width: 60px;
+    margin-right: -60px;
+    float: left;
+}
+
+.list-item-right {
+    width: 100%;
+    float: right;
+}
+
+.list-item-content {
+    margin-left: 60px;
+    margin-right: 30px;
+}
+
+.avator {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.list-top {
+    margin-top: -1px;
+}

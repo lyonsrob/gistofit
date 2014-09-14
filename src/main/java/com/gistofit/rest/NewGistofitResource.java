@@ -85,7 +85,7 @@ public class NewGistofitResource {
 	private final Logger logger = Logger.getLogger(NewGistofitResource.class.getName());
 
 	public GistListResponse getGists(String url, String cursor) {
-		Query<Gist> query = ofy().load().type(Gist.class).limit(15);
+		Query<Gist> query = ofy().load().type(Gist.class).limit(5);
 
 		if (url != null) {
 			Key<URL> urlKey = Key.create(URL.class, url);
@@ -104,7 +104,9 @@ public class NewGistofitResource {
 		}
 
 		String nextCursor = iterator.getCursor().toWebSafeString();
-		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor);
+		String lastSeen = gists.get(0).id.toString();
+		
+		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor, lastSeen);
 	}
 
 	@GET
@@ -126,10 +128,10 @@ public class NewGistofitResource {
 	@GET
 	@Path("/search/top/keywords")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<String> searchKeywords(@QueryParam("keyword") final String keyword) throws
+	public LinkedHashSet<String> searchKeywords(@QueryParam("keyword") final String keyword) throws
 	Exception {
 		GistSearch gistSearch = new GistSearch();
-		List<String> top = gistSearch.getKeywords(keyword, 15);
+		LinkedHashSet<String> top = gistSearch.getKeywords(keyword, 15);
 		return top;
 	}
 	
@@ -143,6 +145,35 @@ public class NewGistofitResource {
 		return top;
 	}
 	
+	@GET
+	@Path("/newest")
+	@Produces(MediaType.APPLICATION_JSON)
+	public GistListResponse getNewest(@QueryParam("last_seen") final String lastSeen) throws
+	Exception {
+		return getNewestGists(lastSeen);
+	}
+	
+	private GistListResponse getNewestGists(String lastSeen) {
+		if (lastSeen == null)
+			return new GistListResponse(null, null, null, null);
+
+		Query<Gist> query = ofy().load().type(Gist.class).filterKey(">", Gist.key(Long.parseLong(lastSeen))).limit(5).order("-__key__");
+		QueryResultIterator<Gist> iterator = query.iterator();
+		List<Gist> gists = new ArrayList<Gist>();
+		while (iterator.hasNext()) {
+			gists.add(iterator.next());
+		}
+		
+		String nextCursor = null;
+		
+		if (gists.size() > 0) {
+			nextCursor = iterator.getCursor().toWebSafeString();
+			lastSeen = gists.get(0).id.toString();
+		}
+		
+		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor, lastSeen);
+	}
+
 	
 	@GET
 	@Path("/recent")
@@ -165,7 +196,9 @@ public class NewGistofitResource {
 		}
 
 		String nextCursor = iterator.getCursor().toWebSafeString();
-		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor);
+		String lastSeen = gists.get(0).id.toString();
+		
+		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor, lastSeen);
 	}
 
 	@GET
@@ -214,9 +247,6 @@ public class NewGistofitResource {
 		// consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
 		// rate more than 1 write/second.
 		String content = postData.get("content");
-		String keywords = postData.get("keywords");
-		String entities = postData.get("entities");
-
 
 		URL url = ofy().load().key(Key.create(URL.class, gistUrl)).now();
 
@@ -224,11 +254,6 @@ public class NewGistofitResource {
 			url = new URL(gistUrl);
 			ofy().save().entity(url).now();
 		}
-		
-		GistSearch search = new GistSearch();
-		Index index = GistSearch.getIndex();
-		
-		//index.put(search.buildDocument(gistUrl, strings, strings));
 		
 		Key<Gist> gistKey = null; 
 

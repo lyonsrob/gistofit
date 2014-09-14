@@ -1,0 +1,46 @@
+.navigation-bar {
+    height: 14px;
+}
+
+.navigation-bar__line-height {
+  line-height: 14px;
+}
+
+.navigation-bar__item,
+.navigation-bar__left,
+.navigation-bar__right,
+.navigation-bar__center {
+  height: 14px;
+}
+
+.navigation-bar__center {
+  line-height: 14px;
+}
+
+.navigation-bar__title {
+  line-height: 14px;
+}
+
+.page__status-bar-fill + ons-toolbar {
+  height: 0px;
+}
+
+ons-scroller {
+  height: 100%;
+}
+
+.button-bar__item:first-child > .button-bar__button {
+    border-top:none;
+    border-left:none;
+    border-right: 2px solid #1284ff;
+}
+
+.button-bar__item:last-child > .button-bar__button {
+    border:none;
+}
+
+.button-bar__button {
+    border-top:none;
+    border-bottom:none;
+    border-right: 2px solid #1284ff;
+}

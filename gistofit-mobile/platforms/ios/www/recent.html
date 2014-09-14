@@ -7,9 +7,8 @@
       </ons-toolbar-button>
       </div>
       <div class="right">
-      <ons-toolbar-button ng-click="onReload()">
-        <ons-icon icon="refresh"></ons-icon>
-        <ons-icon icon="filter"></ons-icon>
+      <ons-toolbar-button>
+        <ons-icon icon="search" ng-click="navigator1.pushPage('search.html', { animation: 'slide' }); tabs.setTabbarVisibility(0)"></ons-icon>
       </ons-toolbar-button>
       </div>
     </ons-toolbar>
