@@ -26,43 +26,36 @@ steroids.config.tabBar.tabs = [
     location: "http://localhost/views/Feed/index.html"
   }
 ]
-steroids.config.tabBar.tintColor = "969682"
-steroids.config.tabBar.tabTitleColor = "5a5a54"
-steroids.config.tabBar.selectedTabTintColor = "ffffff"
+steroids.config.tabBar.tintColor = "a3c971"
+steroids.config.tabBar.tabTitleColor = "ffffff"
+steroids.config.tabBar.selectedTabTintColor = "5a5a54"
 steroids.config.tabBar.selectedTabBackgroundImage = ""
 
 steroids.config.tabBar.backgroundImage = ""
       
 
-# ## Preloads
-# steroids.config.preloads = [
-#   {
-#     id: "google"
-#     location: "http://www.google.com"
-#   }
-# ]
+## Preloads
+#steroids.config.preloads = [
+#  {
+#    id: "leftDrawer"
+#    location: "http://localhost/views/Drawers/left.html"
+#  }
+#]
     
-
-# ## Drawers 
-# steroids.config.drawers =
-#   left:
-#     id: "leftDrawer"
-#     location: "http://localhost/leftDrawer.html"
-#     showOnAppLoad: true
-#     widthOfDrawerInPixels: 200 
-#   right:
-#     id: "rightDrawer"
-#     location: "http://localhost/rightDrawer.html"
-#     showOnAppLoad: true
-#     widthOfDrawerInPixels: 200 
-#   options:
-#     centerViewInteractionMode: "Full"
-#     closeGestures: ["PanNavBar", "PanCenterView", "TapCenterView"]
-#     openGestures: ["PanNavBar", "PanCenterView"]
-#     showShadow: true
-#     stretchDrawer: true
-#     widthOfLayerInPixels: 0
-
+# -- Drawers
+steroids.config.drawers =
+  left:
+    id: "sidemenu"
+    location: "http://localhost/views/sidemenu/index.html"
+    showOnAppLoad: false
+    widthOfDrawerInPixels: 250
+  options:
+    centerViewInteractionMode: "Full"
+    closeGestures: ["PanNavBar", "PanCenterView", "TapCenterView", "TapNavBar"]
+    openGestures: ["PanNavBar", "PanCenterView"]
+    showShadow: true
+    stretchDrawer: true
+    widthOfLayerInPixels: 0
 
 # ## Initial View
 # steroids.config.initialView =
@@ -70,11 +63,10 @@ steroids.config.tabBar.backgroundImage = ""
 #   location: "http://localhost/initialView.html"
 
 # ## Navigation Bar
-steroids.config.navigationBar.tintColor = "85816c"
+steroids.config.navigationBar.tintColor = "a3c971"
 steroids.config.navigationBar.titleColor = "ffffff"
-steroids.config.navigationBar.buttonTintColor = ""
 
-steroids.config.navigationBar.buttonTintColor = "85816c"
+steroids.config.navigationBar.buttonTintColor = "ffffff"
 steroids.config.navigationBar.buttonTitleColor = "ffffff"
 
 # steroids.config.navigationBar.borderColor = "#000000"
@@ -88,7 +80,7 @@ steroids.config.loadingScreen.tintColor = "#262626"
 
 # ## iOS Status Bar
 steroids.config.statusBar.enabled = true
-steroids.config.statusBar.style = "light"
+steroids.config.statusBar.style = "default"
 
 # ## File Watcher
 # steroids.config.watch.exclude = ["www/my_excluded_file.js", "www/my_excluded_dir"]

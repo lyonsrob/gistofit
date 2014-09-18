@@ -7,7 +7,18 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', '$q', 'Gistof
         var url = gist.url.key.raw.name;
 
         Gistofit.getExtract(url).then(function (response) {
-            gist.extract = response.data;
+            if (response.data == undefined || response.data == '') {
+                Embedly.extract(url)
+                .then(function(e){
+                    Gistofit.setExtract(url, e.data);
+                    gist.extract = e.data;
+                },
+                 function(error) {
+                    console.log(error);
+                 });
+            } else {
+                gist.extract = response.data;
+            }
         });
     }
 
@@ -33,6 +44,12 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', '$q', 'Gistof
             $scope.last_seen = response.data.lastSeen;
           });
     }
+   
+   $scope.deleteGist = function(index, id) {
+        Gistofit.deleteGist(id).then(function (response) {
+            $scope.gists.splice(index, 1);
+          });
+    }
     
    $scope.likeGist = function(url, id) {
         Gistofit.likeGist(url, id).then(function (response) {
@@ -46,9 +63,19 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', '$q', 'Gistof
 
     $scope.myPagingFunction = function () {
         Gistofit.getRecent($scope.cursor).then(function (response) {
-            $scope.gists = $scope.gists.concat(response.data.gists); 
-            $scope.cursor = response.data.nextCursor; 
+            var promises = [];
+        
+            angular.forEach(response.data.gists,function(gist){
+                promises.push($scope.setGistExtract(gist));
+            });
 
+            $q.all(promises).then(function success(data){
+                $scope.gists = $scope.gists.concat(response.data.gists); 
+            }, function failure(err){
+                // Can handle this is we want
+            });
+            
+            $scope.cursor = response.data.nextCursor; 
             $scope.userServiceInfo = response.data.userServiceInfo;
           });
     }
@@ -68,5 +95,28 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', '$q', 'Gistof
     };
     
     $scope.loadRecentGists();
-}    
-]);
+    steroids.view.navigationBar.show("Current");
+
+    $scope.showComments = function(gist) {
+        var message = {
+            recipient: "commentsView",
+            id: gist.id,
+            url: gist.url.key.raw.name
+        }
+        window.postMessage(message);
+        
+        var fastSlide = new steroids.Animation({  transition: "slideFromRight",  duration: .2});
+        
+        // Navigate to your view
+        steroids.layers.push(
+        {
+            view: commentsView,
+            animation: fastSlide 
+        });
+    }
+    
+    var commentsView = new steroids.views.WebView("views/Comments/index.html");
+    commentsView.preload(); // Prelaod for faster view transitions
+   
+
+}]);

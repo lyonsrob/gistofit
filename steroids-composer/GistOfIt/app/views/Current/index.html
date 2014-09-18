@@ -1,5 +1,5 @@
 <div ng-controller="CurrentCtrl" id="Current">
- <div class="content">
+ <div class="content" when-scrolled="myPagingFunction()">
   <ul pull-to-refresh="onReload()">
     <li ng-model="gists" ng-repeat="gist in gists">
         <div class="list card">
@@ -15,23 +15,22 @@
               {{gist.content}} #gistofit
             </p>
             <img class="full-image" ng-src="{{ gist.extract.images[0].url }}">
-            <p>
-              {{gist.title}}
-            </p>
+            <h2>
+              {{gist.extract.title}}
+            </h2>
           </div>
               
           <div class="item tabs tabs-secondary tabs-icon-left">
-            <a class="tab-item" href="#">
+            <a class="tab-item" ng-click="likeGist(gist.id)">
               <i class="icon ion-thumbsup"></i>
               Like
             </a>
-            <a class="tab-item" href="#">
+            <a class="tab-item" ng-click="showComments(gist)">
               <i class="icon ion-chatbox"></i>
               Comment
             </a>
-            <a class="tab-item" href="#">
-              <i class="icon ion-share"></i>
-              Share
+            <a class="tab-item" ng-click="deleteGist($index, gist.id)">
+              <i class="icon ion-ios7-trash-outline"></i>
             </a>
           </div>
 

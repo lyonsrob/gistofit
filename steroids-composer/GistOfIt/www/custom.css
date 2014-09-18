@@ -1,5 +1,5 @@
 body, html {
-    background-color: #fff8e4 !important;
+    background-color: #83827E !important;
 }
 
 body, .ionic-body {
@@ -28,3 +28,28 @@ input, button, select, textarea {
     -webkit-backface-visibility: none;
     -webkit-overflow-scrolling: touch;
 }    
+
+.sidemenu {
+  height: 100%;
+  padding-top: 60px;
+  display: block;
+}
+
+.article-extract {
+  width: 100%;
+}
+
+.article-extract img {
+  width: 100%;
+}
+
+.article-extract-title {
+  text-overflow: ellipsis;
+}
+
+h3 {
+    color: #585858;
+    font-weight: 100;
+    font-size: 36px;
+    letter-spacing: 0px;
+}
