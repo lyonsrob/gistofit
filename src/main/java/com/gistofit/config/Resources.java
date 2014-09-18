@@ -25,6 +25,11 @@ package com.gistofit.config;
 //import com.gistofit.rest.GistofitResource;
 import com.gistofit.rest.GsonMessageBodyHandler;
 import com.gistofit.rest.NewGistofitResource;
+import com.gistofit.rest.URLResource;
+import com.gistofit.rest.GistResource;
+import com.gistofit.rest.CommentResource;
+import com.gistofit.rest.LikeResource;
+import com.gistofit.rest.SearchResource;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,7 +48,11 @@ public class Resources extends Application {
   @Override
   public Set<Class<?>> getClasses() {
     Set<Class<?>> s = new HashSet<Class<?>>();
-    s.add(NewGistofitResource.class);
+    s.add(URLResource.class);
+    s.add(GistResource.class);
+    s.add(CommentResource.class);
+    s.add(LikeResource.class);
+    s.add(SearchResource.class);
     s.add(GsonMessageBodyHandler.class);
     return s;
   }

@@ -64,7 +64,7 @@ public class Gist {
   @Setter
   @Index
   @Expose
-  public Date date;
+  public Date date = new Date();
 
   @Getter
   @Setter
@@ -77,14 +77,6 @@ public class Gist {
   @Index
   @Expose
   public String genre;
-  
-  public Gist() {
-	  if (this.id == null){
-		ObjectifyFactory f = new ObjectifyFactory();
-		Key<Gist> key = f.allocateId(Gist.class);
-		this.id = key.getId();
-	  }
-  }
   
   public URL getUrl() { return url.get(); }
   public void setUrl(URL value) { url = Ref.create(value); }

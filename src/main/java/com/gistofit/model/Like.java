@@ -36,7 +36,7 @@ public class Like extends Jsonifiable {
   @Index
   @Getter
   @Setter
-  Date created;
+  Date created = new Date();
   
   public Gist getGist() { return gist.get(); }
   public void setGist(Gist value) { gist = Ref.create(value); }

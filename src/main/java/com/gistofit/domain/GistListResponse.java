@@ -16,7 +16,9 @@
 
 package com.gistofit.domain;
 
+import java.util.Date;
 import java.util.List;
+
 import com.gistofit.model.Gist;
 
 /**
@@ -33,10 +35,10 @@ public class GistListResponse {
   
   private final String nextCursor;
   
-  private final String lastSeen;
+  private final Long lastSeen;
 
 public GistListResponse(List<Gist> gists,
-                           UserServiceInfo userServiceInfo, String nextCursor, String lastSeen) {
+                           UserServiceInfo userServiceInfo, String nextCursor, Long lastSeen) {
     this.gists = gists;
     this.userServiceInfo = userServiceInfo;
     this.nextCursor = nextCursor;
@@ -55,7 +57,7 @@ public GistListResponse(List<Gist> gists,
 	  return nextCursor;
   }
   
-  public String getLastSeen() {
+  public Long getLastSeen() {
 	return lastSeen;
 }
 
