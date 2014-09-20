@@ -169,7 +169,11 @@ public class GistResource {
 		Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());
 		Gist gist = ofy().load().key(gistKey).now();
 		
-		ofy().delete().entity(gist).now();
+		try {
+			ofy().delete().entity(gist).now();
+		} catch(Exception e) {
+			throw e;
+		}
 	}
 
 	@POST

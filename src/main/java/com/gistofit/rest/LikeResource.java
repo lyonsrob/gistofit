@@ -24,32 +24,6 @@ import com.googlecode.objectify.cmd.Query;
 @Path("/v1/like")
 public class LikeResource {
 	
-	//  private List<Entity> getGistLikes(Key key, String cursor) {
-	//	    List<Entity> likes = new ArrayList<Entity>();
-	//	    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
-	//	    
-	//	    int pageSize = 5;
-	//	    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(pageSize);
-	//	    
-	//	    if (cursor != null) {
-	//	        fetchOptions.startCursor(Cursor.fromWebSafeString(cursor));
-	//	    }
-	//
-	//	    Query query = new Query("Like", key).addSort("date", Query.SortDirection.DESCENDING);
-	//	    
-	//	    PreparedQuery pq = datastoreService.prepare(query);
-	//	 
-	//	    QueryResultList<Entity> likeEntities = pq.asQueryResultList(fetchOptions);
-	//	    
-	//	    for (Entity like : likeEntities) {
-	//	      likes.add(like);
-	//	    }
-	//	    
-	//	    String cursorString = likeEntities.getCursor().toWebSafeString();
-	//	    
-	//	    return likeEntities; 
-	//	  }
-	
 	  @POST
 	  @Path("/{id}")
 	  @Produces(MediaType.APPLICATION_JSON)
@@ -57,7 +31,6 @@ public class LikeResource {
 	  public Gist likeGist(
 			  @PathParam("id") final String id,
 			  final Map<String, String> postData) {
-	    UserService userService = UserServiceFactory.getUserService();
 		
 		Long longId = Long.parseLong(id); 
 		Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());

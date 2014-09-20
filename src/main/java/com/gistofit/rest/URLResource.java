@@ -2,11 +2,8 @@ package com.gistofit.rest;
 
 import static com.gistofit.model.OfyService.ofy;
 
-import java.util.LinkedHashSet;
-
 import com.gistofit.model.EmbedlyExtract;
 import com.gistofit.model.URL;
-import com.gistofit.rest.NewGistofitResource;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
@@ -15,10 +12,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.gistofit.domain.GistListResponse;
 import com.gistofit.domain.GistSearch;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;

@@ -16,15 +16,7 @@
 
 package com.gistofit.config;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Takashi Matsuo <tmatsuo@google.com>
- * Date: 4/5/13
- * Time: 2:57 AM
- */
-//import com.gistofit.rest.GistofitResource;
 import com.gistofit.rest.GsonMessageBodyHandler;
-import com.gistofit.rest.NewGistofitResource;
 import com.gistofit.rest.URLResource;
 import com.gistofit.rest.GistResource;
 import com.gistofit.rest.CommentResource;
@@ -35,14 +27,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.ws.rs.core.Application;
-
-import com.gistofit.rest.GsonMessageBodyHandler;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.ws.rs.core.Application;
-
 
 public class Resources extends Application {
   @Override
