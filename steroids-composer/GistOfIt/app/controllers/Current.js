@@ -74,8 +74,9 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', '$q', 'Gistof
             }, function failure(err){
                 // Can handle this is we want
             });
-            
-            $scope.cursor = response.data.nextCursor; 
+           
+            if (response.data.nextCursor != "")
+                $scope.cursor = response.data.nextCursor; 
             $scope.userServiceInfo = response.data.userServiceInfo;
           });
     }
@@ -115,7 +116,7 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', '$q', 'Gistof
         });
     }
     
-    var commentsView = new steroids.views.WebView("views/Comments/index.html");
+    var commentsView = new steroids.views.WebView("views/Comments/comments.html");
     commentsView.preload(); // Prelaod for faster view transitions
    
 

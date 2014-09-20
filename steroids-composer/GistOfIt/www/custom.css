@@ -10,6 +10,18 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: HelveticaNeue;
 }
 
+
+a.item {
+    background-color: #83827E;
+    color: #fff;
+}
+
+.item-divider {
+    background-color: #fff;
+    color: grey;
+    font-weight: normal;
+}
+
 .tab-item {
     font-family: HelveticaNeue;
 }

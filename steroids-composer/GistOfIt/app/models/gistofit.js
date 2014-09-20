@@ -9,8 +9,8 @@ if ( typeof angular == 'undefined' ) {
 */
 
 angular.module("gistOfItApp").factory('GistofitService', ['$http', function ($http) {
-    var baseURL = 'http://127.0.0.1:8080/rest/v1';
-    //var baseURL = 'https://erudite-flag-623.appspot.com/rest/v1';
+    //var baseURL = 'http://127.0.0.1:8080/rest/v1';
+    var baseURL = 'https://erudite-flag-623.appspot.com/rest/v1';
 
     function buildURL (method) {
         return baseURL + method;
@@ -47,7 +47,7 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', function ($ht
         },
         deleteGist: function (id) {
             url = buildURL ('/gist/' + id);
-            return $http({method: 'DELETE', url: url, data: {'delete': 'true'}, headers: {'Content-Type': 'application/json'}});
+            return $http({method: 'DELETE', url: url, data: {}, headers: {'Content-Type': 'application/json'}});
             //return $http({method: 'POST', url: url, data: data, withCredentials: true});
         },
         likeGist: function (id) {

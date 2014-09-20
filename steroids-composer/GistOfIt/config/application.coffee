@@ -5,30 +5,30 @@
 steroids.config.name = "GistOfIt"
 
 # ## Start Location
-steroids.config.location = "http://localhost/views/Current/index.html"
+steroids.config.location = "http://localhost/views/Current/current.html"
 
 # ## Tab Bar
 steroids.config.tabBar.enabled = true
 steroids.config.tabBar.tabs = [
   {
     title: "Current"
-    icon: "icons/53.png"
-    location: "http://localhost/views/Current/index.html"
+    icon: "icons/ios7-world.png"
+    location: "http://localhost/views/Current/current.html"
   },
   {
     title: "Trending"
-    icon: "icons/16.png"
-    location: "http://localhost/views/Trending/index.html"
+    icon: "icons/arrow-graph-up-right.png"
+    location: "http://localhost/views/Trending/trending.html"
   },
   {
     title: "Feed"
-    icon: "icons/34.png"
-    location: "http://localhost/views/Feed/index.html"
+    icon: "icons/ios7-albums.png"
+    location: "http://localhost/views/Feed/feed.html"
   }
 ]
-steroids.config.tabBar.tintColor = "a3c971"
-steroids.config.tabBar.tabTitleColor = "ffffff"
-steroids.config.tabBar.selectedTabTintColor = "5a5a54"
+steroids.config.tabBar.tintColor = "ffffff"
+steroids.config.tabBar.tabTitleColor = "a3c971"
+steroids.config.tabBar.selectedTabTintColor = "a3c971"
 steroids.config.tabBar.selectedTabBackgroundImage = ""
 
 steroids.config.tabBar.backgroundImage = ""
@@ -46,11 +46,11 @@ steroids.config.tabBar.backgroundImage = ""
 steroids.config.drawers =
   left:
     id: "sidemenu"
-    location: "http://localhost/views/sidemenu/index.html"
+    location: "http://localhost/views/sidemenu/sidemenu.html"
     showOnAppLoad: false
     widthOfDrawerInPixels: 250
   options:
-    centerViewInteractionMode: "Full"
+    centerViewInteractionMode: "None"
     closeGestures: ["PanNavBar", "PanCenterView", "TapCenterView", "TapNavBar"]
     openGestures: ["PanNavBar", "PanCenterView"]
     showShadow: true
