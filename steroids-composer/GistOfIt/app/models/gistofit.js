@@ -64,7 +64,7 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', function ($ht
             return $http({method: 'GET', url: url});
         },
         searchTopUrls: function (query) {
-            var url = buildURL('/search/top/urls/' +query); 
+            var url = buildURL('/search/top/urls/?keyword=' + query); 
             return $http({method: 'GET', url: url});
         }
     }

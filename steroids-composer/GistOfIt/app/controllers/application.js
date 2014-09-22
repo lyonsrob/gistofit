@@ -1,7 +1,8 @@
 angular.module('gistOfItApp', [
 'angular-embedly',
 'mgcrea.pullToRefresh',
-'ngSanitize'
+'ngSanitize',
+'ngAnimate'
 ])
 .config(function(embedlyServiceProvider){
         embedlyServiceProvider.setKey('42f4925174814d68b90d0758d932fe14');
@@ -55,10 +56,10 @@ steroids.on('ready', function() {
     );
 });
     
-// Create a view
+// Search view
 var searchView = new steroids.views.WebView("http://localhost/views/Search/search.html");
 searchView.preload(); // Prelaod for faster view transitions
-
+    
 var navButton = new steroids.buttons.NavigationBarButton();
 navButton.imagePath = "/icons/navicon@2x.png"
 navButton.onTap = function() { 
@@ -85,3 +86,4 @@ steroids.view.navigationBar.update({
       right: [searchButton]
     }
 });
+
