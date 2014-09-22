@@ -8,7 +8,7 @@ if ( typeof angular == 'undefined' ) {
 };
 */
 
-angular.module("gistOfItApp").factory('GistofitService', ['$http', function ($http) {
+angular.module("gistOfItApp").factory('GistofitService', ['$http', 'embedlyService', function ($http, Embedly) {
     //var baseURL = 'http://127.0.0.1:8080/rest/v1';
     var baseURL = 'https://erudite-flag-623.appspot.com/rest/v1';
 
@@ -64,7 +64,7 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', function ($ht
             return $http({method: 'GET', url: url});
         },
         searchTopUrls: function (query) {
-            var url = buildURL('/search/top/urls/' +query); 
+            var url = buildURL('/search/top/urls/?keyword=' + query); 
             return $http({method: 'GET', url: url});
         }
     }

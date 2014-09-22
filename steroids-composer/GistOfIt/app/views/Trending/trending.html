@@ -1,14 +1,41 @@
 <div ng-controller="TrendingCtrl" id="Trending">
+ <div class="content" when-scrolled="myPagingFunction()">
+  <ul pull-to-refresh="onReload()">
+    <li ng-model="gists" ng-repeat="gist in gists" class="repeat-animation">
+        <div class="list card">
 
-<div id="card_with_image_on_left_two_text_rows0" ng-click="card_with_image_on_left_two_text_rows0Tap()">
-<div class="list card">
-  <div class="item item-avatar">
-    <img ng-src="http://www.appgyver.com/composer/composer-default-square.png">
-    <h2>My Title</h2>
-    <p>My Content.</p>
-  </div>
+          <div class="item item-avatar">
+            <img ng-src="{{ gist.extract.favicon_url }}">
+            <h2>{{gist.extract.provider_name}}</h2>
+            <p>via Robert Lyons</p>
+          </div>
+
+          <div class="item item-body">
+            <p>
+              {{gist.content}} #gistofit
+            </p>
+            <img class="full-image" ng-src="{{ gist.extract.images[0].url }}">
+            <h2>
+              {{gist.extract.title}}
+            </h2>
+          </div>
+              
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" ng-click="likeGist(gist.id)">
+              <i class="icon ion-heart"></i>
+              Like
+            </a>
+            <a class="tab-item" ng-click="showComments(gist)">
+              <i class="icon ion-chatbubble"></i>
+              Comment
+            </a>
+            <a class="tab-item" ng-click="deleteGist($index, gist.id)">
+              <i class="icon ion-ios7-trash"></i>
+            </a>
+          </div>
+
+        </div>
+    </li>
+  </ul>
 </div>
-
-</div>
-
 </div>

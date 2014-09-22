@@ -1,7 +1,7 @@
 <div ng-controller="CurrentCtrl" id="Current">
  <div class="content" when-scrolled="myPagingFunction()">
   <ul pull-to-refresh="onReload()">
-    <li ng-model="gists" ng-repeat="gist in gists">
+    <li ng-model="gists" ng-repeat="gist in gists" class="repeat-animation">
         <div class="list card">
 
           <div class="item item-avatar">
@@ -14,7 +14,7 @@
             <p>
               {{gist.content}} #gistofit
             </p>
-            <img class="full-image" ng-src="{{ gist.extract.images[0].url }}">
+            <img class="full-image" ng-src="{{ gist.extract.images[0].url }}" ng-click="showArticle(gist.extract)">
             <h2>
               {{gist.extract.title}}
             </h2>
