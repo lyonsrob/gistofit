@@ -24,23 +24,40 @@ steroids.config.tabBar.tabs = [
     title: "Feed"
     icon: "icons/ios7-albums.png"
     location: "http://localhost/views/Feed/feed.html"
-  }
+  },
+  {
+    title: "Profile"
+    icon: "icons/ios7-world.png"
+    location: "http://localhost/views/Profile/profile.html"
+  },
 ]
 steroids.config.tabBar.tintColor = "ffffff"
-steroids.config.tabBar.tabTitleColor = "a3c971"
-steroids.config.tabBar.selectedTabTintColor = "a3c971"
+steroids.config.tabBar.tabTitleColor = "969696"
+steroids.config.tabBar.selectedTabTintColor = "60ab00"
 steroids.config.tabBar.selectedTabBackgroundImage = ""
 
 steroids.config.tabBar.backgroundImage = ""
       
 
 ## Preloads
-#steroids.config.preloads = [
-#  {
-#    id: "leftDrawer"
-#    location: "http://localhost/views/Drawers/left.html"
-#  }
-#]
+steroids.config.preloads = [
+  {
+    id: "search"
+    location: "http://localhost/views/Search/search.html",
+  },
+  {
+    id: "comments"
+    location: "http://localhost/views/Comments/comments.html"
+  },
+  {
+    id: "article"
+    location: "http://localhost/views/Article/article.html"
+  },
+  {
+    id: "addGist"
+    location: "http://localhost/views/Gist/add.html"
+  }
+]
     
 # -- Drawers
 steroids.config.drawers =
@@ -63,7 +80,7 @@ steroids.config.drawers =
 #   location: "http://localhost/initialView.html"
 
 # ## Navigation Bar
-steroids.config.navigationBar.tintColor = "a3c971"
+steroids.config.navigationBar.tintColor = "60ab00"
 steroids.config.navigationBar.titleColor = "ffffff"
 
 steroids.config.navigationBar.buttonTintColor = "ffffff"
@@ -80,7 +97,7 @@ steroids.config.loadingScreen.tintColor = "#262626"
 
 # ## iOS Status Bar
 steroids.config.statusBar.enabled = true
-steroids.config.statusBar.style = "default"
+steroids.config.statusBar.style = "light"
 
 # ## File Watcher
 # steroids.config.watch.exclude = ["www/my_excluded_file.js", "www/my_excluded_dir"]

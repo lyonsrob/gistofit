@@ -6,15 +6,9 @@ function toArrayObj(array) {
     return array;
 }
 
-angular.module('gistOfItApp').controller('FeedCtrl', ['$scope', '$q', 'GistofitService', 'embedlyService', 'FeedService', 
-  function ($scope, $q, Gistofit, Embedly, Feed) {
+angular.module('gistOfItApp').controller('FeedCtrl', ['$scope', 'GistofitService', 'FeedService', 
+  function ($scope, Gistofit, Feed) {
     // Create a view
-    var myView = new steroids.views.WebView("http://localhost/views/Article/article.html");
-    myView.preload(); // Prelaod for faster view transitions
-        
-    var createGistView = new steroids.views.WebView("views/Gist/add.html");
-    createGistView.preload(); // Prelaod for faster view transitions
-
     var feedURLs = [
         'http://feeds2.feedburner.com/Mashable',
         'http://www.tmz.com/rss.xml',
@@ -25,27 +19,6 @@ angular.module('gistOfItApp').controller('FeedCtrl', ['$scope', '$q', 'GistofitS
         'http://rss.cnn.com/rss/cnn_topstories.rss',
         'http://sports.espn.go.com/espn/rss/news'
     ];
-
-    $scope.setExtract = function(feed) {
-        var url = feed.link;
-
-        Gistofit.getExtract(url).then(function (response) {
-            if (response.data == undefined || response.data == '') {
-                Embedly.extract(url)
-                .then(function(e){
-                    Gistofit.setExtract(url, e.data);
-                    feed.extract = e.data;
-                },
-                 function(error) {
-                    console.log(error);
-                 });
-            } else {
-                feed.extract = response.data;
-            }
-            
-            feed.extract.video = feed.extract.embeds[0].html;
-        });
-    }
 
     $scope.loadFeed=function(e){        
         Feed.parseFeed($scope.feedSrc).then(function(res){
@@ -67,21 +40,14 @@ angular.module('gistOfItApp').controller('FeedCtrl', ['$scope', '$q', 'GistofitS
 
         for (var i = 0, len = feedURLs.length; i < len; i++) {
             Feed.parseFeed(feedURLs[i]).then(function(res){
-                //$scope.loadButonText=angular.element(e.target).text();
+                angular.forEach(res.data.responseData.feed.entries,function(feed){
+                    Gistofit.getExtract(feed, feed.link);
+                });
+                
                 $scope.feeds.push.apply($scope.feeds, res.data.responseData.feed.entries);
-            
-                angular.forEach($scope.feeds,function(feed){
-                    promises.push($scope.setExtract(feed));
-                });
-
-                $q.all(promises).then(function success(data){
-                    //console.log($scope.feeds); // Should all be here
-                }, function failure(err){
-                    // Can handle this is we want
-                });
-                });
+            });
         }
-            //shuffle($scope.feeds);
+        //shuffle($scope.feeds);
     }
 
     $scope.showArticle = function(article) {
@@ -91,13 +57,18 @@ angular.module('gistOfItApp').controller('FeedCtrl', ['$scope', '$q', 'GistofitS
         }
         window.postMessage(message);
         
+        var articleView = new steroids.views.WebView({
+            location: "http://localhost/views/Article/article.html",
+            id: "article"
+        });
+        
         var fastSlide = new steroids.Animation({  transition: "slideFromRight",  duration: .2});
 
         // Navigate to your view
         steroids.layers.push(
         {
-            view: myView,
-            animation: fastSlide ,
+            view: articleView,
+            animation: fastSlide 
         });
     }
     
@@ -108,6 +79,12 @@ angular.module('gistOfItApp').controller('FeedCtrl', ['$scope', '$q', 'GistofitS
         }
        
         window.postMessage(message);
+        
+        var createGistView = new steroids.views.WebView({
+            location: "http://localhost/views/Gist/add.html",
+            id: "addGist"
+        });
+
         steroids.modal.show(createGistView);
     }
     

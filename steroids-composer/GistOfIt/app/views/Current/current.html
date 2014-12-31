@@ -14,26 +14,22 @@
             <p>
               {{gist.content}} #gistofit
             </p>
-            <img class="full-image" ng-src="{{ gist.extract.images[0].url }}" ng-click="showArticle(gist.extract)">
+              <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" ng-click="likeGist(gist.id)">
+                  <i class="icon ion-heart"></i>
+                  Like
+                </a>
+                <a class="tab-item" ng-click="showComments(gist)">
+                  <i class="icon ion-chatbubble"></i>
+                  Comment
+                </a>
+              </div>
+                <img class="full-image" ng-src="{{ gist.extract.images[0].url }}" ng-click="openURL(gist.url.key.raw.name)" />
             <h2>
               {{gist.extract.title}}
             </h2>
           </div>
               
-          <div class="item tabs tabs-secondary tabs-icon-left">
-            <a class="tab-item" ng-click="likeGist(gist.id)">
-              <i class="icon ion-heart"></i>
-              Like
-            </a>
-            <a class="tab-item" ng-click="showComments(gist)">
-              <i class="icon ion-chatbubble"></i>
-              Comment
-            </a>
-            <a class="tab-item" ng-click="deleteGist($index, gist.id)">
-              <i class="icon ion-ios7-trash"></i>
-            </a>
-          </div>
-
         </div>
     </li>
   </ul>

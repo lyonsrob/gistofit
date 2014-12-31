@@ -57,8 +57,10 @@ steroids.on('ready', function() {
 });
     
 // Search view
-var searchView = new steroids.views.WebView("http://localhost/views/Search/search.html");
-searchView.preload(); // Prelaod for faster view transitions
+var searchView = new steroids.views.WebView({
+    location: "http://localhost/views/Search/search.html",
+    id: "search"
+});
     
 var navButton = new steroids.buttons.NavigationBarButton();
 navButton.imagePath = "/icons/navicon@2x.png"
@@ -67,7 +69,10 @@ navButton.onTap = function() {
 };
 
 var searchButton = new steroids.buttons.NavigationBarButton();
-searchButton.imagePath = "/icons/search@2x.png"
+searchButton.imagePath = "/icons/search@2x.png";
+
+steroids.logger.log("Setting up onTap for searchButton");
+
 searchButton.onTap = function() { 
     var fastSlide = new steroids.Animation({  transition: "slideFromRight",  duration: .2});
 

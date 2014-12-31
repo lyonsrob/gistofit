@@ -15,59 +15,69 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', 'embedlyServi
     function buildURL (method) {
         return baseURL + method;
     }
+    var Gistofit = {};
 
-    return {
-        getNewest: function (id) {
-            var url = buildURL('/gist/newest');
-            return $http({method: 'GET', url: url, params: {last_seen: id}});
-        },
-        getRecent: function (cursor) {
-            var url = buildURL('/gist/recent');
-            return $http({method: 'GET', url: url, params: {cursor: cursor}});
-        },
-        getTrending: function (cursor) {
-            var url = buildURL('/gist/trending');
-            return $http({method: 'GET', url: url});
-        },
-        getExtract: function (inputUrl, width, height, retina) {
-            var escapedUrl = encodeURIComponent(inputUrl);
-            var url = buildURL('/url/'+ escapedUrl + '/extract'); 
-            return $http({method: 'GET', url: url});
-        },
-        setExtract: function (inputUrl, data) {
-            var escapedUrl = encodeURIComponent(inputUrl);
-            var url = buildURL('/url/'+ escapedUrl + '/extract'); 
-            return $http({method: 'POST', url: url, data: data, headers: {'Content-Type': 'text/plain'}});
-        },
-        addGist: function (inputUrl, content) {
-            url = buildURL ('/gist/url/' + encodeURIComponent(inputUrl));
-            var data = {'content': content};
-            return $http({method: 'POST', url: url, data: data});
-            //return $http({method: 'POST', url: url, data: data, withCredentials: true});
-        },
-        deleteGist: function (id) {
-            url = buildURL ('/gist/' + id);
-            return $http({method: 'DELETE', url: url, data: {}, headers: {'Content-Type': 'application/json'}});
-            //return $http({method: 'POST', url: url, data: data, withCredentials: true});
-        },
-        likeGist: function (id) {
-            url = buildURL ('/like/' + id);
-            return $http.post(url, {});
-        },
-        commentGist: function (id, comment) {
-            url = buildURL ('/comment/' + id);
-            return $http.post(url, {comment: comment});
-        },
-        getComments: function (id) {
-            url = buildURL ('/comment/' + id);
-            console.log(url);
-            return $http({method: 'GET', url: url});
-        },
-        searchTopUrls: function (query) {
-            var url = buildURL('/search/top/urls/?keyword=' + query); 
-            return $http({method: 'GET', url: url});
-        }
-    }
+    Gistofit.getNewest = function (id) {
+        var url = buildURL('/gist/newest');
+        return $http({method: 'GET', url: url, params: {last_seen: id}});
+    };
+    Gistofit.getRecent = function (cursor) {
+        var url = buildURL('/gist/recent');
+        return $http({method: 'GET', url: url, params: {cursor: cursor}});
+    };
+    Gistofit.getTrending = function (cursor) {
+        var url = buildURL('/gist/trending');
+        return $http({method: 'GET', url: url});
+    };
+    Gistofit.getExtract = function (obj, url) {
+        var escapedUrl = encodeURIComponent(url);
+        var extractUrl = buildURL('/url/'+ escapedUrl + '/extract');
+
+        $http({method: 'GET', url: extractUrl}).then(function (response) {
+            obj.extract = response.data;
+            if (obj.extract == undefined || obj.extract == '') {
+                Embedly.extract(url).then(function(e){
+                    Gistofit.setExtract(url, e.data);
+                    obj.extract = e.data;
+                },
+                 function(error) {
+                    console.log(error);
+                 });
+            } 
+        });
+    };
+    Gistofit.setExtract = function (inputUrl, data) {
+        var escapedUrl = encodeURIComponent(inputUrl);
+        var url = buildURL('/url/'+ escapedUrl + '/extract'); 
+        return $http({method: 'POST', url: url, data: data, headers: {'Content-Type': 'text/plain'}});
+    };
+    Gistofit.addGist = function (inputUrl, content) {
+        url = buildURL ('/gist/url/' + encodeURIComponent(inputUrl));
+        var data = {'content': content};
+        return $http({method: 'POST', url: url, data: data});
+        //return $http({method: 'POST', url: url, data: data, withCredentials: true});
+    };
+    Gistofit.deleteGist = function (id) {
+        url = buildURL ('/gist/' + id);
+        return $http({method: 'DELETE', url: url, data: {}, headers: {'Content-Type': 'application/json'}});
+        //return $http({method: 'POST', url: url, data: data, withCredentials: true});
+    };
+    Gistofit.likeGist = function (id) {
+        url = buildURL ('/like/' + id);
+        return $http.post(url, {});
+    };
+    Gistofit.commentGist = function (id, comment) {
+        url = buildURL ('/comment/' + id);
+        return $http.post(url, {comment: comment});
+    };
+    Gistofit.getComments = function (id) {
+        url = buildURL ('/comment/' + id);
+        return $http({method: 'GET', url: url});
+    };
+    Gistofit.searchTopUrls = function (query) {
+        var url = buildURL('/search/top/urls/?keyword=' + query); 
+        return $http({method: 'GET', url: url});
+    };
+    
+    return Gistofit; 
 }]);
-
-//});

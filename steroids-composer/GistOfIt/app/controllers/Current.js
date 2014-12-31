@@ -1,48 +1,22 @@
 'use strict'
 
-angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', '$q', 'GistofitService', 'embedlyService', 
-  function ($scope, $q, Gistofit, Embedly) {
-
-    $scope.setGistExtract = function(gist) {
-        var url = gist.url.key.raw.name;
-
-        Gistofit.getExtract(url).then(function (response) {
-            if (response.data == undefined || response.data == '') {
-                Embedly.extract(url)
-                .then(function(e){
-                    Gistofit.setExtract(url, e.data);
-                    gist.extract = e.data;
-                },
-                 function(error) {
-                    console.log(error);
-                 });
-            } else {
-                gist.extract = response.data;
-            }
-        });
-    }
+angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitService', 
+  function ($scope, Gistofit) {
 
     $scope.loadRecentGists = function() {
         $scope.gists = null; 
-        var promises = [];
 
         Gistofit.getRecent().then(function (response) {
             $scope.gists = response.data.gists;
 
             angular.forEach($scope.gists,function(gist){
-                promises.push($scope.setGistExtract(gist));
+                Gistofit.getExtract(gist, gist.url.key.raw.name);
             });
 
-            $q.all(promises).then(function success(data){
-                console.log($scope.gists); // Should all be here
-            }, function failure(err){
-                // Can handle this is we want
-            });
-            
             $scope.cursor = response.data.nextCursor; 
             $scope.userServiceInfo = response.data.userServiceInfo;
             $scope.last_seen = response.data.lastSeen;
-          });
+        });
     }
    
    $scope.deleteGist = function(index, id) {
@@ -56,6 +30,10 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', '$q', 'Gistof
             console.log(response);
           });
     }
+   
+   $scope.openURL = function(url) {
+        var ref = window.open(url, '_blank', 'location=yes');
+   }
 
     $scope.load_extract_content = function (content) {
         $scope.extract_content = content;
@@ -97,6 +75,28 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', '$q', 'Gistof
     
     $scope.loadRecentGists();
     steroids.view.navigationBar.show("Current");
+    
+    $scope.showArticle = function(article) {
+        var articleView = new steroids.views.WebView({
+            location: "http://localhost/views/Article/article.html",
+            id: "article"
+        });
+
+        var message = {
+            recipient: "articleView",
+            article: article,
+        }
+        window.postMessage(message);
+        
+        var fastSlide = new steroids.Animation({  transition: "slideFromRight",  duration: .2});
+
+        // Navigate to your view
+        steroids.layers.push(
+        {
+            view: articleView,
+            animation: fastSlide ,
+        });
+    }
 
     $scope.showComments = function(gist) {
         var message = {
