@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8">
+  <title>Steroids App</title>
+
+  <link rel="stylesheet" href="/vendor/ionic/css/ionic.css" />
+  <link rel="stylesheet" href="/custom.css" />
+  <link rel="stylesheet" href="/stylesheets/application.css" />
+  <link rel="stylesheet" href="/components/angular-pull-to-refresh/dist/angular-pull-to-refresh.min.css">
+
+  <script src="/cordova.js"></script>
+  <script src="/components/steroids-js/steroids.js"></script>
+  <script src="/components/steroids-data/dist/steroids.data.js"></script>
+
+  <script src="/components/angular/angular.js"></script>
+  <script src="/components/ngAnimate/js/angular-animate.min.js"></script>
+  <script src="/components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="/components/angular-pull-to-refresh/dist/angular-pull-to-refresh.min.js"></script>
+  <script src="/components/lodash/dist/lodash.js"></script>
+  <!-- script src="/components/jquery/jquery.js"></script -->
+
+  <script src="/controllers/application.js"></script>
+  
+  <script src="/models/models.js"></script>
+  <!-- script src="/models/angular-embedly.js"></script>
+  <script src="/models/gistofit.js"></script -->
+ 
+  <script src="/controllers/Likes.js"></script>
+</head>
+<body ng-app="gistOfItApp" class="content">
+
+<div id="global-spinner-div">
+  <div class="global-blackout"></div>
+  <div class="global-modal-container">
+    <div class="global-spinner-container">
+      <i class="icon ion-ios7-reloading"></i>
+    </div>
+  </div>
+</div>
+
+  <div ng-controller="TrendingCtrl" id="Trending">
+
+<div id="card_with_image_on_left_two_text_rows0" ng-click="card_with_image_on_left_two_text_rows0Tap()">
+<div class="list card">
+  <div class="item item-avatar">
+    <img ng-src="http://www.appgyver.com/composer/composer-default-square.png">
+    <h2>My Title</h2>
+    <p>My Content.</p>
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+  window.globalSpinner = {
+    show: function() {
+      document.ontouchmove = function(e){ 
+        e.preventDefault(); 
+      }
+      document.getElementById("global-spinner-div").style.display = 'block';
+    },
+    hide: function() {
+      document.getElementById("global-spinner-div").style.display = 'none';
+      document.ontouchmove = function(e){ return true; }
+    }
+  };
+</script>
+
+</body>
+</html>

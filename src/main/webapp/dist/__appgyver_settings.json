@@ -1,0 +1,62 @@
+{
+  "appearance": {
+    "nav_bar_portrait_background_image": "",
+    "nav_bar_landscape_background_image": "",
+    "nav_bar_tint_color": "a3c971",
+    "nav_bar_title_text_color": "ffffff",
+    "nav_bar_title_shadow_color": "",
+    "nav_bar_button_tint_color": "ffffff",
+    "nav_bar_button_title_text_color": "ffffff",
+    "nav_bar_button_title_shadow_color": "",
+    "tab_bar_background_image": "",
+    "tab_bar_tint_color": "ffffff",
+    "tab_bar_button_title_text_color": "a3c971",
+    "tab_bar_button_title_shadow_color": "",
+    "tab_bar_selected_icon_tint_color": "a3c971",
+    "tab_bar_selected_indicator_background_image": "",
+    "loading_screen_color": "#262626"
+  },
+  "preloads": [
+    {
+      "id": "search",
+      "location": "http://localhost/views/Search/search.html"
+    },
+    {
+      "id": "comments",
+      "location": "http://localhost/views/Comments/comments.html"
+    },
+    {
+      "id": "article",
+      "location": "http://localhost/views/Article/article.html"
+    },
+    {
+      "id": "addGist",
+      "location": "http://localhost/views/Gist/add.html"
+    }
+  ],
+  "drawers": {
+    "left": {
+      "id": "sidemenu",
+      "location": "http://localhost/views/sidemenu/sidemenu.html",
+      "showOnAppLoad": false,
+      "widthOfDrawerInPixels": 250
+    },
+    "options": {
+      "centerViewInteractionMode": "None",
+      "closeGestures": [
+        "PanNavBar",
+        "PanCenterView",
+        "TapCenterView",
+        "TapNavBar"
+      ],
+      "openGestures": [
+        "PanNavBar",
+        "PanCenterView"
+      ],
+      "showShadow": true,
+      "stretchDrawer": true,
+      "widthOfLayerInPixels": 0,
+      "strechDrawer": true
+    }
+  }
+}
