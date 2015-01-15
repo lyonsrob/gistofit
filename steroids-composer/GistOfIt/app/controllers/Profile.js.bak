@@ -1,0 +1,49 @@
+(function() {
+  var facebookAddonApp;
+
+  facebookAddonApp = angular.module('gistOfItApp', ['ngTouch']);
+
+  facebookAddonApp.controller('ProfileCtrl', function($scope) {
+    steroids.view.navigationBar.show("Facebook");
+    $scope.addonsUndefined = steroids.addons === void 0;
+    if (!$scope.addonsUndefined) {
+      $scope.ready = false;
+      $scope.loginStatus = false;
+      $scope.firstName = "Not fetched yet.";
+      steroids.addons.facebook.ready.then(function() {
+        $scope.$apply(function() {
+          return $scope.ready = true;
+        });
+        return steroids.addons.facebook.getLoginStatus().then(function(response) {
+          return $scope.$apply(function() {
+            return $scope.loginStatus = response.status === 'connected';
+          });
+        });
+      });
+      $scope.facebookLogin = function() {
+        return steroids.addons.facebook.login().then(function() {
+          return $scope.$apply(function() {
+            return $scope.loginStatus = true;
+          });
+        });
+      };
+      $scope.facebookGraphQuery = function() {
+        return steroids.addons.facebook.api('/me', {
+          fields: 'first_name'
+        }).then(function(response) {
+          return $scope.$apply(function() {
+            return $scope.firstName = response.first_name;
+          });
+        });
+      };
+      return $scope.facebookLogout = function() {
+        return steroids.addons.facebook.logout().then(function() {
+          return $scope.$apply(function() {
+            return $scope.loginStatus = false;
+          });
+        });
+      };
+    }
+  });
+
+}).call(this);

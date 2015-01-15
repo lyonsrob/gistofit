@@ -18,6 +18,7 @@
     "steroids-data": "~0.8.4",
     "angular-pull-to-refresh": "~0.3.0",
     "angular-sanitize": "~1.2.24",
-    "ngAnimate": "*"
+    "ngAnimate": "*",
+    "steroids-addons": "https://32125:GAXAEF9ARVZCBUA39XM3PCF454EVDKVPZCFBGXG6A9KQBDV9U2FP2DA3MZ9WKJ33EBF3G8JJXL49C@addons.appgyver.com/steroids-addons.js?version=3.5.1"
   }
 }

@@ -68,6 +68,26 @@ public class User extends Jsonifiable {
   @Index
   @Expose
   public String email;
+  
+  /**
+   * First name of this User.
+   */
+  @Getter
+  @Setter
+  @Index
+  @Expose
+  public String firstName;
+
+  
+  /**
+   * Last name of this User.
+   */
+  @Getter
+  @Setter
+  @Index
+  @Expose
+  public String lastName;
+
 
   /**
    * UUID identifier of this User within Facebook products.

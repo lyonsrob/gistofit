@@ -8,5 +8,7 @@
         AppGyver Steroids Team
     </author>
     <access origin="*" />
-
+    <feature name="http://appgyver.com/steroids/addons/facebook">
+        <param name="enabled" value="true" />
+    </feature>
 </widget>
