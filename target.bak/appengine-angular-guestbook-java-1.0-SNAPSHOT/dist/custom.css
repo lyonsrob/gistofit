@@ -1,0 +1,93 @@
+body, html {
+    background-color: #83827E !important;
+}
+
+body, .ionic-body {
+    font-family: HelveticaNeue;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: HelveticaNeue;
+}
+
+
+a.item {
+    background-color: #83827E;
+    color: #fff;
+}
+
+.item-divider {
+    background-color: #fff;
+    color: grey;
+    font-weight: normal;
+}
+
+.tab-item {
+    font-family: HelveticaNeue;
+}
+
+input, button, select, textarea {
+    font-family: HelveticaNeue;
+}
+
+.content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    -webkit-backface-visibility: none;
+    -webkit-overflow-scrolling: touch;
+}    
+
+.sidemenu {
+  height: 100%;
+  padding-top: 60px;
+  display: block;
+}
+
+.article-extract {
+  width: 100%;
+}
+
+.article-extract img {
+  width: 100%;
+}
+
+.article-extract-title {
+  text-overflow: ellipsis;
+}
+
+h3 {
+    color: #585858;
+    font-weight: 100;
+    font-size: 36px;
+    letter-spacing: 0px;
+}
+
+/*
+ * ngRepeat triggers three animation events: enter, leave and move.
+ */
+.repeat-animation.ng-enter,
+.repeat-animation.ng-leave,
+.repeat-animation.ng-move {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+
+/* ending enter and move styling
+   (this is what the element will animate from */
+.repeat-animation.ng-enter,
+.repeat-animation.ng-move { opacity:0; }
+
+/* ending enter and move styling
+   (this is what the element will animate towards */
+.repeat-animation.ng-enter.ng-enter-active,
+.repeat-animation.ng-move.ng-move-active { opacity:1; }
+
+/* starting leave animation */
+.repeat-animation.ng-leave { opacity:1; }
+
+/* ending leave animation */
+.repeat-animation.ng-leave.ng-leave-active { opacity:0; }

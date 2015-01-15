@@ -28,12 +28,12 @@ import com.gistofit.model.User;
 
 import java.util.Collections;
 
-import net.sf.jsr107cache.Cache;
-import net.sf.jsr107cache.CacheException;
-import net.sf.jsr107cache.CacheFactory;
-import net.sf.jsr107cache.CacheManager;
-
-import com.google.appengine.api.memcache.jsr107cache.GCacheFactory;
+//import net.sf.jsr107cache.Cache;
+//import net.sf.jsr107cache.CacheException;
+//import net.sf.jsr107cache.CacheFactory;
+//import net.sf.jsr107cache.CacheManager;
+//
+//import com.google.appengine.api.memcache.jsr107cache.GCacheFactory;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.Key;

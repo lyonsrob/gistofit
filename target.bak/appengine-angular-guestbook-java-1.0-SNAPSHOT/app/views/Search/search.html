@@ -1,0 +1,20 @@
+<div ng-controller="SearchCtrl" id="Search">
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Search" ng-model="search">
+      </label>
+
+      <ul>
+        <li ng-model="results" ng-repeat="result in results">
+            <div class="list card">
+
+              <div class="item item-avatar">
+                <img ng-src="{{ result.extract.images[0].url }}">
+                <h2>{{result.extract.provider_name}}</h2>
+                <p>{{ result.extract.title }}</p>
+              </div>
+            </div>
+        </li>
+      </ul>
+    </div>
+</div>

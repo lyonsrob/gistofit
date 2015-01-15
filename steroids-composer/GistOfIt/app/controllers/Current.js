@@ -2,6 +2,31 @@
 
 angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitService', 
   function ($scope, Gistofit) {
+    function messageReceived(event) {
+
+      // check that the message is intended for us
+      if (event.data.recipient == "showView") {
+        alert(event.data.message)
+      }
+    }
+
+    window.addEventListener("message", messageReceived);
+    
+    $scope.addonsUndefined = steroids.addons === void 0;
+    if (!$scope.addonsUndefined) {
+      $scope.ready = false;
+      $scope.loginStatus = false;
+      steroids.addons.facebook.ready.then(function() {
+        $scope.$apply(function() {
+          return $scope.ready = true;
+        });
+        return steroids.addons.facebook.getLoginStatus().then(function(response) {
+          return $scope.$apply(function() {
+            return $scope.loginStatus = response.status === 'connected';
+          });
+        });
+      });
+    }
 
     $scope.loadRecentGists = function() {
         $scope.gists = null; 
