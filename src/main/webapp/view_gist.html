@@ -1,0 +1,27 @@
+<!-- One -->
+<section id="one">
+	<span ng-hide="!!gist">
+	  <img src="/img/ajax-loader.gif">
+	  Retrieving the data...
+	</span>
+	
+	<!-- Feature 1 -->
+	    <article ng-show="gist" target-blank id="first" class="container box style1 right">
+		  <div class="item item-avatar">
+		    <img ng-src="{{ gist.extract.favicon_url }}">
+		    <h2>{{gist.extract.provider_name}}</h2>
+		    <p>via Robert Lyons</p>
+		  </div>
+
+		  <div class="item item-body">
+		    <p>
+		      {{gist.content}} #gistofit
+		    </p>
+			<a ng-href="{{ gist.url.key.raw.name }}"><img class="full-image" ng-src="{{ gist.extract.images[0].url }}" /></a>
+		    <h2>
+		      {{gist.extract.title}}
+		    </h2>
+		  </div>
+	    </article>
+</section>
+

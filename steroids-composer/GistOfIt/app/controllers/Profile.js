@@ -27,10 +27,13 @@ angular.module('gistOfItApp').controller('ProfileCtrl', ['$scope', 'GistofitServ
       };
       $scope.facebookGraphQuery = function() {
         return steroids.addons.facebook.api('/me', {
-          fields: 'first_name'
+          fields: 'first_name, last_name, picture.type(normal)'
         }).then(function(response) {
           return $scope.$apply(function() {
-            return $scope.firstName = response.first_name;
+            $scope.firstName = response.first_name;
+            $scope.lastName = response.last_name;
+            $scope.profilePicture = response.picture.data.url;
+	    return;
           });
         });
       };
