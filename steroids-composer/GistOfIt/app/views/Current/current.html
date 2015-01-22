@@ -14,17 +14,10 @@
             <p>
               {{gist.content}} #gistofit
             </p>
-              <div class="item tabs tabs-secondary tabs-icon-left">
-                <a class="tab-item" ng-click="likeGist(gist.id)">
                 <h2>Facebook login status: {{ loginStatus }}</h2>
-                  <i class="icon ion-heart"></i>
-                  Like
-                </a>
-                <a class="tab-item" ng-click="showComments(gist)">
-                  <i class="icon ion-chatbubble"></i>
-                  Comment
-                </a>
-              </div>
+		<button class="button icon-top ion-arrow-up-b" ng-click="likeGist(gist.id)">1002</button>
+		<button class="button icon-left ion-chatbubble" ng-click="showComments(gist)">Comment</button>
+
                 <img class="full-image" ng-src="{{ gist.extract.images[0].url }}" ng-click="openURL(gist.url.key.raw.name)" />
             <h2>
               {{gist.extract.title}}

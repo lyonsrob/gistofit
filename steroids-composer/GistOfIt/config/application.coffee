@@ -27,7 +27,7 @@ steroids.config.tabBar.tabs = [
   },
   {
     title: "Profile"
-    icon: "icons/ios7-world.png"
+    icon: "icons/ios7-person.png"
     location: "http://localhost/views/Profile/profile.html"
   },
 ]
@@ -60,19 +60,19 @@ steroids.config.preloads = [
 ]
     
 # -- Drawers
-steroids.config.drawers =
-  left:
-    id: "sidemenu"
-    location: "http://localhost/views/sidemenu/sidemenu.html"
-    showOnAppLoad: false
-    widthOfDrawerInPixels: 250
-  options:
-    centerViewInteractionMode: "None"
-    closeGestures: ["PanNavBar", "PanCenterView", "TapCenterView", "TapNavBar"]
-    openGestures: ["PanNavBar", "PanCenterView"]
-    showShadow: true
-    stretchDrawer: true
-    widthOfLayerInPixels: 0
+#steroids.config.drawers =
+#  left:
+#    id: "sidemenu"
+#    location: "http://localhost/views/sidemenu/sidemenu.html"
+#    showOnAppLoad: false
+#    widthOfDrawerInPixels: 250
+#  options:
+#    centerViewInteractionMode: "None"
+#    closeGestures: ["PanNavBar", "PanCenterView", "TapCenterView", "TapNavBar"]
+#    openGestures: ["PanNavBar", "PanCenterView"]
+#    showShadow: true
+#    stretchDrawer: true
+#    widthOfLayerInPixels: 0
 
 # ## Initial View
 # steroids.config.initialView =

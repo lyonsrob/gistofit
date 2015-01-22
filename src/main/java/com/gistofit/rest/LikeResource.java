@@ -39,7 +39,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
-@Path("/v1/like")
+@Path("/v1/gist/{id}/likes")
 public class LikeResource {
 //
 //    
@@ -56,7 +56,6 @@ public class LikeResource {
 //	        }
 //	  }
 	  @POST
-	  @Path("/{id}")
 	  @Produces(MediaType.APPLICATION_JSON)
 	  @Consumes(MediaType.APPLICATION_JSON)
 	  public Like likeGist(
@@ -89,7 +88,6 @@ public class LikeResource {
 	  }
 	  
 	  @GET
-	  @Path("/{id}")
 	  @Produces(MediaType.APPLICATION_JSON)
 	  public List<Like> getLikes(@PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
 	      Exception {

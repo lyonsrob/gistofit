@@ -22,7 +22,6 @@ import com.googlecode.objectify.Key;
 public class UserResource {
 	
 	  @POST
-	  @Path("/")
 	  @Produces(MediaType.APPLICATION_JSON)
 	  @Consumes(MediaType.APPLICATION_JSON)
 	  public User createUser(

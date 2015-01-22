@@ -36,7 +36,7 @@ public class Comment extends Jsonifiable {
 
   @Getter
   @Setter
-  String comment;
+  String content;
   
   @Index
   @Getter

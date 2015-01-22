@@ -135,7 +135,9 @@ public class GistResource {
 			@DefaultValue("default") @PathParam("url") final String url,
 			@PathParam("id") final String id) throws
 			Exception {
+		
 		Long longId = Long.parseLong(id);
+		
 		Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());
 
 		return ofy().load().key(gistKey).now();

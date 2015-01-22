@@ -50,8 +50,8 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
           });
     }
     
-   $scope.likeGist = function(url, id) {
-        Gistofit.likeGist(url, id).then(function (response) {
+   $scope.likeGist = function(url, id, user) {
+        Gistofit.likeGist(url, id, user).then(function (response) {
             console.log(response);
           });
     }
@@ -124,7 +124,12 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
     }
 
     $scope.showComments = function(gist) {
-        var message = {
+        var commentsView = new steroids.views.WebView({
+            location: "http://localhost/views/Comments/comments.html",
+            id: "comments"
+        });
+        
+	var message = {
             recipient: "commentsView",
             id: gist.id,
             url: gist.url.key.raw.name
@@ -140,9 +145,4 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
             animation: fastSlide 
         });
     }
-    
-    var commentsView = new steroids.views.WebView("views/Comments/comments.html");
-    commentsView.preload(); // Prelaod for faster view transitions
-   
-
 }]);

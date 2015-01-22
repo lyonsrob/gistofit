@@ -1,8 +1,6 @@
 angular.module('gistOfItApp', [
 'angular-embedly',
-'mgcrea.pullToRefresh',
-'ngSanitize',
-'ngAnimate'
+'ngTouch'
 ])
 .config(function(embedlyServiceProvider){
         embedlyServiceProvider.setKey('42f4925174814d68b90d0758d932fe14');
@@ -61,13 +59,7 @@ var searchView = new steroids.views.WebView({
     location: "http://localhost/views/Search/search.html",
     id: "search"
 });
-    
-var navButton = new steroids.buttons.NavigationBarButton();
-navButton.imagePath = "/icons/navicon@2x.png"
-navButton.onTap = function() { 
-    steroids.drawers.show();
-};
-
+   
 var searchButton = new steroids.buttons.NavigationBarButton();
 searchButton.imagePath = "/icons/search@2x.png";
 
@@ -87,7 +79,6 @@ searchButton.onTap = function() {
 steroids.view.navigationBar.update({
     overrideBackButton: false,
     buttons: {
-      left: [navButton],
       right: [searchButton]
     }
 });

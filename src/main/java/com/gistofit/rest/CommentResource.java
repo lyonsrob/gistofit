@@ -24,7 +24,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
-@Path("/v1/comment")
+@Path("/v1/gist/{id}/comments")
 public class CommentResource {
 	private List<Comment> getGistComments(Key<Gist> key, String cursor) {
 		List<Comment> comments = new ArrayList<Comment>();
@@ -48,11 +48,10 @@ public class CommentResource {
 
 
 	@POST
-	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Key<Comment> commentGist(
-			@PathParam("url") final String url, @PathParam("id") final String id,
+			@PathParam("id") final String id,
 			final Map<String, String> postData) {
 		UserService userService = UserServiceFactory.getUserService();
 
@@ -66,16 +65,15 @@ public class CommentResource {
 
 		comment.setGist(gist);
 		comment.setUser("user");
-		comment.setComment(postData.get("comment"));
+		comment.setContent(postData.get("content"));
 		//comment.setCreated(date);
 
 		return ofy().save().entity(comment).now();
 	}
 
 	@GET
-	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Comment> getComments(@PathParam("url") final String url, @PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
+	public List<Comment> getComments(@PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
 	Exception {
 		Long longId = Long.parseLong(id);
 		Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());

@@ -9,8 +9,8 @@ if ( typeof angular == 'undefined' ) {
 */
 
 angular.module("gistOfItApp").factory('GistofitService', ['$http', 'embedlyService', function ($http, Embedly) {
-    //var baseURL = 'http://127.0.0.1:8080/rest/v1';
-    var baseURL = 'https://erudite-flag-623.appspot.com/rest/v1';
+    var baseURL = 'http://127.0.0.1:8080/rest/v1';
+    //var baseURL = 'https://erudite-flag-623.appspot.com/rest/v1';
 
     function buildURL (method) {
         return baseURL + method;
@@ -63,15 +63,15 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', 'embedlyServi
         //return $http({method: 'POST', url: url, data: data, withCredentials: true});
     };
     Gistofit.likeGist = function (id) {
-        url = buildURL ('/like/' + id);
-        return $http.post(url, {});
+        url = buildURL ('/gist/' + id  + '/likes');
+        return $http.post(url, {userid: '1234' });
     };
-    Gistofit.commentGist = function (id, comment) {
-        url = buildURL ('/comment/' + id);
-        return $http.post(url, {comment: comment});
+    Gistofit.commentGist = function (id, content) {
+        url = buildURL ('/gist/' + id + '/comments');
+        return $http.post(url, {content: content});
     };
     Gistofit.getComments = function (id) {
-        url = buildURL ('/comment/' + id);
+        url = buildURL ('/gist/' + id + '/comments');
         return $http({method: 'GET', url: url});
     };
     Gistofit.searchTopUrls = function (query) {
