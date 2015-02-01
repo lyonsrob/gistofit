@@ -53,7 +53,7 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', 'embedlyServi
     };
     Gistofit.addGist = function (inputUrl, content) {
         url = buildURL ('/gist/url/' + encodeURIComponent(inputUrl));
-        var data = {'content': content};
+        var data = {'content': content, 'userId': 6280410417856512};
         return $http({method: 'POST', url: url, data: data});
         //return $http({method: 'POST', url: url, data: data, withCredentials: true});
     };
@@ -64,7 +64,11 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', 'embedlyServi
     };
     Gistofit.likeGist = function (id) {
         url = buildURL ('/gist/' + id  + '/likes');
-        return $http.post(url, {userid: '1234' });
+        return $http.post(url, {userid: '12345' });
+    };
+    Gistofit.getLikes = function (id) {
+        url = buildURL ('/gist/' + id  + '/likes');
+        return $http.get(url);
     };
     Gistofit.commentGist = function (id, content) {
         url = buildURL ('/gist/' + id + '/comments');

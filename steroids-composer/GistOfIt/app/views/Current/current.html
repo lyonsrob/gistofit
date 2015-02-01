@@ -15,7 +15,7 @@
               {{gist.content}} #gistofit
             </p>
                 <h2>Facebook login status: {{ loginStatus }}</h2>
-		<button class="button icon-top ion-arrow-up-b" ng-click="likeGist(gist.id)">1002</button>
+		<button class="button icon-top ion-arrow-up-b" ng-click="likeGist(gist.id)" ng-disabled="gist.userLiked">{{gist.likes.total}}</button>
 		<button class="button icon-left ion-chatbubble" ng-click="showComments(gist)">Comment</button>
 
                 <img class="full-image" ng-src="{{ gist.extract.images[0].url }}" ng-click="openURL(gist.url.key.raw.name)" />

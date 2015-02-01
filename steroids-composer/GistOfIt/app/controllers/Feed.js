@@ -49,6 +49,10 @@ angular.module('gistOfItApp').controller('FeedCtrl', ['$scope', 'GistofitService
         }
         //shuffle($scope.feeds);
     }
+   
+   $scope.openURL = function(url) {
+        var ref = window.open(url, '_blank', 'location=yes');
+   }
 
     $scope.showArticle = function(article) {
         var message = {

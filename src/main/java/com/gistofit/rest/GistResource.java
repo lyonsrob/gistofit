@@ -24,6 +24,7 @@ import com.gistofit.domain.GistListResponse;
 import com.gistofit.domain.UserServiceInfo;
 import com.gistofit.model.Gist;
 import com.gistofit.model.URL;
+import com.gistofit.model.User;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.google.appengine.api.users.UserService;
@@ -198,15 +199,16 @@ public class GistResource {
 			url = new URL(gistUrl);
 			ofy().save().entity(url).now();
 		}
+		
+		Long userId = Long.parseLong(postData.get("userId"));
+		User user = ofy().load().key(Key.create(User.class, userId)).now();
 
 		Key<Gist> gistKey = null; 
 
 		if (content != null && content.length() > 0) {
-			//Date date = new Date();
 			Gist gist = new Gist();
 			gist.setUrl(url);;
-			//     gist.setAuthor(userService.getCurrentUser().getEmail());
-			//gist.setDate(date);
+			gist.setUser(user);
 			gist.setContent(content);
 			gistKey = ofy().save().entity(gist).now();
 		}

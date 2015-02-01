@@ -18,6 +18,11 @@ angular.module('gistOfItApp').controller('TrendingCtrl', ['$scope', 'GistofitSer
           });
     }
     
+    $scope.openURL = function(url) {
+		var ref = window.open(url, '_blank', 'location=yes');
+	   }
+
+    
     $scope.showArticle = function(article) {
         var message = {
             recipient: "articleView",

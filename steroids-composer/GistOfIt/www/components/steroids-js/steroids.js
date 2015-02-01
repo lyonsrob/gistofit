@@ -1,4 +1,4 @@
-/*! steroids-js - v3.5.8 - 2014-12-19 13:36 */
+/*! steroids-js - v3.5.10 - 2015-01-21 12:30 */
 (function(window){
 var Bridge,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -1246,6 +1246,14 @@ Modal = (function(_super) {
         parameters.keepTransitionHelper = options.keepLoading;
         parameters.disableAnimation = options.disableAnimation;
         parameters.waitTransitionEnd = options.waitTransitionEnd;
+        if (options.animation != null) {
+          parameters.pushAnimation = options.animation.transition;
+          parameters.pushAnimationDuration = options.animation.duration;
+          parameters.popAnimation = options.animation.reversedTransition;
+          parameters.popAnimationDuration = options.animation.reversedDuration;
+          parameters.pushAnimationCurve = options.animation.curve;
+          parameters.popAnimationCurve = options.animation.reversedCurve;
+        }
         if (allowedRotations != null) {
           parameters.allowedRotations = allowedRotations;
         }
@@ -3843,7 +3851,7 @@ PostMessage = (function() {
 ;var _this = this;
 
 window.steroids = {
-  version: "3.5.8",
+  version: "3.5.10",
   Animation: Animation,
   File: File,
   views: {

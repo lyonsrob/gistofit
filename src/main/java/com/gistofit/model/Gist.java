@@ -42,6 +42,9 @@ public class Gist {
   @Index
   @Load Ref<URL> url;
   
+  @Index
+  @Load Ref<User> user;
+  
   public static Key<Gist> key(long id) {
 	    return Key.create(Gist.class, id);
   }
@@ -64,19 +67,10 @@ public class Gist {
   @Index
   @Expose
   public Date date = new Date();
-
-  @Getter
-  @Setter
-  @Index
-  @Expose
-  public String author;
-  
-  @Getter
-  @Setter
-  @Index
-  @Expose
-  public String genre;
   
   public URL getUrl() { return url.get(); }
   public void setUrl(URL value) { url = Ref.create(value); }
+  
+  public User getUser() { return user.get(); }
+  public void setUser(User value) { user = Ref.create(value); }
 }

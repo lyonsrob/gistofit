@@ -33,7 +33,7 @@ angular.module('gistOfItApp', [
 steroids.on('ready', function() {
     steroids.statusBar.onTap(
       function() {
-            var target = $(".content");
+            var target = $("div.content");
          
             //disable touch scroll to kill existing inertial movement
             target.css({
@@ -53,6 +53,11 @@ steroids.on('ready', function() {
         }
     );
 });
+
+steroids.view.setBackgroundImage({
+  image: "/img/background.jpg"
+});
+
     
 // Search view
 var searchView = new steroids.views.WebView({

@@ -57,6 +57,11 @@
       <version>2.2.2</version>
     </dependency>
     <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20141113</version>
+    </dependency>
+    <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-server</artifactId>
       <version>${jersey.version}</version>
@@ -106,6 +111,11 @@
       <artifactId>appengine-api-stubs</artifactId>
       <version>${appengine.target.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>net.sf.jsr107cache</groupId>
+    	<artifactId>jsr107cache</artifactId>
+    	<version>1.1</version>
     </dependency>
   </dependencies>
 

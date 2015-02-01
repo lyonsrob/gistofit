@@ -74,10 +74,10 @@ steroids.config.preloads = [
 #    stretchDrawer: true
 #    widthOfLayerInPixels: 0
 
-# ## Initial View
-# steroids.config.initialView =
-#   id: "initialView"
-#   location: "http://localhost/initialView.html"
+## Initial View
+steroids.config.initialView =
+  id: "initialView"
+  location: "http://localhost/views/Login/login.html"
 
 # ## Navigation Bar
 steroids.config.navigationBar.tintColor = "60ab00"

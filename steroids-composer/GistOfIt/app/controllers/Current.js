@@ -11,7 +11,9 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
     }
 
     window.addEventListener("message", messageReceived);
-    
+   
+    $scope.userId = 123456;
+ 
     $scope.addonsUndefined = steroids.addons === void 0;
     if (!$scope.addonsUndefined) {
       $scope.ready = false;
@@ -29,36 +31,42 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
     }
 
     $scope.loadRecentGists = function() {
-        $scope.gists = null; 
+        $scope.gists = {};
 
         Gistofit.getRecent().then(function (response) {
-            $scope.gists = response.data.gists;
-
-            angular.forEach($scope.gists,function(gist){
+            angular.forEach(response.data.gists,function(gist){
                 Gistofit.getExtract(gist, gist.url.key.raw.name);
+                Gistofit.getLikes(gist.id).then(function(response) {
+                	gist.likes = response.data.map;
+                	gist.userLiked = gist.likes[$scope.userId] ? 1 : 0;
+                	$scope.gists[gist.id] = gist;
+                });
+            	
+
             });
 
             $scope.cursor = response.data.nextCursor; 
             $scope.userServiceInfo = response.data.userServiceInfo;
             $scope.last_seen = response.data.lastSeen;
         });
-    }
+    };
    
    $scope.deleteGist = function(index, id) {
         Gistofit.deleteGist(id).then(function (response) {
             $scope.gists.splice(index, 1);
           });
-    }
+    };
     
-   $scope.likeGist = function(url, id, user) {
-        Gistofit.likeGist(url, id, user).then(function (response) {
-            console.log(response);
-          });
-    }
-   
+   $scope.likeGist = function(id, user) {
+        Gistofit.likeGist(id, user).then(function (response) {
+        	$scope.gists[id].userLiked = 1;	
+        	$scope.gists[id].likes.total++;	
+	});
+    };
+  
    $scope.openURL = function(url) {
         var ref = window.open(url, '_blank', 'location=yes');
-   }
+   };
 
     $scope.load_extract_content = function (content) {
         $scope.extract_content = content;
@@ -82,7 +90,7 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
                 $scope.cursor = response.data.nextCursor; 
             $scope.userServiceInfo = response.data.userServiceInfo;
           });
-    }
+    };
    
    $scope.onReload = function() {
       console.log('reloading');
@@ -92,7 +100,7 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
             $scope.setGistExtract(response.data.gists[0]);
             $scope.gists.unshift.apply($scope.gists, response.data.gists);
             $scope.last_seen = response.data.lastSeen;
-          })
+          });
         deferred.resolve(true);
       }, 1000);
       return deferred.promise;
@@ -110,7 +118,7 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
         var message = {
             recipient: "articleView",
             article: article,
-        }
+        };
         window.postMessage(message);
         
         var fastSlide = new steroids.Animation({  transition: "slideFromRight",  duration: .2});
@@ -121,7 +129,7 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
             view: articleView,
             animation: fastSlide ,
         });
-    }
+    };
 
     $scope.showComments = function(gist) {
         var commentsView = new steroids.views.WebView({
@@ -133,7 +141,7 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
             recipient: "commentsView",
             id: gist.id,
             url: gist.url.key.raw.name
-        }
+        };
         window.postMessage(message);
         
         var fastSlide = new steroids.Animation({  transition: "slideFromRight",  duration: .2});
@@ -144,5 +152,5 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
             view: commentsView,
             animation: fastSlide 
         });
-    }
+    };
 }]);

@@ -47,32 +47,50 @@
         <img ng-src="{{ profilePicture }}" class="profile-image">
         <div class="profile-name">{{ firstName }} {{ lastName }}</div>
 </div>
-    <div ng-hide="addonsUndefined">
-      <h1>Facebook Add-on</h1>
-
-      <h2>Add-on initialized: {{ ready }}</h2>
-
-      <h2>Facebook login status: {{ loginStatus }}</h2>
-
-      <h2>Your first name: {{ firstName }}</h2>
-
-      <div ng-show="!loginStatus">
-        <div class="topcoat-button full center block" ng-click="facebookLogin()">Login to Facebook</div>
-      </div>
-
-      <div ng-show="loginStatus">
+<div class="button-bar">
+  <a class="button">        
+    <em class="tab-number">121</em>
+    Gists
+  </a>
+  <a class="button">
+    <em class="tab-number">121</em>
+    Likes
+  </a>
+  <a class="button">
+    <em class="tab-number">121</em>
+    Comments
+   </a>
+</div>
+    <div ng-show="loginStatus">
         <div class="topcoat-button full center block" ng-click="facebookLogout()">Logout from Facebook</div>
-      </div>
     </div>
-
-      <div class="topcoat-button full center block" ng-click="facebookGraphQuery()">
+    
+    <div class="topcoat-button full center block" ng-click="facebookGraphQuery()">
         Query user's first name
-      </div>
-
-    <div ng-show="addonsUndefined">
-      <h1 class="error">Error!</h1>
-      <p>Uh oh! It seems like <code>steroids.addons.js</code> is not loaded. Ensure you have added it to your project according to the instructions at <a href="http://addons.appgyver.com">http://addons.appgyver.com</a>.</p>
     </div>
+
+<ul class="list">
+
+  <li class="item item-toggle">
+     Auto Post to Facebook
+     <label class="toggle toggle-assertive">
+       <input type="checkbox">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+    <li class="item item-toggle">
+     Auto Post to Twitter
+     <label class="toggle toggle-assertive">
+       <input type="checkbox">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </li>
+</ul>
+
 </div>
 </div>
 </div>

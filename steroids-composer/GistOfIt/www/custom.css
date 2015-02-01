@@ -1,13 +1,13 @@
 body, html {
-    background-color: #83827E !important;
+    background-color: transparent !important;
 }
 
 body, .ionic-body {
-    font-family: HelveticaNeue;
+    font-family: "Open Sans";
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: HelveticaNeue;
+    font-family: "Open Sans";
 }
 
 
@@ -23,11 +23,11 @@ a.item {
 }
 
 .tab-item {
-    font-family: HelveticaNeue;
+    font-family: "Open Sans";
 }
 
 input, button, select, textarea {
-    font-family: HelveticaNeue;
+    font-family: "Open Sans";
 }
 
 .content {
@@ -58,6 +58,15 @@ input, button, select, textarea {
 .article-extract-title {
   text-overflow: ellipsis;
 }
+
+em.tab-number {
+	margin: 0 auto;
+	display: block;
+	font-size: 32px;
+	height: 33px;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+}	
 
 h3 {
     color: #585858;
@@ -91,3 +100,8 @@ h3 {
 
 /* ending leave animation */
 .repeat-animation.ng-leave.ng-leave-active { opacity:0; }
+
+#Gist .button {
+  font-size: 13px;
+}
+

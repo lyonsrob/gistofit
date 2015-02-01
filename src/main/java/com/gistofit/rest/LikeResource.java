@@ -15,46 +15,28 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.json.JSONObject;
+
 import com.gistofit.model.Gist;
 import com.gistofit.model.Like;
 import com.gistofit.model.User;
 
-//import com.google.appengine.api.memcache.Expiration;
-//import com.google.appengine.api.memcache.MemcacheService;
-//import com.google.appengine.api.memcache.MemcacheService.SetPolicy;
-//import com.google.appengine.api.memcache.MemcacheServiceFactory;
-
-
-
 import java.util.Collections;
 
-//import net.sf.jsr107cache.Cache;
-//import net.sf.jsr107cache.CacheException;
-//import net.sf.jsr107cache.CacheFactory;
-//import net.sf.jsr107cache.CacheManager;
-//
-//import com.google.appengine.api.memcache.jsr107cache.GCacheFactory;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.Gson;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
 @Path("/v1/gist/{id}/likes")
 public class LikeResource {
-//
-//    
-//		static {
-//			Cache cache;
-//	        Map props = new HashMap();
-//	        props.put(GCacheFactory.EXPIRATION_DELTA, 3600);
-//
-//	        try {
-//	            CacheFactory cacheFactory = CacheManager.getInstance().getCacheFactory();
-//	            cache = cacheFactory.createCache(props);
-//	        } catch (CacheException e) {
-//	            // ...
-//	        }
-//	  }
+		
+	  private final MemcacheService mc = MemcacheServiceFactory
+	           .getMemcacheService();
+	   
 	  @POST
 	  @Produces(MediaType.APPLICATION_JSON)
 	  @Consumes(MediaType.APPLICATION_JSON)
@@ -82,6 +64,28 @@ public class LikeResource {
 			
 			ofy().save().entity(like).now();
 			
+	        Object gistLikesJson = mc.get("likes_" + id);
+	        Object myLikesJson = mc.get("my_likes_" + userIdString);
+	        
+        	JSONObject gistLikes = new JSONObject();
+        	JSONObject myLikes = new JSONObject();
+
+
+	        if (gistLikesJson != null) {
+	        	gistLikes = new JSONObject(gistLikesJson.toString());
+	        }
+	        
+	        if (myLikesJson != null) {
+	        	myLikes = new JSONObject(myLikesJson.toString());
+	        }
+	       
+	        gistLikes.put(userId.toString(), 1); 
+	        gistLikes.increment("total");
+	        
+	        myLikes.put(id, 1);
+	        
+	        mc.put("likes_" + id, gistLikes.toString());
+	        mc.put("my_likes_" + userIdString, myLikes.toString());
 		}
 		
 	    return like;
@@ -89,13 +93,33 @@ public class LikeResource {
 	  
 	  @GET
 	  @Produces(MediaType.APPLICATION_JSON)
-	  public List<Like> getLikes(@PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
+	  public JSONObject getLikes(@PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
 	      Exception {
-			  Long longId = Long.parseLong(id);
-			  Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());
-			  Query<Like> query = ofy().load().type(Like.class).filter("gist", gistKey).order("-created");
-			  
-			  return query.list();  
+	        
+		  	Object likeJson = mc.get("likes_" + id);
+	       
+	        if (likeJson == null) {
+		        Long longId = Long.parseLong(id);
+		        Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());
+		        Query<Like> query = ofy().load().type(Like.class).filter("gist", gistKey).order("-created");
+		        List<Like> likes = query.list();
+		        	
+		        JSONObject json = new JSONObject();
+		        
+		        for (Like like : likes) {
+		        	json.put(like.userId.toString(), 1);
+		        	
+		        }
+		        
+		        json.put("total", likes.size());
+		        mc.put("likes_" + id, json.toString());
+		        
+		        return json;
+		        
+	        } else {
+	        	return new JSONObject(likeJson.toString());
+	        }
+
 	  }
 }
 

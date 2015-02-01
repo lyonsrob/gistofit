@@ -11,4 +11,7 @@
     <feature name="http://appgyver.com/steroids/addons/facebook">
         <param name="enabled" value="true" />
     </feature>
+    <feature name="http://appgyver.com/steroids/addons/admob">
+        <param name="enabled" value="true" />
+    </feature>
 </widget>

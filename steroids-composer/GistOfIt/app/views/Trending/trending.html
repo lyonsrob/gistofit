@@ -14,7 +14,7 @@
             <p>
               {{gist.content}} #gistofit
             </p>
-            <img class="full-image" ng-src="{{ gist.extract.images[0].url }}">
+            <img class="full-image" ng-src="{{ gist.extract.images[0].url }}" ng-click="openURL(gist.url.key.raw.name)" />
             <h2>
               {{gist.extract.title}}
             </h2>
