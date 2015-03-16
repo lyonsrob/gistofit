@@ -21,6 +21,9 @@ public class Comment extends Jsonifiable {
 
   @Index
   @Load Ref<Gist> gist;
+  
+  @Index
+  @Load Ref<User> user;
 	  
   public static Key<Comment> key(long id) {
 	    return Key.create(Comment.class, id);
@@ -41,13 +44,11 @@ public class Comment extends Jsonifiable {
   @Index
   @Getter
   @Setter
-  String user;
-  
-  @Index
-  @Getter
-  @Setter
   Date created = new Date();
   
   public Gist getGist() { return gist.get(); }
   public void setGist(Gist value) { gist = Ref.create(value); }
+  
+  public User getUser() { return user.get(); }
+  public void setUser(User value) { user = Ref.create(value); }
 }

@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.gistofit.model.Comment;
 import com.gistofit.model.Gist;
+import com.gistofit.model.User;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.google.appengine.api.users.UserService;
@@ -24,7 +25,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
-@Path("/v1/gist/{id}/comments")
+@Path("/v1/gist/{gistId}/comments")
 public class CommentResource {
 	private List<Comment> getGistComments(Key<Gist> key, String cursor) {
 		List<Comment> comments = new ArrayList<Comment>();
@@ -51,20 +52,22 @@ public class CommentResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Key<Comment> commentGist(
-			@PathParam("id") final String id,
+			@PathParam("gistId") final String gistId,
 			final Map<String, String> postData) {
-		UserService userService = UserServiceFactory.getUserService();
 
-		Long longId = Long.parseLong(id); 
+		Long longId = Long.parseLong(gistId); 
 		Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());
 
+		Long userId = Long.parseLong(postData.get("userid"));
+		User user = ofy().load().key(Key.create(User.class, userId)).now();
+		
 		//Date date = new Date();
 		Comment comment = new Comment();
 
 		Gist gist = ofy().load().key(gistKey).now(); 
 
 		comment.setGist(gist);
-		comment.setUser("user");
+		comment.setUser(user);
 		comment.setContent(postData.get("content"));
 		//comment.setCreated(date);
 
@@ -73,9 +76,9 @@ public class CommentResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Comment> getComments(@PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
+	public List<Comment> getComments(@PathParam("gistId") final String gistId, @QueryParam("cursor") final String cursor) throws
 	Exception {
-		Long longId = Long.parseLong(id);
+		Long longId = Long.parseLong(gistId);
 		Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());
 
 		return getGistComments(gistKey, cursor);

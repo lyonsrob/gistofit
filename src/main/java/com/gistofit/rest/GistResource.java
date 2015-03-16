@@ -27,6 +27,8 @@ import com.gistofit.model.URL;
 import com.gistofit.model.User;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.Key;
@@ -34,6 +36,10 @@ import com.googlecode.objectify.cmd.Query;
 
 @Path("/v1/gist")
 public class GistResource {
+	
+	private final MemcacheService mc = MemcacheServiceFactory
+			.getMemcacheService();
+	  
 	public static GistListResponse getGists(String url, String cursor) {
 		Query<Gist> query = ofy().load().type(Gist.class).limit(5);
 
@@ -100,7 +106,12 @@ public class GistResource {
 		}
 
 		String nextCursor = iterator.getCursor().toWebSafeString();
-		Long lastSeen = gists.get(0).date.getTime();
+		Long lastSeen = null;
+		
+		if (gists.size() > 0) {
+			nextCursor = iterator.getCursor().toWebSafeString();
+			lastSeen = gists.get(0).date.getTime();
+		}
 
 		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor, lastSeen);
 	}
@@ -133,7 +144,6 @@ public class GistResource {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Gist getSingleGist(
-			@DefaultValue("default") @PathParam("url") final String url,
 			@PathParam("id") final String id) throws
 			Exception {
 		
@@ -211,7 +221,9 @@ public class GistResource {
 			gist.setUser(user);
 			gist.setContent(content);
 			gistKey = ofy().save().entity(gist).now();
+	        mc.increment("gistCount_" + user.id.toString(),1);
 		}
+		
 		return ofy().load().key(gistKey).now();
 	}
 

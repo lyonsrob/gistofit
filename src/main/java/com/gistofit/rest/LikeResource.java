@@ -2,7 +2,6 @@ package com.gistofit.rest;
 
 import static com.gistofit.model.OfyService.ofy;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,19 +18,14 @@ import org.json.JSONObject;
 
 import com.gistofit.model.Gist;
 import com.gistofit.model.Like;
-import com.gistofit.model.User;
-
-import java.util.Collections;
 
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.google.gson.Gson;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
-@Path("/v1/gist/{id}/likes")
+@Path("/v1/gist/{gistId}/likes")
 public class LikeResource {
 		
 	  private final MemcacheService mc = MemcacheServiceFactory
@@ -41,11 +35,11 @@ public class LikeResource {
 	  @Produces(MediaType.APPLICATION_JSON)
 	  @Consumes(MediaType.APPLICATION_JSON)
 	  public Like likeGist(
-			  @PathParam("id") final String id,
+			  @PathParam("gistId") final String gistId,
 			  final Map<String, String> postData) {
 		
 		String userIdString = postData.get("userid");
-		Long longId = Long.parseLong(id); 
+		Long longId = Long.parseLong(gistId); 
 
 		Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());
 		
@@ -64,7 +58,7 @@ public class LikeResource {
 			
 			ofy().save().entity(like).now();
 			
-	        Object gistLikesJson = mc.get("likes_" + id);
+	        Object gistLikesJson = mc.get("likes_" + gistId);
 	        Object myLikesJson = mc.get("my_likes_" + userIdString);
 	        
         	JSONObject gistLikes = new JSONObject();
@@ -82,10 +76,11 @@ public class LikeResource {
 	        gistLikes.put(userId.toString(), 1); 
 	        gistLikes.increment("total");
 	        
-	        myLikes.put(id, 1);
+	        myLikes.put(gistId, 1);
 	        
-	        mc.put("likes_" + id, gistLikes.toString());
+	        mc.put("likes_" + gistId, gistLikes.toString());
 	        mc.put("my_likes_" + userIdString, myLikes.toString());
+	        mc.increment("gistLikeCount_" + gist.getUser().id.toString(),1);
 		}
 		
 	    return like;
@@ -93,7 +88,7 @@ public class LikeResource {
 	  
 	  @GET
 	  @Produces(MediaType.APPLICATION_JSON)
-	  public JSONObject getLikes(@PathParam("id") final String id, @QueryParam("cursor") final String cursor) throws
+	  public JSONObject getLikes(@PathParam("gistId") final String id, @QueryParam("cursor") final String cursor) throws
 	      Exception {
 	        
 		  	Object likeJson = mc.get("likes_" + id);

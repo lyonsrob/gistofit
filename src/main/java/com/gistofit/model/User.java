@@ -17,12 +17,13 @@
 package com.gistofit.model;
 
 import com.google.gson.annotations.Expose;
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+
+import java.util.ArrayList;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -98,107 +99,19 @@ public class User extends Jsonifiable {
   @Expose
   public String facebookUserId;
   
-  /**
-   * UUID identifier of this User within Google products.
-   */
   @Getter
   @Setter
-  @Index
-  @Expose
-  public String googleUserId;
-
-  /**
-   * Display name that this User has chosen for Google products.
-   */
-  @Getter
-  @Setter
-  @Index
-  @Expose
-  public String googleDisplayName;
-
-  /**
-   * Public Google+ profile URL for this User.
-   */
-  @Getter
-  @Setter
-  @Expose
-  public String googlePublicProfileUrl;
-
-  /**
-   * Public Google+ profile image for this User.
-   */
-  @Getter
-  @Setter
-  @Expose
-  public String googlePublicProfilePhotoUrl;
-
-  /**
-   * Access token used to access Google APIs on this User's behalf.
-   */
-  @Getter
-  @Setter
-  @Index
-  public String googleAccessToken;
-
-  /**
-   * Refresh token used to refresh this User's googleAccessToken.
-   */
-  @Getter
-  @Setter
-  public String googleRefreshToken;
-
-  /**
-   * Validity of this User's googleAccessToken in seconds.
-   */
-  @Getter
-  @Setter
-  public Long googleExpiresIn;
-
-  /**
-   * Expiration time in milliseconds since Epoch for this User's
-   * googleAccessToken.
-   * Exposed for mobile clients, to help determine if they should request a new
-   * token.
-   */
-  @Getter
-  @Setter
-  @Expose
-  public Long googleExpiresAt;
-
-  /**
-   * @return List of Key<User> representing keys of friends.
-   */
-//  public List<Key<User>> getFriendKeys() {
-//    List<DirectedUserToUserEdge> edges = ofy().load()
-//        .type(DirectedUserToUserEdge.class)
-//        .filter("ownerUserId", getId())
-//        .list();
-//    List<Key<User>> friendKeys = new ArrayList<Key<User>>();
-//    for (DirectedUserToUserEdge edge : edges) {
-//      friendKeys.add(key(edge.getFriendUserId()));
-//    }
-//    return friendKeys;
-//  }
-
-  /**
-   * @return List of Longs representing IDs of friends.
-   */
-//  public List<Long> getFriendIds() {
-//    List<DirectedUserToUserEdge> edges = ofy().load()
-//        .type(DirectedUserToUserEdge.class)
-//        .filter("ownerUserId", getId())
-//        .list();
-//    List<Long> friendIds = new ArrayList<Long>();
-//    for (DirectedUserToUserEdge edge : edges) {
-//      friendIds.add(edge.getFriendUserId());
-//    }
-//    return friendIds;
-//  }
-
-  /**
-   * @return Collection of Users that this User has listed as their friend(s).
-   */
-//  public Collection<User> getFriends() {
-//    return ofy().load().keys(getFriendKeys()).values();
-//  }
+  public ArrayList<FB_Like> Related;
+	
+  public static class FB_Like
+	{
+		@Getter @Setter String Description;
+		@Getter @Setter String Title;
+		@Getter @Setter String Url; 
+		@Getter @Setter int ThumbnailWidth;
+		@Getter @Setter double Score;
+		@Getter @Setter int ThumbnailHeight;
+		@Getter @Setter String ThumbnailUrl;
+	}
+  
 }
