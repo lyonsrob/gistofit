@@ -14,10 +14,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.json.JSONObject;
-
-import com.gistofit.domain.GistListResponse;
-import com.gistofit.domain.UserServiceInfo;
 import com.gistofit.model.Comment;
 import com.gistofit.model.Gist;
 import com.gistofit.model.Like;
@@ -25,8 +21,6 @@ import com.gistofit.model.User;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 

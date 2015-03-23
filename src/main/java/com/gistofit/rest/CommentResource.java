@@ -20,8 +20,7 @@ import com.gistofit.model.Gist;
 import com.gistofit.model.User;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
@@ -42,7 +41,7 @@ public class CommentResource {
 			comments.add(iterator.next());
 		}
 
-		String nextCursor = iterator.getCursor().toWebSafeString();
+//		String nextCursor = iterator.getCursor().toWebSafeString();
 		return comments;
 	}
 

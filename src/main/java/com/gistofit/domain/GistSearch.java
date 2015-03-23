@@ -1,6 +1,5 @@
 package com.gistofit.domain;
 
-
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;

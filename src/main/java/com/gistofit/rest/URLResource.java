@@ -27,6 +27,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.googlecode.objectify.Key;
 
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import static com.google.appengine.api.taskqueue.TaskOptions.Builder.*;
+
 @Path("/v1/url")
 public class URLResource {
 
@@ -45,16 +49,15 @@ public class URLResource {
 		String mcKey = url + "_extract";
 		return (String) mc.get(mcKey);
 	}
-
-
+	
 	//TODO: Need to tell GsonMessageBody to ignore an object that is already JSON?
 	@POST
-	@Path("/{url}/extract")
-	@Consumes(MediaType.TEXT_PLAIN)
-	public String setExtract(
-			@DefaultValue("default") @PathParam("url") final String urlString,
+	@Path("/extract/persist")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String persistExtract(
 			final String extractData) throws
 			Exception {
+		
 		JsonParser parser = new JsonParser();
 		JsonObject obj = (JsonObject)parser.parse(extractData);
 		Gson gson = new GsonBuilder()
@@ -62,11 +65,11 @@ public class URLResource {
 		.create();
 
 		EmbedlyExtract extract = gson.fromJson(obj, EmbedlyExtract.class);
-
 		String cleanUrl = extract.getUrl();
+		
 		URL url = ofy().load().key(Key.create(URL.class, cleanUrl)).now();
 
-		if (url == null) {
+		if (url == null) {			
 			url = new URL(cleanUrl);
 			ofy().save().entity(url).now();
 
@@ -81,15 +84,44 @@ public class URLResource {
 				index.put(search.buildDocument(entity.getName(), cleanUrl, entity.getCount()));		
 			}			
 		}
+		
+		return "done";
+	}
 
 
+	//TODO: Need to tell GsonMessageBody to ignore an object that is already JSON?
+	@POST
+	@Path("/{url}/extract")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public String setExtract(
+			@DefaultValue("default") @PathParam("url") final String urlString,
+			final String extractData) throws
+			Exception {
+
+		JsonParser parser = new JsonParser();
+		JsonObject obj = (JsonObject)parser.parse(extractData);
+		Gson gson = new GsonBuilder()
+		.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+		.create();
+
+		EmbedlyExtract extract = gson.fromJson(obj, EmbedlyExtract.class);
+
+		String cleanUrl = extract.getUrl();
 		String mcKey = cleanUrl + "_extract";
-		mc.put(mcKey, extractData, Expiration.byDeltaSeconds(CACHE_PERIOD),
-				SetPolicy.SET_ALWAYS);
-		mcKey = extract.getOriginalUrl() + "_extract";
-		mc.put(mcKey, extractData, Expiration.byDeltaSeconds(CACHE_PERIOD),
-				SetPolicy.SET_ALWAYS);
-
+		
+		String cachedData = (String) mc.get(mcKey);
+		if(cachedData == null) {	
+			mc.put(mcKey, extractData, Expiration.byDeltaSeconds(CACHE_PERIOD),
+					SetPolicy.SET_ALWAYS);
+			mcKey = extract.getOriginalUrl() + "_extract";
+			mc.put(mcKey, extractData, Expiration.byDeltaSeconds(CACHE_PERIOD),
+					SetPolicy.SET_ALWAYS);
+			
+			Queue queue = QueueFactory.getDefaultQueue();
+		    queue.add(withUrl("/rest/v1/url/extract/persist").payload(extractData));
+		}		
+		
 		return extractData;
+
 	}
 }

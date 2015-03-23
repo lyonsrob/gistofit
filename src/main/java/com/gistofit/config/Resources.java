@@ -24,7 +24,6 @@ import com.gistofit.rest.LikeResource;
 import com.gistofit.rest.SearchResource;
 import com.gistofit.rest.UserResource;
 
-
 import java.util.HashSet;
 import java.util.Set;
 

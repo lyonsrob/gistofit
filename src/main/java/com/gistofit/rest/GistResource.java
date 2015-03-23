@@ -21,7 +21,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.gistofit.domain.GistListResponse;
-import com.gistofit.domain.UserServiceInfo;
 import com.gistofit.model.Gist;
 import com.gistofit.model.URL;
 import com.gistofit.model.User;
@@ -29,8 +28,7 @@ import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
@@ -67,12 +65,12 @@ public class GistResource {
 			lastSeen = gists.get(0).date.getTime();
 		}
 
-		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor, lastSeen);
+		return new GistListResponse(gists, nextCursor, lastSeen);
 	}
 
 	private GistListResponse getNewestGists(String lastSeenString) throws ParseException {
 		if (lastSeenString == null)
-			return new GistListResponse(null, null, null, null);
+			return new GistListResponse(null, null, null);
 
 		Query<Gist> query = ofy().load().type(Gist.class).filter("date >", new Date(Long.parseLong(lastSeenString))).limit(5).order("-date");
 		QueryResultIterator<Gist> iterator = query.iterator();
@@ -90,7 +88,7 @@ public class GistResource {
 			lastSeen = gists.get(0).date.getTime();
 		}
 
-		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor, lastSeen);
+		return new GistListResponse(gists, nextCursor, lastSeen);
 	}
 
 	@GET
@@ -130,7 +128,7 @@ public class GistResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public GistListResponse getTrending(@QueryParam("cursor") final String cursor) throws
 	Exception {
-		return new GistListResponse(null, null, null, null);
+		return new GistListResponse(null, null, null);
 		//	return getTrendingGists(cursor);
 	}
 
@@ -190,7 +188,6 @@ public class GistResource {
 	public Gist addGist(
 			@DefaultValue("default") @PathParam("url") final String gistUrl,
 			final Map<String, String> postData) {
-		UserService userService = UserServiceFactory.getUserService();
 
 		// We set the above parent key on each Greeting entity in order to make the queries strong
 		// consistent. Please Note that as a trade off, we can not write to a single #gistofit at a
