@@ -15,9 +15,10 @@ angular.module('gistOfItApp').controller('SearchCtrl', ['$scope', 'GistofitServi
             var promises = []; 
 
             angular.forEach($scope.results,function(result){
-               Gistofit.getExtract(result, result.url);
+               Gistofit.getExtract(result.url).then(function(data) {
+                        result.extract = data;
+                });
             });
-        });
     });
 
     window.addEventListener("message", $scope.setAddData);

@@ -41,7 +41,9 @@ angular.module('gistOfItApp').controller('FeedCtrl', ['$scope', 'GistofitService
         for (var i = 0, len = feedURLs.length; i < len; i++) {
             Feed.parseFeed(feedURLs[i]).then(function(res){
                 angular.forEach(res.data.responseData.feed.entries,function(feed){
-                    Gistofit.getExtract(feed, feed.link);
+                    Gistofit.getExtract(feed, feed.link).then(function(data) {
+                        feed.extract = data;
+                    });
                 });
                 
                 $scope.feeds.push.apply($scope.feeds, res.data.responseData.feed.entries);

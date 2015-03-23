@@ -16,22 +16,38 @@ angular.module('gistOfItApp').controller('LoginCtrl', ['$scope', 'GistofitServic
         });
         });
       });
-      $scope.facebookLogin = function() {
-        return steroids.addons.facebook.login().then(function() {
-          return $scope.$apply(function() {
-        	  var dismissAnimation = new steroids.Animation({
-        		  transition: "flipHorizontalFromRight",
-        		  duration: 1.0,
-        		  curve: "easeInOut"
-        		});
+      $scope.facebookLogin = function() 
+	{
+        	return steroids.addons.facebook.login(['public_profile', 'email', 'user_likes', 'user_location', 'user_interests', 'user_education_history']).then(function() 	   
+	{
+		return steroids.addons.facebook.api('/me', {fields: 'email, first_name, last_name'}).then(function(user) 
+			{
+	  			Gistofit.createUser(user).then(function(e) {
+					var message = {
+					    sender: "loginView",
+					    user: e.data 
+					}
+					
+					window.postMessage(message);
+				});
+          			
+				return $scope.$apply(function() {
+				  var dismissAnimation = new steroids.Animation({
+				      	transition: "flipHorizontalFromRight",
+					duration: 1.0,
+					curve: "easeInOut"
+				      });
 
-        		steroids.initialView.dismiss({
-        		  animation: dismissAnimation
-        		});
-        	  return $scope.loginStatus = true;
-          });
-        });
+					steroids.initialView.dismiss({
+					  animation: dismissAnimation
+					});
+					
+					return $scope.loginStatus = true;
+          			});
+	});
+	});
       };
+      
       $scope.facebookGraphQuery = function() {
         return steroids.addons.facebook.api('/me', {
           fields: 'first_name, last_name, picture.type(normal)'

@@ -2,6 +2,16 @@
 
 angular.module('gistOfItApp').controller('GistCtrl', ['$scope', 'GistofitService', 
   function ($scope, Gistofit) {
+    function messageReceived(event) {
+
+      // check that the message is intended for us
+      if (event.data.sender == "loginView") {
+    	$scope.userId = event.userId;
+        alert(event.data.message)
+      }
+    }
+
+    window.addEventListener("message", messageReceived);
 
     $scope.setAddData = function(event) {
         if (event.data.recipient == "gistModalView") {
@@ -13,7 +23,7 @@ angular.module('gistOfItApp').controller('GistCtrl', ['$scope', 'GistofitService
     }
     
     $scope.addGist = function(gist) {
-        Gistofit.addGist($scope.url, gist);
+        Gistofit.addGist($scope.url, gist, $scope.userId);
         steroids.modal.hide();
     }
 

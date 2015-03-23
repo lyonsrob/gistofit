@@ -93,29 +93,6 @@ public class GistResource {
 		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor, lastSeen);
 	}
 
-	private GistListResponse getTrendingGists(String cursor) {
-		Query<Gist> query = ofy().load().type(Gist.class).limit(15);
-
-		if (cursor != null)
-			query = query.startAt(Cursor.fromWebSafeString(cursor));
-
-		QueryResultIterator<Gist> iterator = query.iterator();
-		List<Gist> gists = new ArrayList<Gist>();
-		while (iterator.hasNext()) {
-			gists.add(iterator.next());
-		}
-
-		String nextCursor = iterator.getCursor().toWebSafeString();
-		Long lastSeen = null;
-		
-		if (gists.size() > 0) {
-			nextCursor = iterator.getCursor().toWebSafeString();
-			lastSeen = gists.get(0).date.getTime();
-		}
-
-		return new GistListResponse(gists, UserServiceInfo.get("/"), nextCursor, lastSeen);
-	}
-
 	@GET
 	@Path("/newest")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -133,11 +110,28 @@ public class GistResource {
 	}
 
 	@GET
+	@Path("/trending/cache")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Integer setTrendingCache() throws
+	Exception {
+		Query<Gist> query = ofy().load().type(Gist.class);
+
+		QueryResultIterator<Gist> iterator = query.iterator();
+
+		while (iterator.hasNext()) {
+		//	gists.add(iterator.next());
+		}
+
+		return 1;
+	}
+	
+	@GET
 	@Path("/trending")
 	@Produces(MediaType.APPLICATION_JSON)
 	public GistListResponse getTrending(@QueryParam("cursor") final String cursor) throws
 	Exception {
-		return getTrendingGists(cursor);
+		return new GistListResponse(null, null, null, null);
+		//	return getTrendingGists(cursor);
 	}
 
 	@GET
@@ -235,5 +229,16 @@ public class GistResource {
 			@QueryParam("cursor") final String cursor) throws
 			Exception {
 		return GistResource.getGists(url, cursor);
+	}
+	
+	@GET
+	@Path("url/{url}/count")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Integer getGistsCountForURL(
+			@DefaultValue("default") @PathParam("url") final String url,
+			@QueryParam("cursor") final String cursor) throws
+			Exception {
+				Key<URL> urlKey = Key.create(URL.class, url);
+				return ofy().load().type(Gist.class).filter("url", urlKey).count();
 	}
 }

@@ -89,6 +89,10 @@ public class User extends Jsonifiable {
   @Expose
   public String lastName;
 
+  @Getter
+  @Setter
+  @Expose
+  public String profilePicture;
 
   /**
    * UUID identifier of this User within Facebook products.

@@ -5,37 +5,24 @@ angular.module('gistOfItApp').controller('CurrentCtrl', ['$scope', 'GistofitServ
     function messageReceived(event) {
 
       // check that the message is intended for us
-      if (event.data.recipient == "showView") {
+      if (event.data.recipient == "loginView") {
+    	$scope.userId = event.userId;
         alert(event.data.message)
       }
     }
 
     window.addEventListener("message", messageReceived);
    
-    $scope.userId = 123456;
- 
-    $scope.addonsUndefined = steroids.addons === void 0;
-    if (!$scope.addonsUndefined) {
-      $scope.ready = false;
-      $scope.loginStatus = false;
-      steroids.addons.facebook.ready.then(function() {
-        $scope.$apply(function() {
-          return $scope.ready = true;
-        });
-        return steroids.addons.facebook.getLoginStatus().then(function(response) {
-          return $scope.$apply(function() {
-            return $scope.loginStatus = response.status === 'connected';
-          });
-        });
-      });
-    }
-
     $scope.loadRecentGists = function() {
         $scope.gists = {};
 
         Gistofit.getRecent().then(function (response) {
-            angular.forEach(response.data.gists,function(gist){
-                Gistofit.getExtract(gist, gist.url.key.raw.name);
+	    $scope.gists = response.data.gists; 
+            angular.forEach($scope.gists,function(gist){
+                Gistofit.getExtract(gist, gist.url.key.raw.name).then(function(data) {
+			gist.extract = data;
+		});
+
                 Gistofit.getLikes(gist.id).then(function(response) {
                 	gist.likes = response.data.map;
                 	gist.userLiked = gist.likes[$scope.userId] ? 1 : 0;

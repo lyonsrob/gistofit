@@ -16,6 +16,16 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', 'embedlyServi
         return baseURL + method;
     }
     var Gistofit = {};
+    
+    Gistofit.getUser = function (id) {
+        var url = buildURL('/user/' + id); 
+        return $http({method: 'GET', url: url});
+    };
+    
+    Gistofit.createUser = function (data) {
+        var url = buildURL('/user'); 
+        return $http({method: 'POST', url: url, data: data});
+    };
 
     Gistofit.getNewest = function (id) {
         var url = buildURL('/gist/newest');
@@ -33,17 +43,19 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', 'embedlyServi
         var escapedUrl = encodeURIComponent(url);
         var extractUrl = buildURL('/url/'+ escapedUrl + '/extract');
 
-        $http({method: 'GET', url: extractUrl}).then(function (response) {
-            obj.extract = response.data;
+        return $http({method: 'GET', url: extractUrl}).then(function (response) {
+            var data = response.data;
             if (obj.extract == undefined || obj.extract == '') {
                 Embedly.extract(url).then(function(e){
                     Gistofit.setExtract(url, e.data);
-                    obj.extract = e.data;
+                    data = e.data;
                 },
                  function(error) {
                     console.log(error);
                  });
-            } 
+            }
+
+	    return data;  
         });
     };
     Gistofit.setExtract = function (inputUrl, data) {
@@ -51,9 +63,9 @@ angular.module("gistOfItApp").factory('GistofitService', ['$http', 'embedlyServi
         var url = buildURL('/url/'+ escapedUrl + '/extract'); 
         return $http({method: 'POST', url: url, data: data, headers: {'Content-Type': 'text/plain'}});
     };
-    Gistofit.addGist = function (inputUrl, content) {
+    Gistofit.addGist = function (inputUrl, content, userId) {
         url = buildURL ('/gist/url/' + encodeURIComponent(inputUrl));
-        var data = {'content': content, 'userId': 6280410417856512};
+        var data = {'content': content, 'userId': userId};
         return $http({method: 'POST', url: url, data: data});
         //return $http({method: 'POST', url: url, data: data, withCredentials: true});
     };

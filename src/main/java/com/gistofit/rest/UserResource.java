@@ -47,12 +47,14 @@ public class UserResource {
 		
 		if (user == null) {
 			user = new User();
-			user.setEmail(postData.get("email"));
-			user.setFirstName(postData.get("first_name"));
-			user.setLastName(postData.get("last_name"));
-			user.setFacebookUserId(postData.get("id"));
-			ofy().save().entity(user).now();
 		}
+		
+		user.setEmail(postData.get("email"));
+		user.setFirstName(postData.get("first_name"));
+		user.setLastName(postData.get("last_name"));
+		user.setProfilePicture(postData.get("profile_picture"));
+		user.setFacebookUserId(postData.get("id"));
+		ofy().save().entity(user).now();
 		
 	    return user;
 	  }
