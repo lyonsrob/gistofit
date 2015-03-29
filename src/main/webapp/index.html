@@ -1,77 +1,133 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <!--
-  ~ Copyright 2013 Google Inc.
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~     http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
+	Miniport by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html lang="en" ng-app="gistofit" ng-cloak>
-<head>
-  <meta charset="utf-8">
-  <title>My AngularJS App</title>
-  <link rel="stylesheet" href="css/app.css"/>
-  <noscript>
-	<link rel="stylesheet" href="css/skel.css" />
-	<link rel="stylesheet" href="css/style.css" />
-	<link rel="stylesheet" href="css/style-xlarge.css" />
-  </noscript>
-	<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	<head>
+		<title>Miniport by HTML5 UP</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.scrolly.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="lib/angular/angular.js"></script>
+		<script src="lib/angular/angular-sanitize.js"></script>
+		<script src="lib/angular/angular-route.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/gistofit.js"></script>
+		<script src="js/controllers.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 		
-</head>
-	<body id="top">
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+	</head>
+	<body>
 
-		<!-- Header -->
-			<header id="header">
-				<a href="#" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
-				<h1><strong>The Internet: Summarized</strong></h1>
-				<h4>Learn. Comment. Share.</h4>
-				<a><img alt="Download on the App Store" src="images/Download_on_the_App_Store_Badge_US-UK_135x40.svg"></img></a>
-			</header>
+		<!-- Home -->
+			<div class="wrapper style1 first">
+				<article class="container" id="top">
+					<div class="row">
+						<div class="12u">
+						  <center>
+							<header>
+								<img width="250px" src="/images/logo.png" />
+								<h5>The Internet. <span class="headline-green">Summarized</span>.</h5>
+							</header>
+							<a><img alt="Download on the App Store" src="images/Download_on_the_App_Store_Badge_US-UK_135x40.svg"></a>
+						  </center>
+					</div>
+				</article>
+			</div>
 
-		<!-- Main -->
-			<div id="main" ng-view></div>
+		<!-- Demo -->
+			<div class="wrapper style2">
+				<article id="work">
+					<div class="container">
+						<div class="row">
+							<div class="4u">
+								<img width="250px" src="/images/phone.png" />
+							</div>
+							<div class="8u">
+									<h3><span class="headline-white headline-white-box">Learn</h3></span> 
+									<h3><span class="headline-white headline-white-box">Comment</h3></span> 
+									<h3><span class="headline-white headline-white-box">Share</h3></span> 
+							</div>
+						</div>
+					</div>
+				</article>
+			</div>
+		<!-- Team -->
+			<div class="wrapper style1">
+				<article id="work">
+					<div class="container">
+						<div class="row">
+							<div class="12u">
+								<h3>
+									<span class="headline-green">meet</span> the <span class="headline-green headline-green-box">team</span>
+								</h3>
+							</div>
+						</div>
+						<div class="row">
+											<div class="4u">
+												
+												<!-- Feature -->
+													<section class="feature">
+														<a href="#" class="image featured"><img src="/images/adam.jpg" alt=""></a>
+														<h3><a href="#">Adam Valentine (CEO)</a></h3>
+														<p>
+															<span class="headline-green">gist of him:</span> University of Michigan graduate. Bulldog owner. Loud Talker.
+														</p>
+													</section>
+										
+											</div>
+											<div class="4u">
+												
+												<!-- Feature -->
+													<section class="feature">
+														<a href="#" class="image featured"><img src="/images/rob.jpg" alt=""></a>
+														<h3><a href="#">Rob Lyons (CTO)</a></h3>
+														<p>
+															<span class="headline-green">gist of him:</span> Michigan State University graduate. Husband, father, golfer. 
+														</p>
+													</section>
+										
+											</div>
+											
+											<div class="4u">
+												
+												<!-- Feature -->
+													<section class="feature">
+														<a href="#" class="image featured"><img src="/images/ellen.jpg" alt=""></a>
+														<h3><a href="#">Ellen Leone (Director of Product and Design)</a></h3>
+														<p>
+															<span class="headline-green">gist of her:</span> Saginaw Valley State University graduate. Soccer player. Went to band camp.
+														</p>
+													</section>
+										
+											</div>
+										</div>
+					</div>
+				</article>
+			</div>
 
-		<!-- Footer -->
-			<footer id="footer">
-				<ul class="icons">
-					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-					<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-					<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-				</ul>
-				<ul class="copyright">
-					<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-				</ul>
-			</footer>
+		<!-- Contact -->
+			<div class="wrapper style4">
+					<footer>
+						<ul id="copyright">
+							<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</footer>
+			</div>
 
 	</body>
-<!-- In production use:
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
--->
-!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.poptrox.min.js"></script>
-<script src="js/skel.min.js"></script>
-<script src="js/init.js"></script>
-<script src="lib/angular/angular.js"></script>
-<script src="lib/angular/angular-sanitize.js"></script>
-<script src="lib/angular/angular-route.js"></script>
-<script src="js/app.js"></script>
-<script src="js/gistofit.js"></script>
-<script src="js/controllers.js"></script>
-<!--  
-<script src="js/filters.js"></script>
-<script src="js/directives.js"></script>
--->
-</body>
 </html>
