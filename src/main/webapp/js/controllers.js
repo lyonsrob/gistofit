@@ -23,7 +23,9 @@ var GistOfItCtrl = ['$scope', '$http', '$location', '$routeParams', 'GistofitSer
     Gistofit.getGist($routeParams['gistId'])
       .then(function (response) {
         $scope.gist = response.data;
-        Gistofit.getExtract($scope.gist, $scope.gist.url.key.raw.name);
+	Gistofit.getExtract($scope.gist.url.key.raw.name).then(function(data) {
+		$scope.gist.extract = data;
+	});
       });
   }
 ];

@@ -20,7 +20,11 @@
 angular.module('gistofit', [
   'ngSanitize',
   'ngRoute',
+  'angular-embedly',
 ])
+.config(function(embedlyServiceProvider){
+        embedlyServiceProvider.setKey('42f4925174814d68b90d0758d932fe14');
+})
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
   .when('/gist/:gistId', {

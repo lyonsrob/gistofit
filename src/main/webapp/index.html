@@ -4,7 +4,7 @@
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html lang="en" ng-app="gistofit" ng-cloak>
+<html lang="en" ng-app="gistofit" >
 	<head>
 		<title>Miniport by HTML5 UP</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -19,6 +19,7 @@
 		<script src="lib/angular/angular-sanitize.js"></script>
 		<script src="lib/angular/angular-route.js"></script>
 		<script src="js/app.js"></script>
+		<script src="js/angular-embedly.js"></script>
 		<script src="js/gistofit.js"></script>
 		<script src="js/controllers.js"></script>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
@@ -30,9 +31,42 @@
 		</noscript>
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+
+		<script>
+
+		 	var count = 0;
+		 	setInterval( highlight, 2000);
+			function highlight() {
+				    $('#read').css("font-weight", "400");
+				    $('#write').css("font-weight", "400");
+				    $('#repeat').css("font-weight", "400");
+
+				    if (count == 0) {
+				    	$('#read').css("font-weight", "800");
+					}
+				    
+				    if (count == 1) {
+				    	$('#write').css("font-weight", "800");
+					}
+				    
+				    if (count == 2) {
+				    	$('#repeat').css("font-weight", "800");
+				    	count = 0;
+				    	return;
+					}
+				      
+				    count = count+1; 
+			}
+		</script>
+
 	</head>
 	<body>
-
+<nav id="nav">
+				<ul class="container">
+					<li><a href="#top">Demo</a></li>
+					<li><a href="#work">Team</a></li>
+				</ul>
+			</nav>
 		<!-- Home -->
 			<div class="wrapper style1 first">
 				<article class="container" id="top">
@@ -48,77 +82,8 @@
 					</div>
 				</article>
 			</div>
-
-		<!-- Demo -->
-			<div class="wrapper style2">
-				<article id="work">
-					<div class="container">
-						<div class="row">
-							<div class="4u">
-								<img width="250px" src="/images/phone.png" />
-							</div>
-							<div class="8u">
-									<h3><span class="headline-white headline-white-box">Learn</h3></span> 
-									<h3><span class="headline-white headline-white-box">Comment</h3></span> 
-									<h3><span class="headline-white headline-white-box">Share</h3></span> 
-							</div>
-						</div>
-					</div>
-				</article>
-			</div>
-		<!-- Team -->
-			<div class="wrapper style1">
-				<article id="work">
-					<div class="container">
-						<div class="row">
-							<div class="12u">
-								<h3>
-									<span class="headline-green">meet</span> the <span class="headline-green headline-green-box">team</span>
-								</h3>
-							</div>
-						</div>
-						<div class="row">
-											<div class="4u">
-												
-												<!-- Feature -->
-													<section class="feature">
-														<a href="#" class="image featured"><img src="/images/adam.jpg" alt=""></a>
-														<h3><a href="#">Adam Valentine (CEO)</a></h3>
-														<p>
-															<span class="headline-green">gist of him:</span> University of Michigan graduate. Bulldog owner. Loud Talker.
-														</p>
-													</section>
-										
-											</div>
-											<div class="4u">
-												
-												<!-- Feature -->
-													<section class="feature">
-														<a href="#" class="image featured"><img src="/images/rob.jpg" alt=""></a>
-														<h3><a href="#">Rob Lyons (CTO)</a></h3>
-														<p>
-															<span class="headline-green">gist of him:</span> Michigan State University graduate. Husband, father, golfer. 
-														</p>
-													</section>
-										
-											</div>
-											
-											<div class="4u">
-												
-												<!-- Feature -->
-													<section class="feature">
-														<a href="#" class="image featured"><img src="/images/ellen.jpg" alt=""></a>
-														<h3><a href="#">Ellen Leone (Director of Product and Design)</a></h3>
-														<p>
-															<span class="headline-green">gist of her:</span> Saginaw Valley State University graduate. Soccer player. Went to band camp.
-														</p>
-													</section>
-										
-											</div>
-										</div>
-					</div>
-				</article>
-			</div>
+		<!-- Main -->
+			<div id="main" ng-view></div>
 
 		<!-- Contact -->
 			<div class="wrapper style4">
@@ -128,6 +93,16 @@
 						</ul>
 					</footer>
 			</div>
-
+<script>
+		var header = document.querySelector('#main');
+		var origOffsetY = header.offsetTop;
+		
+		function onScroll(e) {
+		  window.scrollY >= origOffsetY ? header.classList.add('sticky') :
+		                                  header.classList.remove('sticky');
+		}
+		
+		document.addEventListener('scroll', onScroll);
+</script>
 	</body>
 </html>
