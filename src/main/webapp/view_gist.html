@@ -1,3 +1,9 @@
+<view-title>{{gist.extract.title}} | GistOfIt </view-title>
+
+<meta view-head name="og:url" content="{{ gist.url.key.raw.name }}" />
+<meta view-head name="og:title" content="{{ gist.extract.title }}" />
+<meta view-head name="og:image" content="{{ gist.extract.images[0].url }}" />
+
 <!-- One -->
 <section id="one">
 	<span ng-hide="!!gist">

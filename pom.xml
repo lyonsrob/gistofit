@@ -25,6 +25,11 @@
 
   <groupId>com.gistofit</groupId>
   <artifactId>appengine-angular-guestbook-java</artifactId>
+  <scm>
+    <connection>scm:git:git@github.com:greengerong/prerender-java.git</connection>
+    <developerConnection>scm:git:git@github.com:greengerong/prerender-java.git</developerConnection>
+    <url>git@github.com:greengerong/prerender-java.git</url>
+  </scm>
 
   <properties>
     <appengine.app.version>1</appengine.app.version>
