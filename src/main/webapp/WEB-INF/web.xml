@@ -71,6 +71,18 @@
     <servlet-name>Jersey REST Service</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
+  <filter>
+    <filter-name>prerender</filter-name>
+    <filter-class>com.github.greengerong.PreRenderSEOFilter</filter-class>
+    <init-param>
+        <param-name>prerenderToken</param-name>
+        <param-value>LQ2gR8bk3GXoGDxSGpyX</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>prerender</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
