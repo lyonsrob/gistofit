@@ -1,27 +1,22 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE HTML>
 <!--
 	Miniport by HTML5 UP
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html lang="en" ng-app="gistofit" >
+<html lang="en" >
 	<head>
 		<title>Miniport by HTML5 UP</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<!--[if lte IE 8]><script src="../css/ie/html5shiv.js"></script><![endif]-->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery.scrolly.min.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/init.js"></script>
-		<script src="lib/angular/angular.js"></script>
-		<script src="lib/angular/angular-sanitize.js"></script>
-		<script src="lib/angular/angular-route.js"></script>
-		<script src="js/app.js"></script>
-		<script src="js/angular-embedly.js"></script>
-		<script src="js/gistofit.js"></script>
-		<script src="js/controllers.js"></script>
 		<link href='//fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
 		
 		<noscript>
@@ -85,51 +80,32 @@
 		<!-- Main -->
 		<!-- One -->
 		<section id="one">
-			<span ng-hide="!!gist">
-			  <img src="/img/ajax-loader.gif">
-			  Retrieving the data...
-			</span>
-			
 			<!-- Feature 1 -->
-			    <article ng-show="gist" target-blank id="first" class="container box style1 right">
+			    <article target-blank id="first" class="container box style1 right">
+			    	<h1>${gist.id}</h1>
+			    	
 					<div class="list card">
 					  <div class="item item-avatar">
-					    <img ng-src="{{ gist.extract.favicon_url }}">
-					    <h2>via {{gist.extract.provider_name}}</h2>
+					    <img src="${ extract.faviconUrl }">
+					    <h2>via ${extract.providerName}</h2>
 					  </div>
-					<div class="button-bar">
-						 <button ng-click="likeGist(gist.id)" class="button button-small button-clear button-balanced icon super-heart" ng-disabled="gist.userLiked"> 
-							<ng-pluralize count="gist.likes.total"
-								 when="{'0': ' No Likes',
-								     '1': ' 1 Like',
-								     'other': ' {{gist.likes.total}} Likes'}">
-							</ng-pluralize>	
-						</button>
-						 <button class="button button-small button-clear button-balanced icon super-chatbubble" ng-click="showComments(gist)"> 
-							<ng-pluralize count="gist.comments.length"
-								 when="{'0': ' No Comments',
-								     '1': ' 1 Comment',
-								     'other': ' {{gist.comments.length}} Comments'}">
-							</ng-pluralize>	
-						</button>
-					</div>
-
+				
 					  <div class="item">
 						  <div class="item item-avatar">
-						    <img ng-src="{{ gist.user.profilePicture }}">
+						    <img src="${ gist.user.profilePicture }">
 						    <p>
-							#gistofit: {{gist.content}}
+							#gistofit: ${gist.content}
 						    </p>
-						    <h4>by {{gist.user.firstName}} · <span am-time-ago="gist.date"></span></h4>
+						    <h4>by ${gist.user.firstName} · <span am-time-ago="gist.date"></span></h4>
 						  </div>
 						
-						<img class="full-image" ng-src="{{ gist.extract.images[0].url }}" ng-click="openURL(gist.url.key.raw.name)" />
+						<img class="full-image" src="${ extract.images[0].url }" ng-click="openURL(gist.url.key.raw.name)" />
 					    <h2>
-					      {{gist.extract.title}}
+					      ${extract.title}
 					    </h2>
 					    <div class="description">
 					    <p>
-					      {{gist.extract.description}}
+					      ${extract.description}
 					    </p>
 					    </div>
 					  </div>

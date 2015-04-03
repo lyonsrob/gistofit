@@ -23,7 +23,6 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;
 
 import com.gistofit.config.Resources;
-import com.gistofit.domain.GistDomain;
 import com.gistofit.domain.GistListResponse;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;

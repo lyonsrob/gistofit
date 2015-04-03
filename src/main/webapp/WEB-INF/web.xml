@@ -71,10 +71,19 @@
     <servlet-name>Jersey REST Service</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
+  <filter>
+    <filter-name>UrlRewriteFilter</filter-name>
+    <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>UrlRewriteFilter</filter-name>	
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
     <servlet>
         <servlet-name>View Gist</servlet-name>
-        <servlet-class>com.gistofit.GistServlet</servlet-class>
-	<jsp-file>/view_gist.jsp</jsp-file>
+	    <servlet-class>com.gistofit.config.GistServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>View Gist</servlet-name>
