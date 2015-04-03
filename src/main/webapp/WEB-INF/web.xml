@@ -71,6 +71,15 @@
     <servlet-name>Jersey REST Service</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
+    <servlet>
+        <servlet-name>View Gist</servlet-name>
+        <servlet-class>com.gistofit.GistServlet</servlet-class>
+	<jsp-file>/view_gist.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>View Gist</servlet-name>
+        <url-pattern>/gist</url-pattern>
+    </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
