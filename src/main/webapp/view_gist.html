@@ -1,0 +1,59 @@
+<view-title>{{gist.extract.title}} | GistOfIt </view-title>
+
+<meta view-head name="og:url" content="{{ gist.url.key.raw.name }}" />
+<meta view-head name="og:title" content="{{ gist.extract.title }}" />
+<meta view-head name="og:image" content="{{ gist.extract.images[0].url }}" />
+
+<!-- One -->
+<section id="one">
+	<span ng-hide="!!gist">
+	  <img src="/img/ajax-loader.gif">
+	  Retrieving the data...
+	</span>
+	
+	<!-- Feature 1 -->
+	    <article ng-show="gist" target-blank id="first" class="container box style1 right">
+			<div class="list card">
+			  <div class="item item-avatar">
+			    <img ng-src="{{ gist.extract.favicon_url }}">
+			    <h2>via {{gist.extract.provider_name}}</h2>
+			  </div>
+          		<div class="button-bar">
+				 <button ng-click="likeGist(gist.id)" class="button button-small button-clear button-balanced icon super-heart" ng-disabled="gist.userLiked"> 
+					<ng-pluralize count="gist.likes.total"
+						 when="{'0': ' No Likes',
+						     '1': ' 1 Like',
+						     'other': ' {{gist.likes.total}} Likes'}">
+					</ng-pluralize>	
+				</button>
+      				 <button class="button button-small button-clear button-balanced icon super-chatbubble" ng-click="showComments(gist)"> 
+					<ng-pluralize count="gist.comments.length"
+						 when="{'0': ' No Comments',
+						     '1': ' 1 Comment',
+						     'other': ' {{gist.comments.length}} Comments'}">
+					</ng-pluralize>	
+				</button>
+          		</div>
+
+			  <div class="item">
+				  <div class="item item-avatar">
+				    <img ng-src="{{ gist.user.profilePicture }}">
+				    <p>
+					#gistofit: {{gist.content}}
+				    </p>
+			    	    <h4>by {{gist.user.firstName}} · <span am-time-ago="gist.date"></span></h4>
+				  </div>
+				
+				<img class="full-image" ng-src="{{ gist.extract.images[0].url }}" ng-click="openURL(gist.url.key.raw.name)" />
+			    <h2>
+			      {{gist.extract.title}}
+			    </h2>
+			    <div class="description">
+			    <p>
+			      {{gist.extract.description}}
+			    </p>
+			    </div>
+			  </div>
+	    </article>
+</section>
+

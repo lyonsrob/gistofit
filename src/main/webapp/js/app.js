@@ -20,6 +20,7 @@
 angular.module('gistofit', [
   'ngSanitize',
   'ngRoute',
+  'viewhead',
   'angular-embedly',
 ])
 .config(function(embedlyServiceProvider){
