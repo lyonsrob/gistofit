@@ -25,6 +25,11 @@
 
   <groupId>com.gistofit</groupId>
   <artifactId>appengine-angular-guestbook-java</artifactId>
+  <scm>
+    <connection>scm:git:git@github.com:greengerong/prerender-java.git</connection>
+    <developerConnection>scm:git:git@github.com:greengerong/prerender-java.git</developerConnection>
+    <url>git@github.com:greengerong/prerender-java.git</url>
+  </scm>
 
   <properties>
     <appengine.app.version>1</appengine.app.version>
@@ -44,6 +49,11 @@
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-json</artifactId>
       <version>1.19</version>
+    </dependency>
+    <dependency>
+    <groupId>com.github.greengerong</groupId>
+      <artifactId>prerender-java</artifactId>
+      <version>1.6.3</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
