@@ -51,6 +51,11 @@
       <version>1.19</version>
     </dependency>
     <dependency>
+    <groupId>com.github.greengerong</groupId>
+      <artifactId>prerender-java</artifactId>
+      <version>1.6.3</version>
+    </dependency>
+    <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20140107</version>
