@@ -34,11 +34,11 @@ public class GistServlet extends HttpServlet {
 	  Gist gist = ofy().load().key(gistKey).now();
 	  URL url = gist.getUrl();
 	  
-	  URLResource resoure = new URLResource();
+	  URLResource resource = new URLResource();
 	  String extractData = null; 
 	  
 	  try {
-		extractData = resoure.getExtract(url.getUrl());
+		extractData = resource.getExtract(url.getUrl());
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

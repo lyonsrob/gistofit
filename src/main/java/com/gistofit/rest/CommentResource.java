@@ -15,18 +15,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.gistofit.domain.CommentListResponse;
+import com.gistofit.domain.GistListResponse;
 import com.gistofit.model.Comment;
 import com.gistofit.model.Gist;
 import com.gistofit.model.User;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
-
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
 @Path("/v1/gist/{gistId}/comments")
 public class CommentResource {
-	private List<Comment> getGistComments(Key<Gist> key, String cursor) {
+	private CommentListResponse getGistComments(Key<Gist> key, String cursor) {
 		List<Comment> comments = new ArrayList<Comment>();
 		Query<Comment> query = ofy().load().type(Comment.class).limit(5);
 		if (key != null)
@@ -37,12 +38,18 @@ public class CommentResource {
 
 		query = query.order("-created");
 		QueryResultIterator<Comment> iterator = query.iterator();
+		
 		while (iterator.hasNext()) {
-			comments.add(iterator.next());
+			Comment comment = iterator.next(); 
+			comments.add(comment);
 		}
 
-//		String nextCursor = iterator.getCursor().toWebSafeString();
-		return comments;
+		String nextCursor = "";
+		Long lastSeen = null;
+	
+		nextCursor = iterator.getCursor().toWebSafeString();
+		
+		return new CommentListResponse(comments, nextCursor, lastSeen);
 	}
 
 
@@ -75,7 +82,7 @@ public class CommentResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Comment> getComments(@PathParam("gistId") final String gistId, @QueryParam("cursor") final String cursor) throws
+	public CommentListResponse getComments(@PathParam("gistId") final String gistId, @QueryParam("cursor") final String cursor) throws
 	Exception {
 		Long longId = Long.parseLong(gistId);
 		Key<Gist> gistKey = Key.create(Gist.class, longId.longValue());

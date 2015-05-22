@@ -91,6 +91,24 @@ public class User extends Jsonifiable {
 
   @Getter
   @Setter
+  transient String salt;
+  
+  @Getter
+  @Setter
+  transient String password;
+  
+  @Getter
+  @Setter
+  @Expose
+  public String gender;
+  
+  @Getter
+  @Setter
+  @Expose
+  public String ageRange;
+  
+  @Getter
+  @Setter
   @Expose
   public String profilePicture;
 

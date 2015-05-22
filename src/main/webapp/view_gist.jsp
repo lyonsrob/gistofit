@@ -7,18 +7,47 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html lang="en" >
-	<head>
-		<title>Miniport by HTML5 UP</title>
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# >
+		<title>${ extract.title } | GistOfIt</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
+		
+		<!-- Facebook Tags --> 		
+		<meta property="fb:app_id" content="280011745515851" /> 
+		<meta property="og:url"    content="http://gistof.it/gist/${ gist.id}" /> 
+		<meta property="og:type"   content="article" /> 
+		<meta property="og:title"  content="${ extract.title }" /> 
+		<meta property="og:image"  content="${ extract.images[0].url }" /> 
+		<meta property="og:image:width"  content="${ extract.images[0].width }" /> 
+		<meta property="og:image:height"  content="${ extract.images[0].height }" /> 
+	        <meta property="og:description" content="${ extract.description }" />	
+		
+		<!-- meta property="article:section" content="Summary" />
+		<meta property="article:publisher" content="${ extract.providerName }" / -->
+		
+		<!-- Twitter Tags --> 
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@gistof_it" />
+		<meta name="twitter:creator" content="${ extract.providerName }" />
+		
+
 		<!--[if lte IE 8]><script src="../css/ie/html5shiv.js"></script><![endif]-->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery.scrolly.min.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/init.js"></script>
 		<link href='//fonts.googleapis.com/css?family=Open+Sans:700,300,400' rel='stylesheet' type='text/css'>
-		
+  		<link rel="stylesheet" href="css/supersonic.css" />
+	
+		<style>
+			@media (min-width: 1200px) {
+			  .list {
+			  	width: 75%; 
+				margin: 0 25% 0 12%;
+			  }
+			}
+		</style>	
 		<noscript>
 			<link rel="stylesheet" href="css/skel.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -55,11 +84,10 @@
 		</script>
 
 	</head>
-	<body>
+	<body class="overflow-scroll scroll-content">
 <nav id="nav">
 				<ul class="container">
-					<li><a href="#top">Demo</a></li>
-					<li><a href="#work">Team</a></li>
+					<li><a href="/#work">meet the team</a></li>
 				</ul>
 			</nav>
 		<!-- Home -->
@@ -81,34 +109,31 @@
 		<!-- One -->
 		<section id="one">
 			<!-- Feature 1 -->
-			    <article target-blank id="first" class="container box style1 right">
-			    	<h1>${gist.id}</h1>
-			    	
-					<div class="list card">
-					  <div class="item item-avatar">
-					    <img src="${ extract.faviconUrl }">
-					    <h2>via ${extract.providerName}</h2>
+			    <article target-blank id="first" class="container">
+				<div class="list card">
+					  <div class="item item-avatar" style="border:none;">
+					    <img src="${ gist.user.profilePicture }">
+					    <h4>by ${gist.user.firstName} &#183; <span am-time-ago="gist.date"></span></h4>
+					    <img style="vertical-align: middle;" src="${ extract.faviconUrl }" width="16px" height="16px" /><h5 style="display:inline; vertical-align:middle;"> via ${extract.providerName}</h5>
 					  </div>
-				
-					  <div class="item">
-						  <div class="item item-avatar">
-						    <img src="${ gist.user.profilePicture }">
-						    <p>
-							#gistofit: ${gist.content}
-						    </p>
-						    <h4>by ${gist.user.firstName} · <span am-time-ago="gist.date"></span></h4>
-						  </div>
-						
-						<img class="full-image" src="${ extract.images[0].url }" ng-click="openURL(gist.url.key.raw.name)" />
-					    <h2>
-					      ${extract.title}
-					    </h2>
-					    <div class="description">
-					    <p>
-					      ${extract.description}
-					    </p>
-					    </div>
-					  </div>
+					
+				<div class="item item-body item-text-wrap" style="border:none;" >
+				    <h2>
+					#GistOfIt: ${gist.content}
+				    </h2>
+				</div>
+
+				  <div class="item" style="border:none;" >
+					<img class="full-image" src="${ extract.images[0].url }" href="#" />
+				    <h2>
+				      ${extract.title}
+				    </h2>
+				    <div class="description">
+				    <p>
+				      ${extract.description}
+				    </p>
+				    </div>
+				  </div>
 			    </article>
 		</section>
 
@@ -121,16 +146,5 @@
 						</ul>
 					</footer>
 			</div>
-<script>
-		var header = document.querySelector('#main');
-		var origOffsetY = header.offsetTop;
-		
-		function onScroll(e) {
-		  window.scrollY >= origOffsetY ? header.classList.add('sticky') :
-		                                  header.classList.remove('sticky');
-		}
-		
-		document.addEventListener('scroll', onScroll);
-</script>
 	</body>
 </html>

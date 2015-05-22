@@ -1,6 +1,7 @@
 package com.gistofit.model;
 
 
+import java.beans.Transient;
 import java.util.Date;
 
 import lombok.Getter;
@@ -12,13 +13,14 @@ import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
 
 @Entity
 @Cache
 public class Comment extends Jsonifiable {
-
+	
   @Index
   @Load Ref<Gist> gist;
   
@@ -45,6 +47,10 @@ public class Comment extends Jsonifiable {
   @Getter
   @Setter
   Date created = new Date();
+  
+  @Getter
+  @Setter
+  @Ignore String nextCursor; 
   
   public Gist getGist() { return gist.get(); }
   public void setGist(Gist value) { gist = Ref.create(value); }
